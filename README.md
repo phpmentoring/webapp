@@ -13,4 +13,8 @@
     - user: mentoring
     - pass: vagrant
 8. Run `vendor/bin/phinx migrate` to run the database migrations
-
+9. Copy `.env.example` to `.env`
+10. Create a new Github Application at https://github.com/settings/applications/new
+	- Set the Homepage and Authorization to `http://mentoring.dev`
+11. Copy the Client ID and Client Secret into .env
+12. Vist `http://mentoring.dev` in your browser!
