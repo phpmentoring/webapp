@@ -8,7 +8,12 @@
         "monolog/monolog": "~1.13",
         "doctrine/dbal": "~2.2",
         "guzzlehttp/guzzle": "~3.7",
-        "league/oauth2-client": "0.10.*"
+        "league/oauth2-client": "0.10.*",
+        "symfony/validator": "~2.6",
+        "symfony/config": "~2.6",
+        "symfony/translation": "~2.6",
+        "symfony/security-csrf": "~2.6",
+        "symfony/form": "~2.6"
     },
     "autoload": {
         "psr-4": {

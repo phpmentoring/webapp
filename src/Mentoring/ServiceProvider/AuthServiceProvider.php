@@ -41,19 +41,22 @@ class AuthServiceProvider implements ServiceProviderInterface, ControllerProvide
             return new UserService($app['db'], new UserHydrator());
         };
 
-        $app['auth.mustAuthenticate'] = function(Request $request) use ($app) {
-            $request->getSession()->start();
-            if(!$app['session']->has('user')) {
-                return $app->redirect('/auth/login');
-            }
+        $app['auth.mustAuthenticate'] = function(Application $app) {
+            return function() use ($app) {
+                if(!$app['session']->has('user')) {
+                    return $app->redirect($app['url_generator']->generate('auth.login'));
+                }
+            };
         };
 
-        $app['auth.isAdmin'] = function() use ($app) {
-            $user = $app['session']->get('user');
-            if(!$user || $user->role != 'ROLE_ADMIN') {
-                $app['session']->getFlashBag()->add('error', 'You do not have privileges for the requested page');
-                return $app->redirect('/');
-            }
+        $app['auth.isAdmin'] = function(Application $app) {
+            return function() use ($app) {
+                $user = $app['session']->get('user');
+                if(!$user || $user->role != 'ROLE_ADMIN') {
+                    $app['session']->getFlashBag()->add('error', 'You do not have privileges for the requested page');
+                    return $app->redirect($app['url_generator']->generate('index'));
+                }
+            };
         };
 
         $app['controller.auth'] = $app->share(function($app) {
