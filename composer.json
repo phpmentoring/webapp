@@ -1,0 +1,18 @@
+{
+    "require": {
+        "silex/silex": "~1.2",
+        "twig/twig": "~1.18",
+        "symfony/twig-bridge": "~2.6",
+        "vlucas/phpdotenv": "~1.1",
+        "robmorgan/phinx": "0.4.*",
+        "monolog/monolog": "~1.13",
+        "doctrine/dbal": "~2.2",
+        "guzzlehttp/guzzle": "~3.7",
+        "league/oauth2-client": "0.10.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mentoring\\": "src/Mentoring/"
+        }
+    }
+}
