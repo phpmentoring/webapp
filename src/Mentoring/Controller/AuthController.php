@@ -22,7 +22,7 @@ class AuthController
             'scopes' => ['user', 'read:org', 'user:email']
         ]);
 
-        if(empty($code)) {
+        if (empty($code)) {
             $authUrl = $provider->getAuthorizationUrl();
             $app['session']->set('oauth2state', $provider->state);
             return $app->redirect($authUrl);
@@ -34,8 +34,8 @@ class AuthController
                 $user = $app['user.manager']->fetchUserByGithubUid($userDetails->uid);
             } catch (UserNotFoundException $exception) {
                 $email = null;
-                foreach($provider->getUserEmails($token) as $providerEmail) {
-                    if($providerEmail->primary) {
+                foreach ($provider->getUserEmails($token) as $providerEmail) {
+                    if ($providerEmail->primary) {
                         $email = $providerEmail->email;
                         break;
                     }

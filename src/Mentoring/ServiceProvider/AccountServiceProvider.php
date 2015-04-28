@@ -23,18 +23,17 @@ class AccountServiceProvider implements ServiceProviderInterface, ControllerProv
             ->match('/', 'controller.account:profileAction')
             ->method('GET|POST')
             ->bind('account.profile')
-            ->before($app['auth.mustAuthenticate'])
-        ;
+            ->before($app['auth.mustAuthenticate']);
 
         return $controllers;
     }
 
     public function register(Application $app)
     {
-        $app['controller.account'] = $app->share(function ($app) {
-            return new AccountController();
-        });
+        $app['controller.account'] = $app->share(
+            function ($app) {
+                return new AccountController();
+            }
+        );
     }
-
-
 }

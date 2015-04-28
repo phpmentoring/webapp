@@ -7,7 +7,7 @@ class UserHydrator
     /**
      * Extracts and returns the user data from the user object
      *
-     * @param User $object
+     * @param  User $object
      * @return array
      */
     public function extract(User $object)
@@ -24,7 +24,7 @@ class UserHydrator
             'isMentor' => $object->isMentor(),
         ];
 
-        if($data['timeCreated'] instanceof \DateTime) {
+        if ($data['timeCreated'] instanceof \DateTime) {
             $data['timeCreated'] = $data['timeCreated']->format(\DateTime::ISO8601);
         }
 
@@ -35,7 +35,7 @@ class UserHydrator
      * Hydrates a user object with the data
      *
      * @param array $data
-     * @param User $object
+     * @param User  $object
      *
      * @return User
      */
@@ -48,18 +48,18 @@ class UserHydrator
         $object->setIsMentee($data['isMentee']);
         $object->setIsMentor($data['isMentor']);
 
-        if(!$data['timeCreated'] instanceof \DateTime) {
+        if (!$data['timeCreated'] instanceof \DateTime) {
             $createdTime = new \DateTime($data['timeCreated']);
             $object->setTimeCreated($createdTime);
         } else {
             $object->setTimeCreated($data['timeCreated']);
         }
 
-        if(isset($data['id'])) {
+        if (isset($data['id'])) {
             $object->setId($data['id']);
         }
 
-        if(is_array($data['roles'])) {
+        if (is_array($data['roles'])) {
             $object->setRoles($data['roles']);
         } else {
             $object->setRoles(unserialize($data['roles']));

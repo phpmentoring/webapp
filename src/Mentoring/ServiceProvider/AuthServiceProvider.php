@@ -24,45 +24,43 @@ class AuthServiceProvider implements ServiceProviderInterface, ControllerProvide
         $controllers
             ->get('/github', 'controller.auth:githubAction')
             ->bind('auth.github')
-            ->bind('auth.login')
-        ;
+            ->bind('auth.login');
 
         $controllers
             ->get('/logout', 'controller.auth:logoutAction')
-            ->bind('auth.logout')
-        ;
+            ->bind('auth.logout');
 
         return $controllers;
     }
 
     public function register(Application $app)
     {
-        $app['user.manager'] = function() use($app) {
+        $app['user.manager'] = function () use ($app) {
             return new UserService($app['db'], new UserHydrator());
         };
 
-        $app['auth.mustAuthenticate'] = function(Application $app) {
-            return function() use ($app) {
-                if(!$app['session']->has('user')) {
+        $app['auth.mustAuthenticate'] = function (Application $app) {
+            return function () use ($app) {
+                if (!$app['session']->has('user')) {
                     return $app->redirect($app['url_generator']->generate('auth.login'));
                 }
             };
         };
 
-        $app['auth.isAdmin'] = function(Application $app) {
-            return function() use ($app) {
+        $app['auth.isAdmin'] = function (Application $app) {
+            return function () use ($app) {
                 $user = $app['session']->get('user');
-                if(!$user || $user->role != 'ROLE_ADMIN') {
+                if (!$user || $user->role != 'ROLE_ADMIN') {
                     $app['session']->getFlashBag()->add('error', 'You do not have privileges for the requested page');
                     return $app->redirect($app['url_generator']->generate('index'));
                 }
             };
         };
 
-        $app['controller.auth'] = $app->share(function($app) {
-            return new AuthController();
-        });
+        $app['controller.auth'] = $app->share(
+            function ($app) {
+                return new AuthController();
+            }
+        );
     }
-
-
 }

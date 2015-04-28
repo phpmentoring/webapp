@@ -25,7 +25,7 @@ class UserService
         $data = $this->hydrator->extract($user);
         $data['roles'] = serialize($data['roles']);
 
-        if(empty($data['id'])) {
+        if (empty($data['id'])) {
             $this->dbal->insert('users', $data);
             $user->setId($this->dbal->lastInsertId());
         } else {
@@ -39,7 +39,7 @@ class UserService
     public function fetchUserByGithubUid($uid)
     {
         $user = $this->dbal->fetchAssoc('SELECT * FROM users WHERE githubUid = :githubUid', ['githubUid' => $uid]);
-        if($user) {
+        if ($user) {
             $user = $this->hydrator->hydrate($user, new User());
             return $user;
         }

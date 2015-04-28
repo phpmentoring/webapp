@@ -13,3 +13,4 @@ html/
 ._.DS_Store
 ._Vagrantfile
 ._puphpet
+tests/coverage/

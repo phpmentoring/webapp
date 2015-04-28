@@ -21,18 +21,17 @@ class IndexServiceProvider implements ServiceProviderInterface, ControllerProvid
         $controllers = $app['controllers_factory'];
         $controllers
             ->get('/', 'controller.index:indexAction')
-            ->bind('index')
-        ;
+            ->bind('index');
 
         return $controllers;
     }
 
     public function register(Application $app)
     {
-        $app['controller.index'] = $app->share(function($app) {
-            return new IndexController();
-        });
+        $app['controller.index'] = $app->share(
+            function ($app) {
+                return new IndexController();
+            }
+        );
     }
-
-
 }
