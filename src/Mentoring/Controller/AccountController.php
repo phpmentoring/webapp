@@ -12,10 +12,6 @@ class AccountController
 {
     public function profileAction(Application $app, Request $request)
     {
-        if ($response = $app['auth.mustAuthenticate']()) {
-            return $response;
-        }
-
         $user = $app['session']->get('user');
 
         $form = $this->createProfileForm($app, $user);
@@ -49,8 +45,15 @@ class AccountController
             ->createBuilder('form', $user, array_merge($options, array(
                 'data_class' => 'Mentoring\User\User'
             )))
+            ->add('name', 'text')
             ->add('email', 'email', [
                 'constraints' => [new Email()]
+            ])
+            ->add('isMentor', 'checkbox', [
+                'required' => false,
+            ])
+            ->add('isMentee', 'checkbox', [
+                'required' => false,
             ])
             ->add('save', 'submit')
             ->getForm();

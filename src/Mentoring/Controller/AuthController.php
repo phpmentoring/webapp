@@ -52,7 +52,7 @@ class AuthController
             }
 
             $app['session']->set('user', $user);
-            return $app->redirect($app['url_generator']->generate('index'));
+            return $app->redirect($app['url_generator']->generate('account.profile'));
         }
     }
 

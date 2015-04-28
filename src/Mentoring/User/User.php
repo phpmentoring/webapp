@@ -51,12 +51,12 @@ class User
 
     public function isMentee()
     {
-        return $this->isMentee;
+        return (bool)$this->isMentee;
     }
 
     public function isMentor()
     {
-        return $this->isMentor;
+        return (bool)$this->isMentor;
     }
 
     public function setEmail($email)

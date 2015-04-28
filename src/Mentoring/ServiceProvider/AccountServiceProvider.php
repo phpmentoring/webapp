@@ -22,7 +22,9 @@ class AccountServiceProvider implements ServiceProviderInterface, ControllerProv
         $controllers
             ->match('/', 'controller.account:profileAction')
             ->method('GET|POST')
-            ->bind('account.profile');
+            ->bind('account.profile')
+            ->before($app['auth.mustAuthenticate'])
+        ;
 
         return $controllers;
     }
