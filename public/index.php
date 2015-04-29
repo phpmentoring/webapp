@@ -14,7 +14,14 @@ $app->register(new Provider\SessionServiceProvider());
 $app->register(new Provider\ServiceControllerServiceProvider());
 $app->register(new Provider\UrlGeneratorServiceProvider());
 $app->register(new Provider\SwiftmailerServiceProvider());
+
 $app->register(new Provider\FormServiceProvider());
+$app['form.type.extensions'] = $app->share($app->extend('form.type.extensions', function ($extensions) use ($app) {
+    $extensions[] = new \Mentoring\Form\Extension\MentoringFormTypeExtension();
+
+    return $extensions;
+}));
+
 $app->register(new Provider\ValidatorServiceProvider());
 $app->register(new Provider\TranslationServiceProvider(), array(
     'locale_fallbacks' => array('en')
@@ -22,7 +29,7 @@ $app->register(new Provider\TranslationServiceProvider(), array(
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__ . '/../views',
-    'twig.form.templates' => ['bootstrap_3_layout.html.twig']
+    'twig.form.templates' => ['form/fields.twig']
 ));
 
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
