@@ -22,6 +22,7 @@ $app->register(new Provider\TranslationServiceProvider(), array(
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__ . '/../views',
+    'twig.form.templates' => ['bootstrap_3_layout.html.twig']
 ));
 
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
