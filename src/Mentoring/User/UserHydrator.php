@@ -22,6 +22,7 @@ class UserHydrator
             'githubUid' => $object->getGithubUid(),
             'isMentee' => $object->isMentee(),
             'isMentor' => $object->isMentor(),
+            'profile' => $object->getProfile()
         ];
 
         if ($data['timeCreated'] instanceof \DateTime) {
@@ -35,7 +36,7 @@ class UserHydrator
      * Hydrates a user object with the data
      *
      * @param array $data
-     * @param User  $object
+     * @param User $object
      *
      * @return User
      */
@@ -47,6 +48,7 @@ class UserHydrator
         $object->setGithubUid($data['githubUid']);
         $object->setIsMentee($data['isMentee']);
         $object->setIsMentor($data['isMentor']);
+        $object->setProfile($data['profile']);
 
         if (!$data['timeCreated'] instanceof \DateTime) {
             $createdTime = new \DateTime($data['timeCreated']);

@@ -55,6 +55,9 @@ class AccountController
             ->add('isMentee', 'checkbox', [
                 'required' => false,
             ])
+            ->add('profile', 'textarea', [
+                'required' => false
+            ])
             ->add('save', 'submit')
             ->getForm();
     }

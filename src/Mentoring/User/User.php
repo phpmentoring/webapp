@@ -13,6 +13,7 @@ class User
     protected $githubUid = null;
     protected $isMentor = false;
     protected $isMentee = false;
+    protected $profile = '';
 
     public function getEmail()
     {
@@ -102,5 +103,15 @@ class User
     public function setTimeCreated(\DateTime $timeCreated)
     {
         $this->timeCreated = $timeCreated;
+    }
+
+    public function getProfile()
+    {
+        return $this->profile;
+    }
+
+    public function setProfile($profile)
+    {
+        $this->profile = $profile;
     }
 }
