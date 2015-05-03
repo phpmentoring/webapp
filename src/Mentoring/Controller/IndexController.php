@@ -10,4 +10,14 @@ class IndexController
     {
         return $app['twig']->render('index/index.twig');
     }
+
+    public function mentorsAction(Application $app)
+    {
+        return $app['twig']->render('index/mentors.twig');
+    }
+
+    public function menteesAction(Application $app)
+    {
+        return $app['twig']->render('index/mentees.twig');
+    }
 }

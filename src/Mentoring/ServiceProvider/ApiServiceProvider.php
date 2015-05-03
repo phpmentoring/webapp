@@ -2,13 +2,12 @@
 
 namespace Mentoring\ServiceProvider;
 
-use Mentoring\Controller\IndexController;
+use Mentoring\Controller\ApiController;
 use Silex\Application;
 use Silex\ControllerProviderInterface;
-use Silex\ServiceControllerResolver;
 use Silex\ServiceProviderInterface;
 
-class IndexServiceProvider implements ServiceProviderInterface, ControllerProviderInterface
+class ApiServiceProvider implements ServiceProviderInterface, ControllerProviderInterface
 {
     public function boot(Application $app)
     {
@@ -20,25 +19,25 @@ class IndexServiceProvider implements ServiceProviderInterface, ControllerProvid
         /** @var \Silex\ControllerCollection; $controllers */
         $controllers = $app['controllers_factory'];
         $controllers
-            ->get('/', 'controller.index:indexAction')
-            ->bind('index');
+            ->match('/mentors', 'controller.api:getMentorsAction')
+            ->method('GET')
+            ->bind('api.get.mentors')
+        ;
 
         $controllers
-            ->get('/mentors', 'controller.index:mentorsAction')
-            ->bind('mentors');
-
-        $controllers
-            ->get('/mentees', 'controller.index:menteesAction')
-            ->bind('mentees');
+            ->match('/mentees', 'controller.api:getMenteesAction')
+            ->method('GET')
+            ->bind('api.get.mentees')
+        ;
 
         return $controllers;
     }
 
     public function register(Application $app)
     {
-        $app['controller.index'] = $app->share(
+        $app['controller.api'] = $app->share(
             function ($app) {
-                return new IndexController();
+                return new ApiController();
             }
         );
     }

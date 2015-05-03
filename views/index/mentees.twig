@@ -1,0 +1,23 @@
+{% extends 'layouts/default.twig' %}
+{% block content %}
+    <h1>PHP Mentees</h1>
+
+    <div data-ng-controller="MenteeSearchController">
+        <p>Type in a name to subset the list. In the future we'll fix this so you can search by tag, but until then, here's this!</p>
+        <form>
+            <div class="input-group">
+                <label for="name">Name:</label> <input type="text" name="name" data-ng-model="name">
+            </div>
+        </form>
+
+        <div class="alert alert-danger" role="alert" data-ng-show="loadingError">
+            <strong>Oops!</strong> We couldn't load the mentors. Try again later, or ping us on Twitter!
+        </div>
+
+        <div class="panel panel-default" data-ng-repeat="mentee in mentees | filter:name | orderBy :mentee.name">
+            <div class="panel-heading">{% verbatim %}{{ mentee.name }}{% endverbatim %}</div>
+            <div class="panel-body">{% verbatim %}{{ mentee.profile }}{% endverbatim %}</div>
+        </div>
+
+    </div>
+{% endblock %}

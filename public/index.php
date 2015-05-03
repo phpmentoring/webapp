@@ -50,12 +50,17 @@ $authServiceProvider = new \Mentoring\ServiceProvider\AuthServiceProvider();
 $app->register($authServiceProvider);
 $app->mount('/auth', $authServiceProvider);
 
+$accountServiceProvider = new \Mentoring\ServiceProvider\AccountServiceProvider();
+$app->register($accountServiceProvider);
+$app->mount('/account', $accountServiceProvider);
+
+$apiServiceProvider = new \Mentoring\ServiceProvider\ApiServiceProvider();
+$app->register($apiServiceProvider);
+$app->mount('/api/v0', $apiServiceProvider);
+
 $indexServiceProvider = new \Mentoring\ServiceProvider\IndexServiceProvider();
 $app->register($indexServiceProvider);
 $app->mount('/', $indexServiceProvider);
 
-$accountServiceProvider = new \Mentoring\ServiceProvider\AccountServiceProvider();
-$app->register($accountServiceProvider);
-$app->mount('/account', $accountServiceProvider);
 
 $app->run();

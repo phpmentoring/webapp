@@ -36,6 +36,28 @@ class UserService
         return $user;
     }
 
+    public function fetchMentees()
+    {
+        $data = $this->dbal->fetchAll('SELECT * FROM users WHERE isMentee = 1');
+        $users = [];
+        foreach($data as $userData) {
+            $users[] = $this->hydrator->hydrate($userData, new User());
+        }
+
+        return $users;
+    }
+
+    public function fetchMentors()
+    {
+        $data = $this->dbal->fetchAll('SELECT * FROM users WHERE isMentor = 1');
+        $users = [];
+        foreach($data as $userData) {
+            $users[] = $this->hydrator->hydrate($userData, new User());
+        }
+
+        return $users;
+    }
+
     public function fetchUserByGithubUid($uid)
     {
         $user = $this->dbal->fetchAssoc('SELECT * FROM users WHERE githubUid = :githubUid', ['githubUid' => $uid]);
