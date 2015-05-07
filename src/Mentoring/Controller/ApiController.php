@@ -2,6 +2,8 @@
 
 namespace Mentoring\Controller;
 
+use Mentoring\Taxonomy\TermHydrator;
+use Mentoring\Taxonomy\VocabularyNotFoundException;
 use Mentoring\User\UserHydrator;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,5 +42,37 @@ class ApiController
         }
 
         return new Response(json_encode($responseData), 200, ['Content-Type' => 'application/json']);
+    }
+
+    public function getTerms(Application $app, $vocabularyName, $termName = null)
+    {
+        /** @var \Mentoring\Taxonomy\TaxonomyService $taxonomyService */
+        $taxonomyService = $app['taxonomy.service'];
+        try {
+            $vocabulary = $taxonomyService->fetchVocabularyByName($vocabularyName);
+            $terms = $taxonomyService->fetchAllTerms($vocabulary);
+            $termHydrator = new TermHydrator();
+
+            $termData = [];
+            foreach($terms as $term) {
+                $termData[] = $termHydrator->extract($term);
+            }
+
+            return new Response(
+                json_encode(
+                    [
+                        'vocabulary' => $vocabularyName,
+                        'count' => count($termData),
+                        'terms' => $termData
+                    ]
+                ),
+                200,
+                ['Content-Type' => 'application/json']
+            );
+
+        } catch (VocabularyNotFoundException $e) {
+            return new Response(json_encode(['error' => $e->getMessage()]), 404, ['Content-Type' => 'application/json']);
+        }
+
     }
 }

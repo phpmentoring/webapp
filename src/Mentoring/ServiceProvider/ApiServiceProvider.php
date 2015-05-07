@@ -30,6 +30,12 @@ class ApiServiceProvider implements ServiceProviderInterface, ControllerProvider
             ->bind('api.get.mentees')
         ;
 
+        $controllers
+            ->match('/vocabulary/{vocabularyName}/term', 'controller.api:getTerms')
+            ->method('GET')
+            ->bind('api.get.terms')
+        ;
+
         return $controllers;
     }
 

@@ -2,6 +2,8 @@
 
 namespace Mentoring\User;
 
+use Mentoring\Taxonomy\TaxonomyService;
+
 class UserService
 {
     /**
@@ -24,14 +26,17 @@ class UserService
     {
         $data = $this->hydrator->extract($user);
         $data['roles'] = serialize($data['roles']);
+        unset($data['mentorTags']);
+        unset($data['apprenticeTags']);
 
         if (empty($data['id'])) {
             $this->dbal->insert('users', $data);
             $user->setId($this->dbal->lastInsertId());
         } else {
-            echo 'Update';
-            $this->dbal->update('users', $data, ['id' => $data['id']]);
+            $response = $this->dbal->update('users', $data, ['id' => $data['id']]);
         }
+
+        $this->saveUserTags($user);
 
         return $user;
     }
@@ -84,5 +89,20 @@ class UserService
     public function deleteUser($user)
     {
 
+    }
+
+    public function saveUserTags(User $user)
+    {
+        $this->dbal->delete('userTags', ['user_id' => $user->getId()]);
+
+        foreach($user->getMentorTags() as $mentorTag) {
+            echo 'Saving '.$mentorTag->getName();
+            $this->dbal->insert('userTags', ['user_id' => $user->getId(), 'term_id' => $mentorTag->getId()]);
+        }
+
+        foreach($user->getApprenticeTags() as $apprenticeTag) {
+            echo 'Saving '.$apprenticeTag->getName();
+            $this->dbal->insert('userTags', ['user_id' => $user->getId(), 'term_id' => $apprenticeTag->getId()]);
+        }
     }
 }
