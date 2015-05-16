@@ -24,12 +24,20 @@ class IndexServiceProvider implements ServiceProviderInterface, ControllerProvid
             ->bind('index');
 
         $controllers
+            ->get('/guidelines', 'controller.index:guidelinesAction')
+            ->bind('guidelines');
+
+        $controllers
             ->get('/mentors', 'controller.index:mentorsAction')
             ->bind('mentors');
 
         $controllers
             ->get('/mentees', 'controller.index:menteesAction')
             ->bind('mentees');
+
+        $controllers
+            ->get('/why', 'controller.index:whyAction')
+            ->bind('why');
 
         return $controllers;
     }

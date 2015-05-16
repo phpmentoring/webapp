@@ -6,6 +6,11 @@ use Silex\Application;
 
 class IndexController
 {
+    public function guidelinesAction(Application $app)
+    {
+        return $app['twig']->render('index/guidelines.twig');
+    }
+
     public function indexAction(Application $app)
     {
         return $app['twig']->render('index/index.twig');
@@ -19,5 +24,10 @@ class IndexController
     public function menteesAction(Application $app)
     {
         return $app['twig']->render('index/mentees.twig');
+    }
+
+    public function whyAction(Application $app)
+    {
+        return $app['twig']->render('index/why.twig');
     }
 }
