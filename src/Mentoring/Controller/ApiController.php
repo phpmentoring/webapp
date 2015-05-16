@@ -4,13 +4,12 @@ namespace Mentoring\Controller;
 
 use Mentoring\Taxonomy\TermHydrator;
 use Mentoring\Taxonomy\VocabularyNotFoundException;
-use Mentoring\User\UserHydrator;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiController
 {
-    public function getMenteesAction(Application $app)
+    public function getApprenticesAction(Application $app)
     {
         /** @var \Mentoring\User\UserService $userService */
         $userService = $app['user.manager'];
@@ -18,7 +17,7 @@ class ApiController
         $mentees = $userService->fetchMentees();
 
         $responseData = [];
-        $hydrator = new UserHydrator();
+        $hydrator = $app['user.hydrator'];
         foreach($mentees as $mentee) {
             $data = $hydrator->extract($mentee);
             $responseData[] = $data;
@@ -35,7 +34,7 @@ class ApiController
         $mentors = $userService->fetchMentors();
 
         $responseData = [];
-        $hydrator = new UserHydrator();
+        $hydrator = $app['user.hydrator'];
         foreach($mentors as $mentor) {
             $data = $hydrator->extract($mentor);
             $responseData[] = $data;

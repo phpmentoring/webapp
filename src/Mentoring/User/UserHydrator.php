@@ -3,14 +3,17 @@
 namespace Mentoring\User;
 
 use Mentoring\Taxonomy\TaxonomyService;
+use Mentoring\Taxonomy\TermHydrator;
 
 class UserHydrator
 {
     protected $taxonomyService;
+    protected $termHydrator;
 
-    public function __construct(TaxonomyService $taxonomyService)
+    public function __construct(TaxonomyService $taxonomyService, TermHydrator $termHydrator)
     {
         $this->taxonomyService = $taxonomyService;
+        $this->termHydrator = $termHydrator;
     }
 
     /**
@@ -35,6 +38,24 @@ class UserHydrator
             'apprenticeTags' => $object->getApprenticeTags(),
             'mentorTags' => $object->getMentorTags(),
         ];
+
+        if (!is_null($this->termHydrator)) {
+            $apprenticeTags = $data['apprenticeTags'];
+            unset($data['apprenticeTags']);
+            foreach($apprenticeTags as $key => $tag) {
+                $tag = $this->termHydrator->extract($tag);
+                $apprenticeTags[$key] = $tag;
+            }
+            $data['apprenticeTags'] = $apprenticeTags;
+
+            $mentorTags = $data['mentorTags'];
+            unset($data['mentorTags']);
+            foreach($mentorTags as $key => $tag) {
+                $tag = $this->termHydrator->extract($tag);
+                $mentorTags[$key] = $tag;
+            }
+            $data['mentorTags'] = $mentorTags;
+        }
 
         if ($data['timeCreated'] instanceof \DateTime) {
             $data['timeCreated'] = $data['timeCreated']->format(\DateTime::ISO8601);

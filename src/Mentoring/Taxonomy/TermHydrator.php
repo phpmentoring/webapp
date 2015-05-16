@@ -17,7 +17,7 @@ class TermHydrator
             'name' => $object->getName(),
             'description' => $object->getDescription(),
             'enabled' => $object->isEnabled(),
-            'vocabulary_id' => $object->getVocabulary()->getId(),
+            'vocabulary_id' => (!is_null($object->getVocabulary()) ? $object->getVocabulary()->getId() : null),
         ];
 
         return $data;

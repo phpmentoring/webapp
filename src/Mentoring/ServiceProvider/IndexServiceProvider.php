@@ -28,8 +28,8 @@ class IndexServiceProvider implements ServiceProviderInterface, ControllerProvid
             ->bind('mentors');
 
         $controllers
-            ->get('/mentees', 'controller.index:menteesAction')
-            ->bind('mentees');
+            ->get('/apprentices', 'controller.index:apprenticesAction')
+            ->bind('apprentices');
 
         return $controllers;
     }
