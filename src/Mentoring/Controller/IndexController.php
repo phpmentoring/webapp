@@ -21,9 +21,9 @@ class IndexController
         return $app['twig']->render('index/mentors.twig');
     }
 
-    public function menteesAction(Application $app)
+    public function apprenticesAction(Application $app)
     {
-        return $app['twig']->render('index/mentees.twig');
+        return $app['twig']->render('index/apprentices.twig');
     }
 
     public function whyAction(Application $app)

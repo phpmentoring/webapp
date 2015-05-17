@@ -25,9 +25,15 @@ class ApiServiceProvider implements ServiceProviderInterface, ControllerProvider
         ;
 
         $controllers
-            ->match('/mentees', 'controller.api:getMenteesAction')
+            ->match('/apprentices', 'controller.api:getApprenticesAction')
             ->method('GET')
-            ->bind('api.get.mentees')
+            ->bind('api.get.apprentices')
+        ;
+
+        $controllers
+            ->match('/vocabulary/{vocabularyName}/term', 'controller.api:getTerms')
+            ->method('GET')
+            ->bind('api.get.terms')
         ;
 
         return $controllers;

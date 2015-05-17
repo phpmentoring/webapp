@@ -46,6 +46,9 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     ),
 ));
 
+$taxonomyServiceProvider = new \Mentoring\ServiceProvider\TaxonomyServiceProvider();
+$app->register($taxonomyServiceProvider);
+
 $authServiceProvider = new \Mentoring\ServiceProvider\AuthServiceProvider();
 $app->register($authServiceProvider);
 $app->mount('/auth', $authServiceProvider);

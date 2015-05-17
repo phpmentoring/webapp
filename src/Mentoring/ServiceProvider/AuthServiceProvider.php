@@ -3,6 +3,7 @@
 namespace Mentoring\ServiceProvider;
 
 use Mentoring\Controller\AuthController;
+use Mentoring\Taxonomy\TermHydrator;
 use Mentoring\User\UserHydrator;
 use Mentoring\User\UserService;
 use Silex\Application;
@@ -35,8 +36,12 @@ class AuthServiceProvider implements ServiceProviderInterface, ControllerProvide
 
     public function register(Application $app)
     {
+        $app['user.hydrator'] = function() use ($app) {
+            return new UserHydrator($app['taxonomy.service'], new TermHydrator());
+        };
+
         $app['user.manager'] = function () use ($app) {
-            return new UserService($app['db'], new UserHydrator());
+            return new UserService($app['db'], $app['user.hydrator']);
         };
 
         $app['auth.mustAuthenticate'] = function (Application $app) {
