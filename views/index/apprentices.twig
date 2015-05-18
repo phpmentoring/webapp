@@ -1,8 +1,8 @@
 {% extends 'layouts/default.twig' %}
 {% block content %}
-    <h1>PHP Mentors</h1>
+    <h1>PHP Apprentices</h1>
 
-    <div data-ng-controller="MentorSearchController">
+    <div data-ng-controller="ApprenticeSearchController">
         <p>Type in a name to subset the list. In the future we'll fix this so you can search by tag, but until then, here's this!</p>
         <form>
             <div class="input-group">
@@ -14,13 +14,13 @@
             <strong>Oops!</strong> We couldn't load the mentors. Try again later, or ping us on Twitter!
         </div>
 
-        <div class="panel panel-default" data-ng-repeat="mentor in mentors | mentorTags:name | orderBy :mentor.name">
-            <div class="panel-heading">{% verbatim %}{{ mentor.name }}{% endverbatim %}</div>
+        <div class="panel panel-default" data-ng-repeat="apprentice in apprentices | apprenticeTags:name | orderBy :apprentice.name">
+            <div class="panel-heading">{% verbatim %}{{ apprentice.name }}{% endverbatim %}</div>
             <div class="panel-body">
-                {% verbatim %}{{ mentor.profile }}{% endverbatim %}
+                {% verbatim %}{{ apprentice.profile }}{% endverbatim %}
 
                 <div class="tags">
-                    <span class="label label-primary" data-ng-repeat="tag in mentor.mentorTags">
+                    <span class="label label-primary" data-ng-repeat="tag in apprentice.apprenticeTags">
                         {% verbatim %}{{ tag.name }}{% endverbatim %}
                     </span>
                 </div>

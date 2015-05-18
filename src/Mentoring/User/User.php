@@ -2,6 +2,8 @@
 
 namespace Mentoring\User;
 
+use Mentoring\Taxonomy\Term;
+
 class User
 {
     protected $id;
@@ -14,6 +16,23 @@ class User
     protected $isMentor = false;
     protected $isMentee = false;
     protected $profile = '';
+    protected $mentorTags = [];
+    protected $apprenticeTags = [];
+
+    public function addApprenticeTag(Term $term)
+    {
+        $this->apprenticeTags[$term->getId()] = $term;
+    }
+
+    public function addMentorTag(Term $term)
+    {
+        $this->mentorTags[$term->getId()] = $term;
+    }
+
+    public function getApprenticeTags()
+    {
+        return $this->apprenticeTags;
+    }
 
     public function getEmail()
     {
@@ -28,6 +47,11 @@ class User
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getMentorTags()
+    {
+        return $this->mentorTags;
     }
 
     public function getName()
@@ -60,6 +84,11 @@ class User
         return (bool)$this->isMentor;
     }
 
+    public function setApprenticeTags(array $terms)
+    {
+        $this->apprenticeTags = $terms;
+    }
+
     public function setEmail($email)
     {
         $this->email = $email;
@@ -88,6 +117,11 @@ class User
     public function setIsMentor($status)
     {
         $this->isMentor = $status;
+    }
+
+    public function setMentorTags(array $terms)
+    {
+        $this->mentorTags = $terms;
     }
 
     public function setName($name)

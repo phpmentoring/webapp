@@ -2,8 +2,20 @@
 
 namespace Mentoring\User;
 
+use Mentoring\Taxonomy\TaxonomyService;
+use Mentoring\Taxonomy\TermHydrator;
+
 class UserHydrator
 {
+    protected $taxonomyService;
+    protected $termHydrator;
+
+    public function __construct(TaxonomyService $taxonomyService, TermHydrator $termHydrator)
+    {
+        $this->taxonomyService = $taxonomyService;
+        $this->termHydrator = $termHydrator;
+    }
+
     /**
      * Extracts and returns the user data from the user object
      *
@@ -22,8 +34,28 @@ class UserHydrator
             'githubUid' => $object->getGithubUid(),
             'isMentee' => $object->isMentee(),
             'isMentor' => $object->isMentor(),
-            'profile' => $object->getProfile()
+            'profile' => $object->getProfile(),
+            'apprenticeTags' => $object->getApprenticeTags(),
+            'mentorTags' => $object->getMentorTags(),
         ];
+
+        if (!is_null($this->termHydrator)) {
+            $apprenticeTags = $data['apprenticeTags'];
+            unset($data['apprenticeTags']);
+            foreach($apprenticeTags as $key => $tag) {
+                $tag = $this->termHydrator->extract($tag);
+                $apprenticeTags[$key] = $tag;
+            }
+            $data['apprenticeTags'] = $apprenticeTags;
+
+            $mentorTags = $data['mentorTags'];
+            unset($data['mentorTags']);
+            foreach($mentorTags as $key => $tag) {
+                $tag = $this->termHydrator->extract($tag);
+                $mentorTags[$key] = $tag;
+            }
+            $data['mentorTags'] = $mentorTags;
+        }
 
         if ($data['timeCreated'] instanceof \DateTime) {
             $data['timeCreated'] = $data['timeCreated']->format(\DateTime::ISO8601);
@@ -44,28 +76,49 @@ class UserHydrator
     {
         $object->setEmail($data['email']);
         $object->setName($data['name']);
-        $object->setIsEnabled($data['isEnabled']);
-        $object->setGithubUid($data['githubUid']);
+
+
         $object->setIsMentee($data['isMentee']);
         $object->setIsMentor($data['isMentor']);
-        $object->setProfile($data['profile']);
 
-        if (!$data['timeCreated'] instanceof \DateTime) {
-            $createdTime = new \DateTime($data['timeCreated']);
-            $object->setTimeCreated($createdTime);
-        } else {
-            $object->setTimeCreated($data['timeCreated']);
+        if (isset($data['isEnabled'])) {
+            $object->setIsEnabled($data['isEnabled']);
+        }
+
+        if (isset($data['githubUid'])) {
+            $object->setGithubUid($data['githubUid']);
+        }
+
+        if (isset($data['timeCreated'])) {
+            if (!$data['timeCreated'] instanceof \DateTime) {
+                $createdTime = new \DateTime($data['timeCreated']);
+                $object->setTimeCreated($createdTime);
+            } else {
+                $object->setTimeCreated($data['timeCreated']);
+            }
         }
 
         if (isset($data['id'])) {
             $object->setId($data['id']);
         }
 
-        if (is_array($data['roles'])) {
-            $object->setRoles($data['roles']);
-        } else {
-            $object->setRoles(unserialize($data['roles']));
+        if (isset($data['roles'])) {
+            if (is_array($data['roles'])) {
+                $object->setRoles($data['roles']);
+            } else {
+                $object->setRoles(unserialize($data['roles']));
+            }
         }
+
+        if (isset($data['profile'])) {
+            $object->setProfile($data['profile']);
+        }
+
+        $mentoringTerm = $this->taxonomyService->fetchVocabularyByName('mentor');
+        $apprenticeTerm = $this->taxonomyService->fetchVocabularyByName('apprentice');
+
+        $object->setMentorTags($this->taxonomyService->fetchTermsForUser($object, $mentoringTerm));
+        $object->setApprenticeTags($this->taxonomyService->fetchTermsForUser($object, $apprenticeTerm));
 
         return $object;
     }
