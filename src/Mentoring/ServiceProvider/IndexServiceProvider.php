@@ -36,6 +36,10 @@ class IndexServiceProvider implements ServiceProviderInterface, ControllerProvid
             ->bind('apprentices');
 
         $controllers
+            ->get('/profile/{user_id}', 'controller.index:viewProfileAction')
+            ->bind('profile');
+
+        $controllers
             ->get('/why', 'controller.index:whyAction')
             ->bind('why');
 

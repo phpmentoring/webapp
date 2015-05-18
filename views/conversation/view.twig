@@ -1,0 +1,29 @@
+{% extends 'layouts/default.twig' %}
+{% block content %}
+    <h1 class="conversation_subject">{{ conversation.subject }}</h1>
+    <p class="conversation_header">Started by <a
+                href="{{ path('profile', { user_id: conversation.fromUser.id }) }}">{{ conversation.fromUser.name }}</a> on {{ conversation.startedAt|date }}</p>
+
+    <div class="conversation_opening_message">
+        <div class="message_body">
+            {{ conversation.firstMessage.body }}
+        </div>
+    </div>
+
+    {% for message in conversation.replies %}
+        <hr/>
+        <div class="conversation_reply">
+            <div class="message_header">
+                <a href="{{ path('profile', { user_id: message.fromUser.id }) }}">{{ message.fromUser.name }}</a> on {{ message.createdAt|date }}
+            </div>
+            <div class="message_body">
+                {{ message.body }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <hr/>
+    <div class="reply_form">
+        {{ form(message_form) }}
+    </div>
+{% endblock %}
