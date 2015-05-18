@@ -86,7 +86,26 @@ class Conversation
      */
     public function addMessage(Message $message)
     {
-        $this->messages[] = $message;
+        if (!$this->hasMessage($message)) {
+            $this->messages[] = $message;
+        }
+    }
+
+    /**
+     * Check to see if this conversation already holds a reference to the given message.
+     *
+     * @param Message $message
+     * @return bool
+     */
+    public function hasMessage(Message $message)
+    {
+        foreach ($this->messages as $existing) {
+            if ($existing === $message || ($existing->getId() && $existing->getId() == $message->getId())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -134,6 +153,24 @@ class Conversation
     }
 
     /**
+     * The latest Message in this conversation.
+     *
+     * @return \DateTime
+     */
+    public function getLastMessage()
+    {
+        $latest_message = $this->messages[0];
+
+        foreach ($this->messages as $message) {
+            if ($message->getCreatedAt() > $latest_message->getCreatedAt()) {
+                $latest_message = $message;
+            }
+        }
+
+        return $latest_message;
+    }
+
+    /**
      * Get the user that initiated this conversation.
      *
      * @return User
@@ -150,6 +187,38 @@ class Conversation
      */
     public function getToUser()
     {
+        return $this->toUser;
+    }
+
+    /**
+     * Is the given user involved in this conversation?
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function involvesUser(User $user)
+    {
+        foreach ([$this->fromUser, $this->toUser] as $testUser) {
+            if ($testUser === $user || ($testUser->getId() && $testUser->getId() == $user->getId())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Given an involved user, it will tell you the other involved user.
+     *
+     * @param User $user
+     * @return User
+     */
+    public function withUser(User $user)
+    {
+        if ($user === $this->toUser || ($this->toUser->getId() && $this->toUser->getId() == $user->getId())) {
+            return $this->fromUser;
+        }
+
         return $this->toUser;
     }
 
@@ -171,5 +240,15 @@ class Conversation
     public function getStartedAt()
     {
         return $this->startedAt;
+    }
+
+    /**
+     * Get a list of all messages.
+     *
+     * @return Message[]
+     */
+    public function getAllMessages()
+    {
+        return $this->messages;
     }
 }

@@ -39,7 +39,7 @@ class Message
     public function setId($id)
     {
         if (null !== $this->id) {
-            throw new \BadMethodCallException('id is already set on this conversation');
+            throw new \BadMethodCallException('id is already set on this message');
         }
 
         $this->id = (int) $id;

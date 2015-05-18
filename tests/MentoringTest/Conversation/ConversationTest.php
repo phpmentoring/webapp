@@ -46,8 +46,8 @@ class ConversationTest extends \PHPUnit_Framework_TestCase
     {
         $conversation = $this->createSimpleConversation();
 
-        $m1 = \Mockery::mock('Mentoring\Conversation\Message');
-        $m2 = \Mockery::mock('Mentoring\Conversation\Message');
+        $m1 = new Message(\Mockery::mock('Mentoring\User\User'), 'my message', new \DateTime());
+        $m2 = new Message(\Mockery::mock('Mentoring\User\User'), 'my message', new \DateTime());
 
         $conversation->addMessage($m1);
         $conversation->addMessage($m2);
@@ -75,6 +75,55 @@ class ConversationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($m1, $conversation->getMessageById(10));
         $this->assertEquals($m2, $conversation->getMessageById(56));
         $this->assertEquals($conversation->getFirstMessage(), $conversation->getMessageById(5));
+    }
+
+    public function testGetAllMessages()
+    {
+        $conversation = $this->createSimpleConversation();
+
+        $m1 = new Message(\Mockery::mock('Mentoring\User\User'), 'my message', new \DateTime());
+        $m2 = new Message(\Mockery::mock('Mentoring\User\User'), 'my message', new \DateTime());
+
+        $conversation->addMessage($m1);
+        $conversation->addMessage($m2);
+
+        $this->assertCount(3, $conversation->getAllMessages());
+    }
+
+    public function testInvolvesUser()
+    {
+        $fromUser = \Mockery::mock('Mentoring\User\User');
+        $toUser = \Mockery::mock('Mentoring\User\User');
+        $subject = 'My subject';
+        $opening_message = 'My opening message';
+
+        $conversation = Conversation::startNew($fromUser, $toUser, $subject, $opening_message);
+
+        $notInvolved = \Mockery::mock('Mentoring\User\User');
+
+        $fromUser->shouldReceive('getId')->andReturn(1);
+        $toUser->shouldReceive('getId')->andReturn(2);
+        $notInvolved->shouldReceive('getId')->andReturn(3);
+
+        $this->assertTrue($conversation->involvesUser($fromUser));
+        $this->assertTrue($conversation->involvesUser($toUser));
+        $this->assertFalse($conversation->involvesUser($notInvolved));
+    }
+
+    public function testWith()
+    {
+        $fromUser = \Mockery::mock('Mentoring\User\User');
+        $toUser = \Mockery::mock('Mentoring\User\User');
+        $subject = 'My subject';
+        $opening_message = 'My opening message';
+
+        $conversation = Conversation::startNew($fromUser, $toUser, $subject, $opening_message);
+
+        $fromUser->shouldReceive('getId')->andReturn(1);
+        $toUser->shouldReceive('getId')->andReturn(2);
+
+        $this->assertSame($fromUser, $conversation->withUser($toUser));
+        $this->assertSame($toUser, $conversation->withUser($fromUser));
     }
 
     public function testIdCanBeSet()
