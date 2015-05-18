@@ -19,7 +19,7 @@ class AuthController
             'clientId' => $clientID,
             'clientSecret' => $clientSecret,
             'redirectUri' => 'http://mentoring.dev/auth/github',
-            'scopes' => ['user', 'read:org', 'user:email']
+            'scopes' => ['user', 'user:email']
         ]);
 
         if (empty($code)) {
