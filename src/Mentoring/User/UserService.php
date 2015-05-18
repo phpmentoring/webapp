@@ -14,10 +14,38 @@ class UserService
      */
     protected $hydrator;
 
+    /**
+     * @var User[]
+     */
+    protected $in_memory_users;
+
     public function __construct($dbal, $hydrator)
     {
         $this->dbal = $dbal;
         $this->hydrator = $hydrator;
+        $this->in_memory_users = array();
+    }
+
+    /**
+     * @param $id
+     * @return User
+     * @throws UserNotFoundException
+     */
+    public function fetchUserById($id)
+    {
+        if (!array_key_exists($id, $this->in_memory_users)) {
+            $data = $this->dbal->fetchAssoc('SELECT * FROM users WHERE id = :user_id', ['user_id' => $id]);
+
+            if (!$data) {
+                throw new UserNotFoundException('Could not find user with ID ' . $id);
+            }
+
+            $user = $this->hydrator->hydrate($data, new User());
+
+            $this->in_memory_users[$user->getId()] = $user;
+        }
+
+        return $this->in_memory_users[$id];
     }
 
     public function saveUser(User $user)
@@ -29,9 +57,10 @@ class UserService
             $this->dbal->insert('users', $data);
             $user->setId($this->dbal->lastInsertId());
         } else {
-            echo 'Update';
             $this->dbal->update('users', $data, ['id' => $data['id']]);
         }
+
+        $this->in_memory_users[$user->getId()] = $user;
 
         return $user;
     }
@@ -41,7 +70,8 @@ class UserService
         $data = $this->dbal->fetchAll('SELECT * FROM users WHERE isMentee = 1');
         $users = [];
         foreach($data as $userData) {
-            $users[] = $this->hydrator->hydrate($userData, new User());
+            $users[] = $this->hydrator->hydrate($userData, $user = new User());
+            $this->in_memory_users[$user->getId()] = $user;
         }
 
         return $users;
@@ -52,7 +82,8 @@ class UserService
         $data = $this->dbal->fetchAll('SELECT * FROM users WHERE isMentor = 1');
         $users = [];
         foreach($data as $userData) {
-            $users[] = $this->hydrator->hydrate($userData, new User());
+            $users[] = $this->hydrator->hydrate($userData, $user = new User());
+            $this->in_memory_users[$user->getId()] = $user;
         }
 
         return $users;
@@ -63,6 +94,8 @@ class UserService
         $user = $this->dbal->fetchAssoc('SELECT * FROM users WHERE githubUid = :githubUid', ['githubUid' => $uid]);
         if ($user) {
             $user = $this->hydrator->hydrate($user, new User());
+            $this->in_memory_users[$user->getId()] = $user;
+
             return $user;
         }
 
