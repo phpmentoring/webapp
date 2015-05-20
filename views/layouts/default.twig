@@ -56,7 +56,8 @@
             <ul class="nav navbar-nav navbar-right">
             {% if app.session.get('user') %}
                 <li><a href="{{ url('account.profile') }}">My Profile</a></li>
-                <li><a href="{{ url('conversation.index') }}">Inbox</a></li>
+                {% set unread = unread_messages(app.session.get('user')) %}
+                <li><a href="{{ url('conversation.index') }}">Inbox{% if unread > 0 %} ({{ unread }}){% endif %}</a></li>
                 <li><a href="{{ url('auth.logout') }}">Logout</a></li>
             {% else %}
                 <li><a href="{{ url('auth.login') }}">Login</a></li>
