@@ -37,6 +37,9 @@ class ConversationController
             throw new AccessDeniedHttpException('You do not have access to conversations you are not involved in');
         }
 
+        // user has read
+        $conversation->markUserHasRead($user);
+        $conversationRepo->save($conversation);
 
         $form = $app['form.factory']->create(new ConversationReplyForm());
         $form->handleRequest($request);

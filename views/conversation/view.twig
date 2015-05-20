@@ -15,6 +15,9 @@
         <div class="conversation_reply">
             <div class="message_header">
                 <a href="{{ path('profile', { user_id: message.fromUser.id }) }}">{{ message.fromUser.name }}</a> on {{ message.createdAt|date }}
+                {% if not message.isRead %}
+                    <span class="label label-default">UNREAD</span> {# this tells a user if the other person has read this message or not yet #}
+                {% endif %}
             </div>
             <div class="message_body">
                 {{ message.body }}

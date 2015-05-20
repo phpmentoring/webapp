@@ -126,6 +126,43 @@ class ConversationTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($toUser, $conversation->withUser($fromUser));
     }
 
+    public function testUnreadMessagesForUser()
+    {
+        $fromUser = \Mockery::mock('Mentoring\User\User');
+        $fromUser->shouldReceive('getId')->andReturn(1);
+        $toUser = \Mockery::mock('Mentoring\User\User');
+        $toUser->shouldReceive('getId')->andReturn(2);
+        $subject = 'My subject';
+        $opening_message = 'My opening message';
+
+        $conversation = Conversation::startNew($fromUser, $toUser, $subject, $opening_message);
+        $this->assertSame(1, $conversation->countUnread($toUser));
+        $this->assertSame(0, $conversation->countUnread($fromUser));
+
+        // "to" user reads the message and replies
+        $conversation->getFirstMessage()->markRead();
+        $message2 = $conversation->appendMessage($toUser, 'first reply');
+        $this->assertSame(0, $conversation->countUnread($toUser));
+        $this->assertSame(1, $conversation->countUnread($fromUser));
+
+        // "from" user reads it and replies twice
+        $message2->markRead();
+        $message3 = $conversation->appendMessage($fromUser, 'second reply');
+        $message4 = $conversation->appendMessage($fromUser, 'third reply');
+        $this->assertSame(2, $conversation->countUnread($toUser));
+        $this->assertSame(0, $conversation->countUnread($fromUser));
+
+        // this won't happen in the app, but making sure the counts are right if both have unread messages
+        $message5 = $conversation->appendMessage($toUser, 'fourth');
+        $this->assertSame(2, $conversation->countUnread($toUser));
+        $this->assertSame(1, $conversation->countUnread($fromUser));
+
+        // now, $toUser views the entire conversation
+        $conversation->markUserHasRead($toUser);
+        $this->assertSame(0, $conversation->countUnread($toUser));
+        $this->assertSame(1, $conversation->countUnread($fromUser));
+    }
+
     public function testIdCanBeSet()
     {
         $conversation = $this->createSimpleConversation();

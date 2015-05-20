@@ -30,6 +30,10 @@ class ConversationRepository
         $this->in_memory_convos = [];
     }
 
+    /**
+     * @param User $user
+     * @return Conversation[]
+     */
     public function findAllInvolvingUser(User $user)
     {
         $convos_data = $this->dbal->fetchAll('SELECT * FROM conversations WHERE (from_user_id = :user_id OR to_user_id = :user_id)', ['user_id' => $user->getId()]);
@@ -49,6 +53,10 @@ class ConversationRepository
         return $conversations;
     }
 
+    /**
+     * @param $id
+     * @return Conversation
+     */
     public function findById($id)
     {
         if (array_key_exists($id, $this->in_memory_convos)) {
@@ -64,38 +72,9 @@ class ConversationRepository
         return $this->hydrateConversation($convo_data);
     }
 
-    protected function hydrateConversation(array $convo_data)
-    {
-        $messages_data = $this->dbal->fetchAll('SELECT * FROM messages WHERE conversation_id = :conversation_id', ['conversation_id' => $convo_data['id']]);
-
-        $messages = [];
-        foreach ($messages_data as $message_data) {
-            $messages[] = $message = new Message(
-                $this->userService->fetchUserById($message_data['from_user_id']),
-                $message_data['body'],
-                new \DateTime($message_data['created_at'])
-            );
-
-            $message->setId($message_data['id']);
-        }
-
-        $conversation = new Conversation(
-            $this->userService->fetchUserById($convo_data['from_user_id']),
-            $this->userService->fetchUserById($convo_data['to_user_id']),
-            $convo_data['subject'],
-            $messages[0]
-        );
-        $conversation->setId($convo_data['id']);
-
-        foreach ($messages as $message) {
-            $conversation->addMessage($message);
-        }
-
-        $this->in_memory_convos[$conversation->getId()] = $conversation;
-
-        return $conversation;
-    }
-
+    /**
+     * @param Conversation $conversation
+     */
     public function save(Conversation $conversation)
     {
         $convo_data = [
@@ -118,6 +97,7 @@ class ConversationRepository
                 'id' => $message->getId(),
                 'conversation_id' => $conversation->getId(),
                 'from_user_id' => $message->getFromUser()->getId(),
+                'is_read' => $message->isRead() ? 1 : 0,
                 'body' => $message->getBody(),
                 'created_at' => $message->getCreatedAt()->format(\DateTime::ISO8601)
             ];
@@ -129,5 +109,41 @@ class ConversationRepository
                 $message->setId($this->dbal->lastInsertId());
             }
         }
+    }
+
+    protected function hydrateConversation(array $convo_data)
+    {
+        $messages_data = $this->dbal->fetchAll('SELECT * FROM messages WHERE conversation_id = :conversation_id', ['conversation_id' => $convo_data['id']]);
+
+        $messages = [];
+        foreach ($messages_data as $message_data) {
+            $messages[] = $message = new Message(
+                $this->userService->fetchUserById($message_data['from_user_id']),
+                $message_data['body'],
+                new \DateTime($message_data['created_at'])
+            );
+
+            $message->setId($message_data['id']);
+
+            if ($message_data['is_read']) {
+                $message->markRead();
+            };
+        }
+
+        $conversation = new Conversation(
+            $this->userService->fetchUserById($convo_data['from_user_id']),
+            $this->userService->fetchUserById($convo_data['to_user_id']),
+            $convo_data['subject'],
+            $messages[0]
+        );
+        $conversation->setId($convo_data['id']);
+
+        foreach ($messages as $message) {
+            $conversation->addMessage($message);
+        }
+
+        $this->in_memory_convos[$conversation->getId()] = $conversation;
+
+        return $conversation;
     }
 }

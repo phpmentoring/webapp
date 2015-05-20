@@ -18,6 +18,19 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($body, $message->getBody());
     }
 
+    public function testStartsAsUnreadAndCanBeMarkedAsRead()
+    {
+        $fromUser = \Mockery::mock('\Mentoring\User\User');
+        $body = 'This is my message';
+        $createdAt = new \DateTime();
+
+        $message = new Message($fromUser, $body, $createdAt);
+
+        $this->assertFalse($message->isRead());
+        $message->markRead();
+        $this->assertTrue($message->isRead());
+    }
+
     public function testIdCanBeSet()
     {
         $conversation = $this->createSimpleMessage();

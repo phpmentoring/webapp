@@ -6,6 +6,7 @@ use Mentoring\Controller\AccountController;
 use Mentoring\Controller\ConversationController;
 use Mentoring\Controller\IndexController;
 use Mentoring\Conversation\ConversationRepository;
+use Mentoring\Conversation\ConversationTwigExtension;
 use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Silex\ServiceProviderInterface;
@@ -54,5 +55,7 @@ class ConversationServiceProvider implements ServiceProviderInterface, Controlle
                 return new ConversationController();
             }
         );
+
+        $app['twig']->addExtension(new ConversationTwigExtension($app['conversation_repository']));
     }
 }

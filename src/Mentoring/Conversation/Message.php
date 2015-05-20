@@ -26,11 +26,17 @@ class Message
      */
     private $created_at;
 
+    /**
+     * @var bool
+     */
+    private $read;
+
     public function __construct(User $fromUser, $body, \DateTime $created_at)
     {
         $this->fromUser = $fromUser;
         $this->body = $body;
         $this->created_at = $created_at;
+        $this->read = false;
     }
 
     /**
@@ -43,6 +49,11 @@ class Message
         }
 
         $this->id = (int) $id;
+    }
+
+    public function isFromUser(User $user)
+    {
+        return ($user === $this->fromUser) || ($user->getId() && $user->getId() == $this->fromUser->getId());
     }
 
     /**
@@ -59,6 +70,16 @@ class Message
     public function getFromUser()
     {
         return $this->fromUser;
+    }
+
+    public function isRead()
+    {
+        return $this->read;
+    }
+
+    public function markRead()
+    {
+        $this->read = true;
     }
 
     /**

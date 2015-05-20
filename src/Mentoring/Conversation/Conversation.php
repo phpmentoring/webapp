@@ -65,6 +65,54 @@ class Conversation
         return new static($fromUser, $toUser, $subject, new Message($fromUser, $opening_body, $created_at));
     }
 
+    /**
+     * Shortcut to add a message to this conversation.
+     *
+     * @param User $fromUser
+     * @param $body
+     * @return Message
+     */
+    public function appendMessage(User $fromUser, $body)
+    {
+        $message = new Message($fromUser, $body, new \DateTime());
+        $this->addMessage($message);
+
+        return $message;
+    }
+
+    /**
+     * Find the number of unread messages in this conversation for the given user.
+     *
+     * @param User $user
+     * @return int
+     */
+    public function countUnread(User $user)
+    {
+        $unread = 0;
+
+        foreach ($this->getAllMessages() as $message) {
+            if (!$message->isFromUser($user) && !$message->isRead()) {
+                $unread++;
+            }
+        }
+
+        return $unread;
+    }
+
+    /**
+     * Marks any message not sent by this user as read.
+     *
+     * @param User $user
+     */
+    public function markUserHasRead(User $user)
+    {
+        foreach ($this->messages as $message) {
+            if (!$message->isFromUser($user)) {
+                $message->markRead();
+            }
+        }
+    }
+
     public function setId($id)
     {
         if (null !== $this->id) {

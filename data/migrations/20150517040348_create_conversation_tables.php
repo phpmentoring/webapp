@@ -35,6 +35,7 @@ class CreateConversationTables extends AbstractMigration
         $messages = $this->table('messages');
         $messages->addColumn('conversation_id', 'integer');
         $messages->addColumn('from_user_id', 'integer');
+        $messages->addColumn('is_read', 'integer', ['default' => 0]);
         $messages->addColumn('body', 'text');
         $messages->addColumn('created_at', 'datetime');
         $messages->addIndex(['id']);

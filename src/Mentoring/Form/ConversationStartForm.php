@@ -16,7 +16,7 @@ class ConversationStartForm extends AbstractType
                 'constraints' => new NotBlank()
             ])
             ->add('body', 'textarea', [
-                'label' => 'Reply',
+                'label' => 'Message',
                 'required' => true,
                 'constraints' => new NotBlank()
             ])
