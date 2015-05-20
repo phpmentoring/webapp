@@ -58,7 +58,7 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
         $testData = $this->getTestData();
 
         $user = new User();
-        $hydrator = new UserHydrator();
+        $hydrator = $this->createHydrator();
         $user = $hydrator->hydrate($testData, $user);
 
         $this->assertEquals($testData['email'], $user->getEmail());
@@ -85,7 +85,9 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
         $testData['timeCreated'] = $testData['timeCreated']->format(\DateTime::ISO8601);
 
         $user = new User();
-        $hydrator = new UserHydrator();
+        $taxonomyService = \Mockery::mock('Mentoring\Taxonomy\TaxonomyService');
+        $termHydrator = \Mockery::mock('Mentoring\Taxonomy\TermHydrator');
+        $hydrator = $this->createHydrator();
         $user = $hydrator->hydrate($testData, $user);
 
         $this->assertEquals($testData['timeCreated'], $user->getTimeCreated()->format(\DateTime::ISO8601));
@@ -104,7 +106,9 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
         $testData['roles'] = serialize($testData['roles']);
 
         $user = new User();
-        $hydrator = new UserHydrator();
+        $taxonomyService = \Mockery::mock('Mentoring\Taxonomy\TaxonomyService');
+        $termHydrator = \Mockery::mock('Mentoring\Taxonomy\TermHydrator');
+        $hydrator = $this->createHydrator();
         $user = $hydrator->hydrate($testData, $user);
 
         $this->assertEquals($roles, $user->getRoles());
@@ -119,7 +123,9 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
     public function testExtractionWorks()
     {
         $user = $this->getTestUser();
-        $hydrator = new UserHydrator();
+        $taxonomyService = \Mockery::mock('Mentoring\Taxonomy\TaxonomyService');
+        $termHydrator = \Mockery::mock('Mentoring\Taxonomy\TermHydrator');
+        $hydrator = $this->createHydrator();
         $data = $hydrator->extract($user);
 
         $this->assertEquals($data['email'], $user->getEmail());
@@ -132,5 +138,19 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($data['isMentee'], $user->isMentee());
         $this->assertEquals($data['isMentor'], $user->isMentor());
         $this->assertEquals($data['profile'], $user->getProfile());
+    }
+
+    /**
+     * @return UserHydrator
+     */
+    protected function createHydrator()
+    {
+        $vocabulary = \Mockery::mock('Mentoring\Taxonomy\Vocabulary');
+        $taxonomyService = \Mockery::mock('Mentoring\Taxonomy\TaxonomyService');
+        $taxonomyService->shouldReceive('fetchVocabularyByName')->andReturn($vocabulary);
+        $taxonomyService->shouldReceive('fetchTermsForUser')->andReturn(array());
+        $termHydrator = \Mockery::mock('Mentoring\Taxonomy\TermHydrator');
+        $hydrator = new UserHydrator($taxonomyService, $termHydrator);
+        return $hydrator;
     }
 }

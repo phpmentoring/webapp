@@ -18,8 +18,8 @@ class AuthController
         $provider = new Github([
             'clientId' => $clientID,
             'clientSecret' => $clientSecret,
-            'redirectUri' => 'http://mentoring.dev/auth/github',
-            'scopes' => ['user', 'read:org', 'user:email']
+            'redirectUri' => $request->getScheme() . '://' .$request->getHost() . '/auth/github',
+            'scopes' => ['user', 'user:email']
         ]);
 
         if (empty($code)) {
