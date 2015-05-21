@@ -1,0 +1,16 @@
+.vagrant/
+data/logs/*
+!data/logs/.gitkeep
+data/sessions/*
+!data/sessions/.gitkeep
+vendor/
+.env
+composer.phar
+phinx.yml
+.DS_Store
+html/
+.idea
+._.DS_Store
+._Vagrantfile
+._puphpet
+tests/coverage/

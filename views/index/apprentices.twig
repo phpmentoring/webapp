@@ -1,0 +1,31 @@
+{% extends 'layouts/default.twig' %}
+{% block content %}
+    <h1>PHP Apprentices</h1>
+
+    <div data-ng-controller="ApprenticeSearchController">
+        <p>Type in a tag to search for an apprentice. Right now this only supports one tag.</p>
+        <form>
+            <div class="input-group">
+                <label for="name">Subject:</label> <input type="text" name="name" data-ng-model="name">
+            </div>
+        </form>
+
+        <div class="alert alert-danger" role="alert" data-ng-show="loadingError">
+            <strong>Oops!</strong> We couldn't load the mentors. Try again later, or ping us on Twitter!
+        </div>
+
+        <div class="panel panel-default" data-ng-repeat="apprentice in apprentices | apprenticeTags:name | orderBy :apprentice.name">
+            <div class="panel-heading">{% verbatim %}{{ apprentice.name }}{% endverbatim %}</div>
+            <div class="panel-body">
+                {% verbatim %}{{ apprentice.profile }}{% endverbatim %}
+
+                <div class="tags">
+                    <span class="label label-primary" data-ng-repeat="tag in apprentice.apprenticeTags">
+                        {% verbatim %}{{ tag.name }}{% endverbatim %}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'layouts/default.twig' %}
+{% block content %}
+    <h1>My Profile</h1>
+
+    {{ form_start(profile_form) }}
+    {{ form_row(profile_form.name) }}
+    {{ form_row(profile_form.email) }}
+    <strong>A mentor, an apprentice, or both?</strong>
+    {{ form_row(profile_form.isMentor, { label: 'I want to be a mentor' }) }}
+    {{ form_row(profile_form.mentorTags, { label: 'I want to mentor on the following topics' }) }}
+    {{ form_row(profile_form.isMentee, { label: 'I want to be an apprentice' }) }}
+    {{ form_row(profile_form.apprenticeTags, { label: 'I want to learn about the following topics' }) }}
+    {{ form_row(profile_form.profile, { help: 'Introduce yourself and tell us about your goals and expectations', attr: { style: 'height: 200px' } }) }}
+    {{ form_row(profile_form.save, { label: 'Save Profile' }) }}
+    {{ form_rest(profile_form) }}
+{% endblock %}
