@@ -15,10 +15,16 @@ class AuthController
         $clientSecret = getenv('GITHUB_API_SECRET');
         $code = $request->query->get('code');
 
+        $redirectUri = $request->getScheme() . '://' .$request->getHost();
+        if (80 != $request->getPort()) {
+            $redirectUri .= ':' . $request->getPort();
+        }
+        $redirectUri .= '/auth/github';
+
         $provider = new Github([
             'clientId' => $clientID,
             'clientSecret' => $clientSecret,
-            'redirectUri' => $request->getScheme() . '://' .$request->getHost() . '/auth/github',
+            'redirectUri' => $redirectUri,
             'scopes' => ['user', 'user:email']
         ]);
 
