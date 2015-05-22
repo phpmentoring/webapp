@@ -5,6 +5,13 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
     return false;
 }
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Silex\Application;
+use Silex\Provider;
+
+Dotenv::load(__DIR__ . '/../');
+
 $mySqlOptions = [
     'driver' => 'pdo_mysql',
     'host' => getenv('DB_HOSTNAME'),
@@ -19,13 +26,6 @@ $sqliteOptions = [
 ];
 
 $dbOptions = (getenv('DB_DRIVER') == 'pdo_mysql' ? $mySqlOptions : $sqliteOptions);
-
-require_once __DIR__ . '/../vendor/autoload.php';
-
-use Silex\Application;
-use Silex\Provider;
-
-Dotenv::load(__DIR__ . '/../');
 
 $app = new Application();
 $app['debug'] = true;
