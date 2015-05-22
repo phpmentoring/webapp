@@ -6,6 +6,9 @@ You should have [Composer](http://getcomposer.org) installed and available. If y
 
 ### Setup
 
+
+#### Using Vagrant
+
 1. Clone this repo.
 2. Go into the folder, and run `vagrant up` to start the VM.
 3. Add the following entry to your hosts file: 
