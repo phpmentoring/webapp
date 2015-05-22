@@ -1,11 +1,31 @@
 <?php
 
+$filename = __DIR__.preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
+if (php_sapi_name() === 'cli-server' && is_file($filename)) {
+    return false;
+}
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Silex\Application;
 use Silex\Provider;
 
 Dotenv::load(__DIR__ . '/../');
+
+$mySqlOptions = [
+    'driver' => 'pdo_mysql',
+    'host' => getenv('DB_HOSTNAME'),
+    'dbname' => getenv('DB_DBNAME'),
+    'user' => getenv('DB_USERNAME'),
+    'password' => getenv('DB_PASSWORD'),
+];
+
+$sqliteOptions = [
+    'driver' => 'pdo_sqlite',
+    'path' => 'data/mentoring.db',
+];
+
+$dbOptions = (getenv('DB_DRIVER') == 'pdo_mysql' ? $mySqlOptions : $sqliteOptions);
 
 $app = new Application();
 $app['debug'] = true;
@@ -37,13 +57,7 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
 ));
 
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
-    'db.options' => array(
-        'driver' => 'pdo_mysql',
-        'host' => getenv('DB_HOSTNAME'),
-        'dbname' => getenv('DB_DBNAME'),
-        'user' => getenv('DB_USERNAME'),
-        'password' => getenv('DB_PASSWORD'),
-    ),
+    'db.options' => $dbOptions
 ));
 
 $taxonomyServiceProvider = new \Mentoring\ServiceProvider\TaxonomyServiceProvider();

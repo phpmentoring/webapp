@@ -1,6 +1,6 @@
 ## PHP Mentoring App
 
-# Setup
+### Setup
 
 1. Clone this repo
 2. Go into the folder, and run `vagrant up` to start the VM. If you get an error about "Supervisord", it should be safe to ignore.
@@ -27,3 +27,18 @@ You will need to navigate to the URL in a browser, authenticate with GitHub, and
 	- Set the Homepage and Authorization to `http://mentoring.dev`
 12. Copy the Client ID and Client Secret into .env
 13. Vist `http://mentoring.dev` in your browser!
+
+#### Running Without Vagrant
+
+If you want to help out and cannot download or run Vagrant, you can run the application locally using PHP's built in dev server. You will need the following packages:
+
+* php-curl
+* php-intl
+
+For #7 above, you can set either run using MySQL or SQLite. If you would like to use sqlite, you can edit the .env file and change `DB_DRIVER` to `pdo_sqlite`, and in the phinx.yml file change the driver to `sqlite` and the name to `data/mentoring.db`. The application will then use SQLite instead of MySQL.
+
+For #3 above, use 127.0.0.1 instead of 192.168.56.101 since we will be running locally.
+
+To run using PHP's build in server, navigate to the root of the project and run:
+
+    php -S localhost:8080 -t public public/index.php
