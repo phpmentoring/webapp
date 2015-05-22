@@ -15,7 +15,7 @@ You should have [Composer](http://getcomposer.org) installed and available. If y
     192.168.56.101    www.mentoring.dev mentoring.dev
 
 4. Run `vagrant ssh` to go into the VM.
-5. CD to `/var/www` and run `composer update`
+5. CD to `/var/www` and run `composer install`
 6. From the same directory, run `vendor/bin/phinx init` to generate a `phinx.yml` file.
 7. Edit `phinx.yml`'s development section with the following values for MySQL credentials:
 
@@ -49,7 +49,7 @@ If you want to help out and cannot download or run Vagrant, you can run the appl
     127.0.0.1    www.mentoring.dev mentoring.dev
 
 
-3. CD to the directory where you cloned the project in step 1 and run `composer update`
+3. CD to the directory where you cloned the project in step 1 and run `composer install`
 4. From the same directory, run `vendor/bin/phinx init` to generate a `phinx.yml` file.
 5. Edit `phinx.yml`'s development section (lines 19-21) with the following values for MySQL.
 
@@ -76,4 +76,4 @@ To use sqlite, in `phinx.yml` change change the adapter to `sqlite` (line 17) th
    
 12. Visit <http://mentoring.dev:8080> in your browser!
 
-For #5 above, you can set either run using MySQL or SQLite. If you would like to use sqlite, you can edit the `.env` file and change `DB_DRIVER` to `pdo_sqlite`, and in the `phinx.yml` file change the driver to `sqlite` and the name to `data/mentoring.db`. The application will then use SQLite instead of MySQL.
+For #5 above, you can set either run using MySQL or SQLite. If you would like to use sqlite, you can edit the `.env` file and change `DB_DRIVER` to `pdo_sqlite`, and in the `phinx.yml` file change the driver to `sqlite` and the name to `data/mentoring.db`. The application will then use SQLite instead of MySQL.q
