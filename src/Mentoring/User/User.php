@@ -8,7 +8,7 @@ class User
 {
     protected $id;
     protected $email;
-    protected $roles = array();
+    protected $roles = [];
     protected $name = '';
     protected $timeCreated;
     protected $isEnabled = true;
@@ -18,6 +18,7 @@ class User
     protected $profile = '';
     protected $mentorTags = [];
     protected $apprenticeTags = [];
+    protected $profileImage = null;
 
     public function addApprenticeTag(Term $term)
     {
@@ -147,5 +148,10 @@ class User
     public function setProfile($profile)
     {
         $this->profile = $profile;
+    }
+
+    public function getProfileImage()
+    {
+        return 'https://avatars0.githubusercontent.com/u/' . $this->githubUid;
     }
 }

@@ -37,6 +37,7 @@ class UserHydrator
             'profile' => $object->getProfile(),
             'apprenticeTags' => $object->getApprenticeTags(),
             'mentorTags' => $object->getMentorTags(),
+            'imageUrl'   => $object->getProfileImage(),
         ];
 
         if (!is_null($this->termHydrator)) {
