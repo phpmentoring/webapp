@@ -2,7 +2,7 @@
 
 ### Requirements
 
-You should have composer installed and available. If you need to install composer, go to <http://getcomposer.org>. If you will be using Vagrant for local development, you'll need to have it installed as well.
+You should have [Composer](http://getcomposer.org) installed and available. If you need to install composer, go to their _[Getting Started](https://getcomposer.org/doc/00-intro.md)_ docs. If you will be using [Vagrant](http://vagrantup.com) for local development, you'll need to have it installed as well.
 
 ### Setup
 
