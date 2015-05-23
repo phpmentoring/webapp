@@ -101,7 +101,7 @@ class User
 
     public function setId($id)
     {
-        $this->id = $id;
+        $this->id = (int)$id;
     }
 
     public function setIsEnabled($status)

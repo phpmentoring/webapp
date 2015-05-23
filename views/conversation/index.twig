@@ -1,0 +1,49 @@
+{% extends 'layouts/default.twig' %}
+{% block content %}
+    <h1>Inbox</h1>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>With</th>
+            <th>Subject</th>
+            <th>Messages</th>
+            <th>Last Message</th>
+        </tr>
+        {% for conversation in conversations %}
+            {% set unread_count = conversation.countUnread(user) %}
+            <tr>
+                <td>
+                    <a href="{{ path('profile', { user_id: conversation.withUser(user).id }) }}">
+                        {{ conversation.withUser(user).name }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('conversation.view', { conversation_id: conversation.id }) }}">
+                        {{ conversation.subject }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('conversation.view', { conversation_id: conversation.id }) }}">
+                        {{ conversation.allMessages|length }}
+                        {% if unread_count %}<span class="label label-success">{{ unread_count }} NEW</span>{% endif %}
+                    </a>
+                </td>
+                <td>
+                    From
+                    <a href="{{ path('profile', { user_id: conversation.lastMessage.fromUser.id }) }}">
+                        {{ conversation.lastMessage.fromUser.name }}
+                    </a>
+                    on {{ conversation.lastMessage.createdAt|date }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">
+                    You aren't involved in any conversations at the moment.
+                    <a href="{{ path('mentors') }}">Find a mentor</a> or
+                    <a href="{{ path('apprentices') }}">find and apprentice</a>.
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

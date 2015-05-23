@@ -79,5 +79,8 @@ $indexServiceProvider = new \Mentoring\ServiceProvider\IndexServiceProvider();
 $app->register($indexServiceProvider);
 $app->mount('/', $indexServiceProvider);
 
+$conversationServiceProvider = new \Mentoring\ServiceProvider\ConversationServiceProvider();
+$app->register($conversationServiceProvider);
+$app->mount('/conversations', $conversationServiceProvider);
 
 $app->run();

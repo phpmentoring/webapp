@@ -2,7 +2,11 @@
 
 namespace Mentoring\Controller;
 
+use Mentoring\Conversation\Message;
+use Mentoring\Form\ConversationStartForm;
+use Mentoring\User\UserNotFoundException;
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
 
 class IndexController
 {
@@ -29,5 +33,25 @@ class IndexController
     public function whyAction(Application $app)
     {
         return $app['twig']->render('index/why.twig');
+    }
+
+    public function viewProfileAction(Application $app, Request $request, $user_id)
+    {
+        if (!$viewing_user = $app['user.manager']->fetchUserById($user_id)) {
+            throw new UserNotFoundException;
+        }
+
+        $form = null;
+        if ($user = $app['session']->get('user')) {
+            $form = $app['form.factory']->create(new ConversationStartForm(), ['to' => $user_id], [
+                'action' => $app['url_generator']->generate('conversation.create')
+            ]);
+        }
+
+
+        return $app['twig']->render('index/profile.twig', [
+            'viewing_user' => $viewing_user,
+            'message_form' => $form === null ? null : $form->createView()
+        ]);
     }
 }

@@ -1,0 +1,9 @@
+{% extends 'layouts/default.twig' %}
+{% block content %}
+    <h1>{{ viewing_user.name }}</h1>
+    <p>{{ viewing_user.profile }}</p>
+    {% if message_form %}
+        <h3>Send a message to {{ viewing_user.name }}</h3>
+        {{ form(message_form) }}
+    {% endif %}
+{% endblock %}
