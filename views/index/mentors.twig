@@ -17,6 +17,9 @@
         <div class="panel panel-default" data-ng-repeat="mentor in mentors | mentorTags:name | orderBy :mentor.name">
             <div class="panel-heading"><a href="/profile/{% verbatim %}{{ mentor.id }}{% endverbatim %}">{% verbatim %}{{ mentor.name }}{% endverbatim %}</a></div>
             <div class="panel-body">
+                <span>
+                    <img src="{% verbatim %}{{ mentor.imageUrl }}{% endverbatim %}?s=100"/>
+                </span>
                 {% verbatim %}{{ mentor.profile }}{% endverbatim %}
 
                 <div class="tags">
