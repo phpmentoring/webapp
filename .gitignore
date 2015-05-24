@@ -3,7 +3,7 @@ data/logs/*
 !data/logs/.gitkeep
 data/sessions/*
 !data/sessions/.gitkeep
-vendor/
+/vendor/
 .env
 composer.phar
 phinx.yml
