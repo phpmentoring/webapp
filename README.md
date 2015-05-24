@@ -83,5 +83,3 @@ To use sqlite, in `phinx.yml` change change the adapter to `sqlite` (line 17) th
     php -S mentoring.dev:8080 -t public public/index.php
    
 12. Visit <http://mentoring.dev:8080> in your browser!
-
-For #5 above, you can set either run using MySQL or SQLite. If you would like to use sqlite, you can edit the `.env` file and change `DB_DRIVER` to `pdo_sqlite`, and in the `phinx.yml` file change the driver to `sqlite` and the name to `data/mentoring.db`. The application will then use SQLite instead of MySQL.q
