@@ -6,7 +6,7 @@
 
     <div class="conversation_opening_message">
         <div class="message_body">
-            {{ conversation.firstMessage.body }}
+            {{ conversation.firstMessage.body|markdown }}
         </div>
     </div>
 
@@ -20,7 +20,7 @@
                 {% endif %}
             </div>
             <div class="message_body">
-                {{ message.body }}
+                {{ message.body|markdown }}
             </div>
         </div>
     {% endfor %}

@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="{{ app.request.baseUrl }}/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ app.request.baseUrl }}/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{{ app.request.baseUrl }}/css/prism.css">
     <link rel="stylesheet" href="{{ app.request.baseUrl }}/css/main.css">
 
     <script src="{{ app.request.baseUrl }}/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
@@ -77,7 +78,6 @@
     {% endblock %}
 
     {% block content %}{% endblock %}
-
 </div>
 
 
@@ -87,9 +87,10 @@
 
 <script src="{{ app.request.baseUrl }}/js/vendor/bootstrap.min.js"></script>
 
+<script src="{{ app.request.baseUrl }}/js/vendor/prism.js"></script>
+
 <script src="{{ app.request.baseUrl }}/js/main.js"></script>
 
-<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
     (function (b, o, i, l, e, r) {
         b.GoogleAnalyticsObject = l;
@@ -103,7 +104,7 @@
         e.src = '//www.google-analytics.com/analytics.js';
         r.parentNode.insertBefore(e, r)
     }(window, document, 'script', 'ga'));
-    ga('create', 'UA-XXXXX-X', 'auto');
+    ga('create', 'UA-XXXXX-X', 'auto'); {# TODO: get analytics code #}
     ga('send', 'pageview');
 </script>
 </body>
