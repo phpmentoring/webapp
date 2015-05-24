@@ -56,6 +56,7 @@ class UserService
         $data['roles'] = serialize($data['roles']);
         unset($data['mentorTags']);
         unset($data['apprenticeTags']);
+        unset($data['imageUrl']);
 
         if (empty($data['id'])) {
             $this->dbal->insert('users', $data);
