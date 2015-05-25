@@ -1,8 +1,23 @@
 {% extends 'layouts/default.twig' %}
 {% block content %}
-    <h1 class="conversation_subject">{{ conversation.subject }}</h1>
-    <p class="conversation_header">Started by <a
-                href="{{ path('profile', { user_id: conversation.fromUser.id }) }}">{{ conversation.fromUser.name }}</a> on {{ conversation.startedAt|date }}</p>
+    <h1 class="conversation_subject">
+        {{ conversation.subject }}
+         <div class="pull-right">
+         <a href="{{ path('profile', { user_id: conversation.fromUser.id }) }}">
+            <img class="avatar-medium img-circle" src="{{ conversation.fromUser.profileImage }}" alt="{{ conversation.fromUser.name }}">
+        </a>
+         <a href="{{ path('profile', { user_id: conversation.toUser.id }) }}">
+            <img class="avatar-medium img-circle" src="{{ conversation.toUser.profileImage }}" alt="{{ conversation.toUser.name }}">
+        </a>
+         </div>
+    </h1>
+    <p class="conversation_header">
+        <a href="{{ path('profile', { user_id: conversation.fromUser.id }) }}">
+            <img class="avatar-small img-circle" src="{{ conversation.fromUser.profileImage }}" alt="{{ conversation.fromUser.name }}">
+            {{ conversation.fromUser.name }}
+        </a>
+        on {{ conversation.startedAt|date }}
+    </p>
 
     <div class="conversation_opening_message">
         <div class="message_body">
@@ -14,10 +29,13 @@
         <hr/>
         <div class="conversation_reply">
             <div class="message_header">
-                <a href="{{ path('profile', { user_id: message.fromUser.id }) }}">{{ message.fromUser.name }}</a> on {{ message.createdAt|date }}
-                {% if not message.isRead %}
-                    <span class="label label-default">UNREAD</span> {# this tells a user if the other person has read this message or not yet #}
-                {% endif %}
+                <a href="{{ path('profile', { user_id: message.fromUser.id }) }}">
+                    <img class="avatar-small img-circle" src="{{ message.fromUser.profileImage }}" alt="{{ message.fromUser.name }}">
+                    {{ message.fromUser.name }}</a>
+                    on {{ message.createdAt|date }}
+                    {% if not message.isRead %}
+                        <span class="label label-default">UNREAD</span> {# this tells a user if the other person has read this message or not yet #}
+                    {% endif %}
             </div>
             <div class="message_body">
                 {{ message.body }}

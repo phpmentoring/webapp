@@ -3,7 +3,15 @@ body {
 	padding-bottom: 20px;
 }
 
+img.avatar-small {
+	width: 24px;
+	height: 24px;
+}
 
+img.avatar-medium {
+	width: 48px;
+	height: 48px;
+}
 
 
 
