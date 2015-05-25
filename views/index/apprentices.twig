@@ -15,7 +15,7 @@
         </div>
 
         <div class="panel panel-default" data-ng-repeat="apprentice in apprentices | apprenticeTags:name | orderBy :apprentice.name">
-            <div class="panel-heading">{% verbatim %}{{ apprentice.name }}{% endverbatim %}</div>
+            <div class="panel-heading">{% verbatim %}<a href="/profile/{% verbatim %}{{ apprentice.id }}{% endverbatim %}">{% verbatim %}{{ apprentice.name }}{% endverbatim %}</a>{% endverbatim %}</div>
             <div class="panel-body">
                 <span>
                     <img src="{% verbatim %}{{ apprentice.imageUrl }}{% endverbatim %}?s=100"/>
