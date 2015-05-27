@@ -1,6 +1,6 @@
 languages:
-	PHP: true
-	JavaScript: true
+  PHP: true
+  JavaScript: true
 exclude_paths:
-- puphpet
-- public/js/vendor
+- "puphpet"
+- "public/js/vendor"
