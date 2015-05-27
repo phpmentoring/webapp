@@ -1,5 +1,9 @@
 ## PHP Mentoring App
 
+[![Build Status](https://travis-ci.org/phpmentoring/testapp.svg?branch=master)](https://travis-ci.org/phpmentoring/testapp)
+[![Codeship Status for phpmentoring/testapp](https://codeship.com/projects/a10984a0-df3f-0132-12f0-767a4e17443c/status?branch=master)](https://codeship.com/projects/80502)
+[![Code Climate](https://codeclimate.com/github/phpmentoring/testapp/badges/gpa.svg)](https://codeclimate.com/github/phpmentoring/testapp)
+
 ### Requirements
 
 You should have [Composer](http://getcomposer.org) installed and available. If you need to install composer, go to their _[Getting Started](https://getcomposer.org/doc/00-intro.md)_ docs. If you will be using [Vagrant](http://vagrantup.com) for local development, you'll need to have it installed as well.
