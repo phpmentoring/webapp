@@ -13,7 +13,7 @@ class ProfileForm extends AbstractType
 
     public function __construct($taxonomyService)
     {
-        $this->taxonomyService = $taxonomyService;    
+        $this->taxonomyService = $taxonomyService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

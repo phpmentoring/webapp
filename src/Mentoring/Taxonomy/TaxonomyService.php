@@ -35,7 +35,7 @@ class TaxonomyService
             ['id' => $vocabulary->getId()]
         );
         $terms = [];
-        foreach($data as $termData) {
+        foreach ($data as $termData) {
             $term = $this->termHydrator->hydrate($termData, new Term());
             $term->setVocabulary($vocabulary);
             $terms[] = $term;
@@ -47,7 +47,8 @@ class TaxonomyService
     public function fetchTerm($vocabulary, $term)
     {
         $termResult = $this->dbal->fetchAssoc(
-            'SELECT t.* FROM taxonomyTerms t JOIN taxonomyVocabulary v ON t.vocabulary_id=v.id WHERE t.name = :tname AND v.name = :vname',
+            'SELECT t.* FROM taxonomyTerms t JOIN taxonomyVocabulary v ON t.vocabulary_id=v.id ' .
+            'WHERE t.name = :tname AND v.name = :vname',
             [
                 'tname' => $term,
                 'vname' => $vocabulary
@@ -111,7 +112,7 @@ class TaxonomyService
             ]
         );
         $terms = [];
-        foreach($data as $termData) {
+        foreach ($data as $termData) {
             $term = $this->termHydrator->hydrate($termData, new Term());
             $term->setVocabulary($vocabulary);
             $terms[] = $term;

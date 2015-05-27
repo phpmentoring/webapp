@@ -1,5 +1,5 @@
 <?php
-	
+
 namespace Mentoring\Form\DataTransformer;
 
 use Mentoring\Taxonomy\TermNotFoundException;
@@ -12,18 +12,18 @@ class TextToTagsTransformer implements DataTransformerInterface
     /**
      * @var TaxonomyService
      */
-	protected $taxonomyService;
+    protected $taxonomyService;
 
     /**
      * @var String
      */
     protected $vocabulary;
-	
-	public function __construct(TaxonomyService $service, $vocabulary)
-	{
-		$this->taxonomyService = $service;
+
+    public function __construct(TaxonomyService $service, $vocabulary)
+    {
+        $this->taxonomyService = $service;
         $this->vocabulary = $vocabulary;
-	}
+    }
 
     /**
      * Turns a collection of tags into a comma separated list
@@ -54,7 +54,7 @@ class TextToTagsTransformer implements DataTransformerInterface
     {
         $tags = explode(',', $tagList);
         $terms = [];
-        foreach($tags as $tagName) {
+        foreach ($tags as $tagName) {
             try {
                 $tagName = trim($tagName);
                 $term = $this->taxonomyService->fetchTerm($this->vocabulary, $tagName);

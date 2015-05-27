@@ -74,7 +74,7 @@ class UserService
     {
         $data = $this->dbal->fetchAll('SELECT * FROM users WHERE isMentee = 1');
         $users = [];
-        foreach($data as $userData) {
+        foreach ($data as $userData) {
             $users[] = $this->hydrator->hydrate($userData, $user = new User());
             $this->in_memory_users[$user->getId()] = $user;
         }
@@ -86,7 +86,7 @@ class UserService
     {
         $data = $this->dbal->fetchAll('SELECT * FROM users WHERE isMentor = 1');
         $users = [];
-        foreach($data as $userData) {
+        foreach ($data as $userData) {
             $users[] = $this->hydrator->hydrate($userData, $user = new User());
             $this->in_memory_users[$user->getId()] = $user;
         }
@@ -128,12 +128,12 @@ class UserService
     {
         $this->dbal->delete('userTags', ['user_id' => $user->getId()]);
 
-        foreach($user->getMentorTags() as $mentorTag) {
+        foreach ($user->getMentorTags() as $mentorTag) {
             echo 'Saving '.$mentorTag->getName();
             $this->dbal->insert('userTags', ['user_id' => $user->getId(), 'term_id' => $mentorTag->getId()]);
         }
 
-        foreach($user->getApprenticeTags() as $apprenticeTag) {
+        foreach ($user->getApprenticeTags() as $apprenticeTag) {
             echo 'Saving '.$apprenticeTag->getName();
             $this->dbal->insert('userTags', ['user_id' => $user->getId(), 'term_id' => $apprenticeTag->getId()]);
         }

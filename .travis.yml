@@ -19,4 +19,4 @@ before_script:
 script:
   - (cd "tests" ; ../vendor/bin/phpunit -c phpunit.xml --stop-on-failure)
   - vendor/bin/phpcs --standard=PSR2 src/ --ignore="*/test/*,autoload_classmap.php,*.js"
-  - vendor/bin/phpmd src text "codesize,naming" --exclude "*/test/*,*/autoload_classmap.php,*.js"
+#  - vendor/bin/phpmd src text "codesize,naming" --exclude "*/test/*,*/autoload_classmap.php,*.js"

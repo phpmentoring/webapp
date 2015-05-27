@@ -48,7 +48,9 @@ class ConversationController
             $conversation->addMessage(new Message($user, $form_data['body'], new \DateTime()));
             $conversationRepo->save($conversation);
 
-            return $app->redirect($app['url_generator']->generate('conversation.view', ['conversation_id' => $conversation->getId()]));
+            return $app->redirect(
+                $app['url_generator']->generate('conversation.view', ['conversation_id' => $conversation->getId()])
+            );
         }
 
         return $app['twig']->render('conversation/view.twig', array(
@@ -72,11 +74,16 @@ class ConversationController
             $conversation = Conversation::startNew($user, $to_user, $form_data['subject'], $form_data['body']);
             $app['conversation_repository']->save($conversation);
 
-            return $app->redirect($app['url_generator']->generate('conversation.view', ['conversation_id' => $conversation->getId()]));
+            return $app->redirect(
+                $app['url_generator']->generate('conversation.view', ['conversation_id' => $conversation->getId()])
+            );
         }
 
         // TODO: make a view that allows you to see / edit errors
-        $app['session']->getFlashBag()->add('danger', 'A problem occurred when trying to send your message. Please try again.');
+        $app['session']->getFlashBag()->add(
+            'danger',
+            'A problem occurred when trying to send your message. Please try again.'
+        );
 
         return $app->redirect($app['url_generator']->generate('conversation.index'));
     }
