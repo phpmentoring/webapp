@@ -1,8 +1,8 @@
 ## PHP Mentoring App
 
-[![Build Status](https://travis-ci.org/phpmentoring/testapp.svg?branch=master)](https://travis-ci.org/phpmentoring/testapp)
+[![Build Status](https://travis-ci.org/phpmentoring/webapp.svg?branch=master)](https://travis-ci.org/phpmentoring/webapp)
 [![Codeship Status for phpmentoring/testapp](https://codeship.com/projects/a10984a0-df3f-0132-12f0-767a4e17443c/status?branch=master)](https://codeship.com/projects/80502)
-[![Code Climate](https://codeclimate.com/github/phpmentoring/testapp/badges/gpa.svg)](https://codeclimate.com/github/phpmentoring/testapp)
+[![Code Climate](https://codeclimate.com/github/phpmentoring/webapp/badges/gpa.svg)](https://codeclimate.com/github/phpmentoring/webapp)
 
 ### Requirements
 
