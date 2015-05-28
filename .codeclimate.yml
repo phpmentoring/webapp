@@ -3,4 +3,4 @@ languages:
   JavaScript: true
 exclude_paths:
 - "puphpet"
-- "public/js/vendor"
+- "public/js/vendor/*"
