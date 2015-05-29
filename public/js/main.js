@@ -71,4 +71,26 @@ controllers.ApprenticeSearchController = function($scope, $http) {
     console.log($scope.mentors);
 };
 
+controllers.MessageMarkdownController = function($scope, $http, $sce) {
+    $scope.raw_body = $('#reply_body').val();
+    $scope.preview = '';
+    $scope.loadingError = false;
+    $scope.loading = false;
+
+    $scope.generatePreview = function() {
+        $scope.loading = true;
+        $http.post('/api/v0/to-markdown', { raw: $scope.raw_body }).success(function (data) {
+            $scope.loading = false;
+            if (!("markdown" in data)) {
+                $scope.loadingError = true;
+            } else {
+                $scope.preview = $sce.trustAsHtml(data.markdown);
+            }
+        }).error(function (data, status, headers, config) {
+            $scope.loading = false;
+            $scope.loadingError = true;
+        });
+    };
+};
+
 mentoringApp.controller(controllers);

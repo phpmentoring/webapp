@@ -2,10 +2,11 @@
 
 namespace Mentoring\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Mentoring\Taxonomy\TermHydrator;
 use Mentoring\Taxonomy\VocabularyNotFoundException;
 use Silex\Application;
-use Symfony\Component\HttpFoundation\Response;
 
 class ApiController
 {
@@ -73,5 +74,14 @@ class ApiController
             return new Response(json_encode(['error' => $e->getMessage()]), 404, ['Content-Type' => 'application/json']);
         }
 
+    }
+
+    public function toMarkdown(Application $app, Request $request)
+    {
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        $markdown = $app['conversation.markdown_converter']->convert($input['raw']);
+
+        return new Response(json_encode(['markdown' => $markdown]), 200, ['Content-Type' => 'application/json']);
     }
 }

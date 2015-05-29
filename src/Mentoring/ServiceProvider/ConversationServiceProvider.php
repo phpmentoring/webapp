@@ -7,7 +7,7 @@ use Mentoring\Controller\ConversationController;
 use Mentoring\Controller\IndexController;
 use Mentoring\Conversation\ConversationRepository;
 use Mentoring\Conversation\ConversationTwigExtension;
-use Silex\Application;
+use Mentoring\Conversation\MarkdownConverter;use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Silex\ServiceProviderInterface;
 
@@ -56,6 +56,17 @@ class ConversationServiceProvider implements ServiceProviderInterface, Controlle
             }
         );
 
-        $app['twig']->addExtension(new ConversationTwigExtension($app['conversation_repository']));
+        $app['conversation.markdown_converter'] = $app->share(
+            function (Application $app) {
+                return new MarkdownConverter();
+            }
+        );
+
+        $app['twig']->addExtension(
+            new ConversationTwigExtension(
+                $app['conversation_repository'],
+                $app['conversation.markdown_converter']
+            )
+        );
     }
 }

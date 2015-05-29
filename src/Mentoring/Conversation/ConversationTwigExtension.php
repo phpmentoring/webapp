@@ -11,9 +11,15 @@ class ConversationTwigExtension extends \Twig_Extension
      */
     private $conversationRepository;
 
-    public function __construct(ConversationRepository $conversationRepository)
+    /**
+     * @var MarkdownConverter
+     */
+     private $markdownConverter;
+
+    public function __construct(ConversationRepository $conversationRepository, MarkdownConverter $markdownConverter)
     {
         $this->conversationRepository = $conversationRepository;
+        $this->markdownConverter = $markdownConverter;
     }
 
     public function getFunctions()
@@ -32,12 +38,7 @@ class ConversationTwigExtension extends \Twig_Extension
 
     public function formatInMarkdown($string)
     {
-        $md = new \Parsedown();
-        $markdown = $md->text($string);
-
-        // always purify HTML after the markdown conversion
-        $purify = \HTMLPurifier::getInstance();
-        return $purify->purify($markdown);
+        return $this->markdownConverter->convert($string);
     }
 
     public function getUnreadMessages(User $user)

@@ -36,6 +36,12 @@ class ApiServiceProvider implements ServiceProviderInterface, ControllerProvider
             ->bind('api.get.terms')
         ;
 
+        $controllers
+            ->match('/to-markdown', 'controller.api:toMarkdown')
+            ->method('POST')
+            ->bind('api.post.to_markdown')
+        ;
+
         return $controllers;
     }
 
