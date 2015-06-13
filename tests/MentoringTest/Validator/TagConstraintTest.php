@@ -9,7 +9,7 @@ use Mentoring\Taxonomy\Term;
 class TagConstraintTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testInvalidArguments()
+    public function testNullIsInvalidArguments()
     {
         $validator  = new TagConstraintValidator();
         $constraint = new TagConstraint();
@@ -17,6 +17,16 @@ class TagConstraintTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('InvalidArgumentException');
 
         $validator->validate(null, $constraint);
+    }
+
+    public function testNotTermIsInvalidArguments()
+    {
+        $validator  = new TagConstraintValidator();
+        $constraint = new TagConstraint();
+
+        $this->setExpectedException('InvalidArgumentException');
+
+        $validator->validate(['test'], $constraint);
     }
 
     public function testInvalidTag()
@@ -54,7 +64,8 @@ class TagConstraintTest extends \PHPUnit_Framework_TestCase
     protected function getTestData()
     {
         $term       = new Term();
-        $term->setDescription('tag1 tag2 tag3');
+        $term->setDescription('PHP');
+        $term->setName('PHP');
         return $term;
     }
 }

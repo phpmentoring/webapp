@@ -60,18 +60,18 @@ class ProfileForm extends AbstractType
             ->add('name', 'text', ['constraints' => new NotBlank()])
             ->add('email', 'email', [
             'constraints' => [new Email()],
-        ])
+            ])
             ->add('isMentor', 'checkbox', [
             'required' => false,
-        ])
+            ])
             ->add($mentorTags)
             ->add('isMentee', 'checkbox', [
             'required' => false,
-        ])
+            ])
             ->add($menteeTags)
             ->add('profile', 'textarea', [
             'required' => false,
-        ])
+            ])
             ->add('save', 'submit')
         ;
     }
