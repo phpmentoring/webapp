@@ -19,7 +19,7 @@ class ApiController
 
         $responseData = [];
         $hydrator = $app['user.hydrator'];
-        foreach($mentees as $mentee) {
+        foreach ($mentees as $mentee) {
             $data = $hydrator->extract($mentee);
             $responseData[] = $data;
         }
@@ -36,7 +36,7 @@ class ApiController
 
         $responseData = [];
         $hydrator = $app['user.hydrator'];
-        foreach($mentors as $mentor) {
+        foreach ($mentors as $mentor) {
             $data = $hydrator->extract($mentor);
             $responseData[] = $data;
         }
@@ -54,7 +54,7 @@ class ApiController
             $termHydrator = new TermHydrator();
 
             $termData = [];
-            foreach($terms as $term) {
+            foreach ($terms as $term) {
                 $termData[] = $termHydrator->extract($term);
             }
 
@@ -71,17 +71,12 @@ class ApiController
             );
 
         } catch (VocabularyNotFoundException $e) {
-            return new Response(json_encode(['error' => $e->getMessage()]), 404, ['Content-Type' => 'application/json']);
+            return new Response(
+                json_encode(['error' => $e->getMessage()]),
+                404,
+                ['Content-Type' => 'application/json']
+            );
         }
 
-    }
-
-    public function toMarkdown(Application $app, Request $request)
-    {
-        $input = json_decode(file_get_contents('php://input'), true);
-
-        $markdown = $app['conversation.markdown_converter']->convert($input['raw']);
-
-        return new Response(json_encode(['markdown' => $markdown]), 200, ['Content-Type' => 'application/json']);
     }
 }

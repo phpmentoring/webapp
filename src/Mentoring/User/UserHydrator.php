@@ -43,7 +43,7 @@ class UserHydrator
         if (!is_null($this->termHydrator)) {
             $apprenticeTags = $data['apprenticeTags'];
             unset($data['apprenticeTags']);
-            foreach($apprenticeTags as $key => $tag) {
+            foreach ($apprenticeTags as $key => $tag) {
                 $tag = $this->termHydrator->extract($tag);
                 $apprenticeTags[$key] = $tag;
             }
@@ -51,7 +51,7 @@ class UserHydrator
 
             $mentorTags = $data['mentorTags'];
             unset($data['mentorTags']);
-            foreach($mentorTags as $key => $tag) {
+            foreach ($mentorTags as $key => $tag) {
                 $tag = $this->termHydrator->extract($tag);
                 $mentorTags[$key] = $tag;
             }

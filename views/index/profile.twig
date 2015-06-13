@@ -1,9 +1,39 @@
 {% extends 'layouts/default.twig' %}
 {% block content %}
+    <div class="row">
+    <div class="col-lg-3">
+        <p><img class="img-rounded" style="margin-top: 25px;" src="{{ viewing_user.profileImage }}"></p>
+
+        {% if viewing_user.isMentor %}
+        <strong>Mentor</strong>
+        <div class="tags">
+            {% for tag in viewing_user.mentorTags %}
+            <span class="label label-primary">
+                {{ tag.name }}
+            </span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if viewing_user.isMentee %}
+        <strong>Apprentice</strong>
+        <div class="tags">
+            {% for tag in viewing_user.apprenticeTags %}
+            <span class="label label-primary">
+                {{ tag.name }}
+            </span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+    <div class="col-lg-9">
     <h1>{{ viewing_user.name }}</h1>
     <p>{{ viewing_user.profile|markdown }}</p>
     {% if message_form %}
         <h3>Send a message to {{ viewing_user.name }}</h3>
         {{ form(message_form) }}
     {% endif %}
+    </div>
+    </div>
 {% endblock %}

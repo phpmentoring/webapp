@@ -36,7 +36,7 @@ class AuthServiceProvider implements ServiceProviderInterface, ControllerProvide
 
     public function register(Application $app)
     {
-        $app['user.hydrator'] = function() use ($app) {
+        $app['user.hydrator'] = function () use ($app) {
             return new UserHydrator($app['taxonomy.service'], new TermHydrator());
         };
 

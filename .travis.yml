@@ -1,0 +1,22 @@
+language:
+  - php
+
+php:
+  - 5.5
+  - 5.6
+  - nightly
+  - hhvm
+
+matrix:
+  allow_failures:
+    - php: nightly
+    - php: hhvm
+
+before_script:
+  - composer self-update
+  - composer install --no-interaction --dev
+
+script:
+  - (cd "tests" ; ../vendor/bin/phpunit -c phpunit.xml --stop-on-failure)
+  - vendor/bin/phpcs --standard=PSR2 src/ --ignore="*/test/*,autoload_classmap.php,*.js"
+#  - vendor/bin/phpmd src text "codesize,naming" --exclude "*/test/*,*/autoload_classmap.php,*.js"

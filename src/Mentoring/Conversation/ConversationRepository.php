@@ -36,7 +36,10 @@ class ConversationRepository
      */
     public function findAllInvolvingUser(User $user)
     {
-        $convos_data = $this->dbal->fetchAll('SELECT * FROM conversations WHERE (from_user_id = :user_id OR to_user_id = :user_id)', ['user_id' => $user->getId()]);
+        $convos_data = $this->dbal->fetchAll(
+            'SELECT * FROM conversations WHERE (from_user_id = :user_id OR to_user_id = :user_id)',
+            ['user_id' => $user->getId()]
+        );
 
         $conversations = [];
         foreach ($convos_data as $convo_data) {
@@ -63,7 +66,10 @@ class ConversationRepository
             return $this->in_memory_convos[$id];
         }
 
-        $convo_data = $this->dbal->fetchAssoc('SELECT * FROM conversations WHERE id = :conversation_id', ['conversation_id' => $id]);
+        $convo_data = $this->dbal->fetchAssoc(
+            'SELECT * FROM conversations WHERE id = :conversation_id',
+            ['conversation_id' => $id]
+        );
 
         if (!$convo_data) {
             throw new ConversationNotFoundException(sprintf('Could not find conversation with ID of %s', $id));
@@ -113,7 +119,10 @@ class ConversationRepository
 
     protected function hydrateConversation(array $convo_data)
     {
-        $messages_data = $this->dbal->fetchAll('SELECT * FROM messages WHERE conversation_id = :conversation_id', ['conversation_id' => $convo_data['id']]);
+        $messages_data = $this->dbal->fetchAll(
+            'SELECT * FROM messages WHERE conversation_id = :conversation_id',
+            ['conversation_id' => $convo_data['id']]
+        );
 
         $messages = [];
         foreach ($messages_data as $message_data) {

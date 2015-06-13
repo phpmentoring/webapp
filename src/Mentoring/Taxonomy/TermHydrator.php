@@ -42,7 +42,7 @@ class TermHydrator
         }
 
         if (isset($data['vocabulary']) && $data['vocabulary'] instanceof Vocabulary) {
-           $object->setVocabulary($data['vocabulary']);
+            $object->setVocabulary($data['vocabulary']);
         }
 
         if (isset($data['vocabulary_id'])) {

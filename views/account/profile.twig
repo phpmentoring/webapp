@@ -1,6 +1,7 @@
 {% extends 'layouts/default.twig' %}
 {% block content %}
-    <h1>My Profile</h1>
+    <h1>My Profile <a class="pull-right btn btn-primary" href="{{ path('profile', { user_id: user.id }) }}">View Public Profile</a></h1>
+
 
     {{ form_start(profile_form) }}
     {{ form_row(profile_form.name) }}

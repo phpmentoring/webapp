@@ -24,7 +24,8 @@ class AccountController
         }
 
         return $app['twig']->render('account/profile.twig', array(
-            'profile_form' => $form->createView()
+            'profile_form' => $form->createView(),
+            'user' => $user
         ));
     }
 }

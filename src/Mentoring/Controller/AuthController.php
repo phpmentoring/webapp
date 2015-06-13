@@ -25,7 +25,7 @@ class AuthController
             'clientId' => $clientID,
             'clientSecret' => $clientSecret,
             'redirectUri' => $redirectUri,
-            'scopes' => ['user', 'user:email']
+            'scopes' => ['user:email'],
         ]);
 
         if (empty($code)) {
