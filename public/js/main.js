@@ -41,6 +41,10 @@ mentoringApp.filter('mentorTags', function() {
     }
 });
 
+mentoringApp.filter('unsafe', function ($sce) {
+    return $sce.trustAsHtml;
+});
+
 mentoringApp.directive('markdownPreview', function ($http, $sce, $timeout) {
     return {
         replace: true,
@@ -71,34 +75,36 @@ mentoringApp.directive('markdownPreview', function ($http, $sce, $timeout) {
     };
 });
 
-controllers.MentorSearchController = function($scope, $http) {
+controllers.MentorSearchController = function($scope, $http, $timeout) {
     $scope.mentors = [];
     $scope.loadingError = false;
 
     $http.get('/api/v0/mentors').
         success(function(data, status, headers, config){
             $scope.mentors = data;
+            $timeout(function () {
+                Prism.highlightAll();
+            }, 50);
         }).
         error(function(data, status, headers, config) {
             $scope.loadingError = true;
         });
-
-    console.log($scope.mentors);
 };
 
-controllers.ApprenticeSearchController = function($scope, $http) {
+controllers.ApprenticeSearchController = function($scope, $http, $timeout) {
     $scope.apprentices = [];
     $scope.loadingError = false;
 
     $http.get('/api/v0/apprentices').
         success(function(data, status, headers, config){
             $scope.apprentices = data;
+            $timeout(function () {
+                Prism.highlightAll();
+            }, 50);
         }).
         error(function(data, status, headers, config) {
             $scope.loadingError = true;
         });
-
-    console.log($scope.mentors);
 };
 
 mentoringApp.controller(controllers);

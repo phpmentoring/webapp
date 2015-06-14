@@ -17,15 +17,17 @@
         <div class="panel panel-default" data-ng-repeat="apprentice in apprentices | apprenticeTags:name | orderBy :apprentice.name">
             <div class="panel-heading"><a href="/profile/{% verbatim %}{{ apprentice.id }}{% endverbatim %}">{% verbatim %}{{ apprentice.name }}{% endverbatim %}</a></div>
             <div class="panel-body">
-                <span>
-                    <img src="{% verbatim %}{{ apprentice.imageUrl }}{% endverbatim %}?s=100"/>
-                </span>
-                {% verbatim %}{{ apprentice.profile }}{% endverbatim %}
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img src="{% verbatim %}{{ apprentice.imageUrl }}{% endverbatim %}?s=100"/>
 
-                <div class="tags">
-                    <span class="label label-primary" data-ng-repeat="tag in apprentice.apprenticeTags">
-                        {% verbatim %}{{ tag.name }}{% endverbatim %}
-                    </span>
+                        <div class="tags">
+                            <span class="label label-primary" data-ng-repeat="tag in apprentice.apprenticeTags">
+                                {% verbatim %}{{ tag.name }}{% endverbatim %}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-9" ng-bind-html="apprentice.profile_markdown | unsafe"></div>
                 </div>
             </div>
         </div>
