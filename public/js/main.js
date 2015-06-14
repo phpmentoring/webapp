@@ -41,6 +41,36 @@ mentoringApp.filter('mentorTags', function() {
     }
 });
 
+mentoringApp.directive('markdownPreview', function ($http, $sce, $timeout) {
+    return {
+        replace: true,
+        link: function ($scope, element, attrs) {
+            $scope.generatePreview = function () {
+                $scope.loading = true;
+                var body = $('#' + attrs.rawBody).val();
+                $http.post('/api/v0/to-markdown', {raw: body}).success(function (data) {
+                    $scope.loading = false;
+                    if (!("markdown" in data)) {
+                        $scope.loadingError = true;
+                    } else {
+                        $scope.preview = $sce.trustAsHtml(data.markdown);
+                        $timeout(function () {
+                            Prism.highlightAll();
+                        }, 50);
+                    }
+                }).error(function (data, status, headers, config) {
+                    $scope.loading = false;
+                    $scope.loadingError = true;
+                });
+            };
+            $('#' + attrs.generateClick).click(function () {
+                $scope.generatePreview();
+            });
+        },
+        template: '<div calss="markdown_preview"><div data-ng-show="!loading"> <span class="markdown_preview" ng-bind-html="preview" data-ng-show="!loadingError"></span> <div class="alert alert-danger" role="alert" data-ng-show="loadingError"> <strong>Oops!</strong> There was an error while trying to generate your preview. </div> </div> <div data-ng-show="loading"> <p>Loading...</p> </div></div>'
+    };
+});
+
 controllers.MentorSearchController = function($scope, $http) {
     $scope.mentors = [];
     $scope.loadingError = false;
@@ -69,28 +99,6 @@ controllers.ApprenticeSearchController = function($scope, $http) {
         });
 
     console.log($scope.mentors);
-};
-
-controllers.MessageMarkdownController = function($scope, $http, $sce) {
-    $scope.raw_body = $('#reply_body').val();
-    $scope.preview = '';
-    $scope.loadingError = false;
-    $scope.loading = false;
-
-    $scope.generatePreview = function() {
-        $scope.loading = true;
-        $http.post('/api/v0/to-markdown', { raw: $scope.raw_body }).success(function (data) {
-            $scope.loading = false;
-            if (!("markdown" in data)) {
-                $scope.loadingError = true;
-            } else {
-                $scope.preview = $sce.trustAsHtml(data.markdown);
-            }
-        }).error(function (data, status, headers, config) {
-            $scope.loading = false;
-            $scope.loadingError = true;
-        });
-    };
 };
 
 mentoringApp.controller(controllers);

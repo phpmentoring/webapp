@@ -77,6 +77,14 @@ class ApiController
                 ['Content-Type' => 'application/json']
             );
         }
+    }
 
+    public function toMarkdown(Application $app, Request $request)
+    {
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        $markdown = $app['conversation.markdown_converter']->convert($input['raw']);
+
+        return new Response(json_encode(['markdown' => $markdown]), 200, ['Content-Type' => 'application/json']);
     }
 }
