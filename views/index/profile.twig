@@ -30,7 +30,7 @@
     <div class="col-lg-9">
     <h1>{{ viewing_user.name }}</h1>
     <p>{{ viewing_user.profile }}</p>
-    {% if message_form %}
+    {% if message_form and not viewing_yourself %}
         <h3>Send a message to {{ viewing_user.name }}</h3>
         {{ form(message_form) }}
     {% endif %}
