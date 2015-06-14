@@ -7,7 +7,8 @@ use Mentoring\Controller\ConversationController;
 use Mentoring\Controller\IndexController;
 use Mentoring\Conversation\ConversationRepository;
 use Mentoring\Conversation\ConversationTwigExtension;
-use Mentoring\Conversation\MarkdownConverter;use Silex\Application;
+use Mentoring\Conversation\MarkdownConverter;
+use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Silex\ServiceProviderInterface;
 
