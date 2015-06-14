@@ -44,37 +44,23 @@
     {% endfor %}
 
     <hr/>
-    <div class="reply_form" data-ng-controller="MessageMarkdownController">
+    {{ form_start(message_form) }}
+    <div class="reply_form">
         <div role="tabpanel">
-
-          <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#reply_write" aria-controls="reply_write" role="tab" data-toggle="tab">Reply</a></li>
-            <li role="presentation"><a href="#reply_preview" aria-controls="reply_preview" role="tab" data-toggle="tab" data-ng-click="generatePreview()">Preview</a></li>
+            <li role="presentation"><a id="generate_markdown" href="#reply_preview" aria-controls="reply_preview" role="tab" data-toggle="tab">Preview</a></li>
           </ul>
-
-          <!-- Tab panes -->
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="reply_write" style="min-height: 500px;">
-                {{ form_start(message_form) }}
-                {{ form_row(message_form.body, { label: false, attr: { style: "min-height: 400px;", "ng-model": "raw_body" } }) }}
-                {{ form_row(message_form.submit) }}
-                {{ form_end(message_form) }}
-                {{ form(message_form) }}
+                {{ form_row(message_form.body, { label: false, attr: { style: "min-height: 500px;", } }) }}
             </div>
             <div role="tabpanel" class="tab-pane" id="reply_preview" style="min-height: 500px;">
-                <div data-ng-show="!loading">
-                    <span ng-bind-html="preview" data-ng-show="!loadingError"></span>
-                    <div class="alert alert-danger" role="alert" data-ng-show="loadingError">
-                        <strong>Oops!</strong> There was an error while trying to generate your preview.
-                    </div>
-                </div>
-                <div data-ng-show="loading">
-                    <p>Loading...</p>
-                </div>
+                <div data-markdown-preview data-raw-body="{{ message_form.body.vars.id }}" data-generate-click="generate_markdown"></div>
             </div>
           </div>
-
         </div>
     </div>
+    {{ form_row(message_form.submit) }}
+    {{ form_end(message_form) }}
 {% endblock %}

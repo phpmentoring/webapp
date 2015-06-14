@@ -32,7 +32,25 @@
     <p>{{ viewing_user.profile|markdown }}</p>
     {% if message_form %}
         <h3>Send a message to {{ viewing_user.name }}</h3>
-        {{ form(message_form) }}
+        {{ form_start(message_form) }}
+        {{ form_row(message_form.subject) }}
+        <div class="message_form">
+        <div role="tabpanel">
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#write_message" aria-controls="write_message" role="tab" data-toggle="tab">Write</a></li>
+            <li role="presentation"><a id="generate_markdown" href="#message_preview" aria-controls="message_preview" role="tab" data-toggle="tab">Preview</a></li>
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="write_message" style="min-height: 500px;">
+                   {{ form_row(message_form.body, { label: false, attr: { style: "min-height: 500px;", } }) }}
+            </div>
+            <div role="tabpanel" class="tab-pane" id="message_preview" style="min-height: 500px;">
+                <div data-markdown-preview data-raw-body="{{ message_form.body.vars.id }}" data-generate-click="generate_markdown"></div>
+            </div>
+          </div>
+        </div>
+    </div>
+    {{ form_end(message_form) }}
     {% endif %}
     </div>
     </div>
