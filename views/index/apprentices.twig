@@ -18,8 +18,8 @@
             <div class="panel-heading"><a href="/profile/{% verbatim %}{{ apprentice.id }}{% endverbatim %}">{% verbatim %}{{ apprentice.name }}{% endverbatim %}</a></div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-lg-3">
-                        <img src="{% verbatim %}{{ apprentice.imageUrl }}{% endverbatim %}?s=100"/>
+                    <div class="col-lg-2">
+                        <img src="{% verbatim %}{{ apprentice.imageUrl }}{% endverbatim %}?s=150" width="150" height="150" />
 
                         <div class="tags">
                             <span class="label label-primary" data-ng-repeat="tag in apprentice.apprenticeTags">
@@ -27,7 +27,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-lg-9" ng-bind-html="apprentice.profile_markdown | unsafe"></div>
+                    <div class="col-lg-10" ng-bind-html="apprentice.profile_markdown | unsafe"></div>
                 </div>
             </div>
         </div>
