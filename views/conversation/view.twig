@@ -21,7 +21,7 @@
 
     <div class="conversation_opening_message">
         <div class="message_body">
-            {{ conversation.firstMessage.body }}
+            {{ conversation.firstMessage.body|markdown }}
         </div>
     </div>
 
@@ -38,13 +38,29 @@
                     {% endif %}
             </div>
             <div class="message_body">
-                {{ message.body }}
+                {{ message.body|markdown }}
             </div>
         </div>
     {% endfor %}
 
     <hr/>
+    {{ form_start(message_form) }}
     <div class="reply_form">
-        {{ form(message_form) }}
+        <div role="tabpanel">
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#reply_write" aria-controls="reply_write" role="tab" data-toggle="tab">Reply</a></li>
+            <li role="presentation"><a id="generate_markdown" href="#reply_preview" aria-controls="reply_preview" role="tab" data-toggle="tab">Preview</a></li>
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="reply_write" style="min-height: 500px;">
+                {{ form_row(message_form.body, { label: false, attr: { style: "min-height: 500px;", } }) }}
+            </div>
+            <div role="tabpanel" class="tab-pane" id="reply_preview" style="min-height: 500px;">
+                <div data-markdown-preview data-raw-body="{{ message_form.body.vars.id }}" data-generate-click="generate_markdown"></div>
+            </div>
+          </div>
+        </div>
     </div>
+    {{ form_row(message_form.submit) }}
+    {{ form_end(message_form) }}
 {% endblock %}

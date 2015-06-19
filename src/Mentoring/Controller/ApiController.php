@@ -2,10 +2,11 @@
 
 namespace Mentoring\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Mentoring\Taxonomy\TermHydrator;
 use Mentoring\Taxonomy\VocabularyNotFoundException;
 use Silex\Application;
-use Symfony\Component\HttpFoundation\Response;
 
 class ApiController
 {
@@ -20,6 +21,7 @@ class ApiController
         $hydrator = $app['user.hydrator'];
         foreach ($mentees as $mentee) {
             $data = $hydrator->extract($mentee);
+            $data['profile_markdown'] = $app['conversation.markdown_converter']->convert($data['profile']);
             $responseData[] = $data;
         }
 
@@ -37,6 +39,7 @@ class ApiController
         $hydrator = $app['user.hydrator'];
         foreach ($mentors as $mentor) {
             $data = $hydrator->extract($mentor);
+            $data['profile_markdown'] = $app['conversation.markdown_converter']->convert($data['profile']);
             $responseData[] = $data;
         }
 
@@ -76,6 +79,14 @@ class ApiController
                 ['Content-Type' => 'application/json']
             );
         }
+    }
 
+    public function toMarkdown(Application $app, Request $request)
+    {
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        $markdown = $app['conversation.markdown_converter']->convert($input['raw']);
+
+        return new Response(json_encode(['markdown' => $markdown]), 200, ['Content-Type' => 'application/json']);
     }
 }

@@ -11,7 +11,22 @@
     {{ form_row(profile_form.mentorTags, { label: 'I want to mentor on the following topics' }) }}
     {{ form_row(profile_form.isMentee, { label: 'I want to be an apprentice' }) }}
     {{ form_row(profile_form.apprenticeTags, { label: 'I want to learn about the following topics' }) }}
-    {{ form_row(profile_form.profile, { help: 'Introduce yourself and tell us about your goals and expectations', attr: { style: 'height: 200px' } }) }}
+    <div class="profile_text">
+        <div role="tabpanel">
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#profile_text" aria-controls="profile_text" role="tab" data-toggle="tab">Write</a></li>
+            <li role="presentation"><a id="generate_markdown" href="#markdown_preview" aria-controls="markdown_preview" role="tab" data-toggle="tab">Preview</a></li>
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="profile_text" style="min-height: 500px;">
+                {{ form_row(profile_form.profile, { label: false, help: 'Introduce yourself and tell us about your goals and expectations', attr: { style: 'height: 500px' } }) }}
+            </div>
+            <div role="tabpanel" class="tab-pane" id="markdown_preview" style="min-height: 500px;">
+                <div data-markdown-preview data-raw-body="{{ profile_form.profile.vars.id }}" data-generate-click="generate_markdown"></div>
+            </div>
+          </div>
+        </div>
+    </div>
     {{ form_row(profile_form.save, { label: 'Save Profile' }) }}
     {{ form_rest(profile_form) }}
 {% endblock %}
