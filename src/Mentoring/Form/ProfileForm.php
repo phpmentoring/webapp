@@ -14,7 +14,6 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Mentoring\User\CountryService;
 
-
 class ProfileForm extends AbstractType
 {
     protected $taxonomyService;
@@ -64,8 +63,8 @@ class ProfileForm extends AbstractType
 
         $builder
             ->add('name', 'text', ['constraints' => new NotBlank()])
-            ->add('country', 'country', ['constraints' => new NotBlank(), 'placeholder' => 'Please choose a country'])
-            ->add('city', 'text', ['constraints' => new NotBlank()])
+            ->add('country', 'country', ['required' => false, 'placeholder' => 'Please choose a country'])
+            ->add('city', 'text', ['required' => false])
             ->add('email', 'email', [
             'constraints' => [new Email()],
             ])
@@ -87,6 +86,7 @@ class ProfileForm extends AbstractType
             $states = null === $country ? array() : $this->countryService->fetchStatesNameByCountry($country);
             $form->add('state', 'choice', array(
                 'choices'     => $states,
+                'required' => false,
                 'placeholder' => $country ? null : 'Please choose a state'
             ));
         };

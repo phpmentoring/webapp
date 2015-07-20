@@ -68,8 +68,8 @@ class CountriesAndCities extends AbstractMigration
 
     private function populateCountries()
     {
-        $json_data = file_get_contents(__DIR__.'/../fixtures/countries/countries.json');
-        $result = json_decode($json_data, true);
+        $json_data  = file_get_contents(__DIR__.'/../fixtures/countries/countries.json');
+        $result     = json_decode($json_data, true);
         foreach($result as $country) {
             $countryName = $country['name'];
             $countryIso  = $country['code'];
@@ -79,18 +79,18 @@ class CountriesAndCities extends AbstractMigration
 
     private function populateStates()
     {
-        $directory = __DIR__.'/../fixtures/states';
-        $files = array_diff(scandir($directory), array('..', '.'));
+        $directory      = __DIR__.'/../fixtures/states/';
+        $files          = array_diff(scandir($directory), array('..', '.'));
         foreach($files as $stateInfo){
-            $json_data = file_get_contents(__DIR__.'/../fixtures/states/'.$stateInfo);
-            $result = json_decode($json_data, true);
+            $json_data  = file_get_contents($directory.$stateInfo);
+            $result     = json_decode($json_data, true);
             if($result){
                 $countryCode  = null;
                 foreach($result as $state) {
                     if(!$countryCode){
                         $countryCode = substr($state['code'],0,2);
                     }
-                    $stateName  = $state['name'];
+                    $stateName  = utf8_encode($state['name']);
                     $stateIso   = $state['code'];
                     $this->execute("INSERT INTO states (country_iso,name,iso) VALUES ('".$countryCode."','".$stateName."','".$stateIso."')");
                 }

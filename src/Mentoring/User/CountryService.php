@@ -21,7 +21,10 @@ class CountryService
      */
     public function fetchStatesNameByCountry($countryIso)
     {
-        $data = $this->dbal->fetchAll('SELECT name,iso FROM states WHERE country_iso = :country_iso', ['country_iso' => $countryIso]);
+        $data = $this->dbal->fetchAll(
+            'SELECT name,iso FROM states WHERE country_iso = :country_iso',
+            ['country_iso' => $countryIso]
+        );
 
         $states = [];
         foreach ($data as $stateData) {
@@ -29,5 +32,4 @@ class CountryService
         }
         return $states;
     }
-
 }

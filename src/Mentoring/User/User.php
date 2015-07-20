@@ -191,15 +191,15 @@ class User
     public function getLocation()
     {
         $location = [];
-        if($this->getCity()){
+        if ($this->getCity()) {
             $location[] = $this->getCity();
         }
-        if($this->getState()){
+        if ($this->getState()) {
             $location[] = $this->getState();
         }
-        if($this->getCountry()){
+        if ($this->getCountry()) {
             $location[] = $this->getCountry();
         }
-        return implode(', ',$location);
+        return implode(', ', $location);
     }
 }

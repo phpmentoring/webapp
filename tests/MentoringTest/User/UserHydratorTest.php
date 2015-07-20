@@ -18,7 +18,7 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
             'email' => 'test@test.com',
             'githubUid' => '1234',
             'country' => 'US',
-            'state' => 'US-WA',
+            'state' => 'Washington',
             'city' => 'Seattle',
             'id' => 1,
             'name' => 'Mr. McTest',
