@@ -44,6 +44,8 @@ $app->register(new Provider\SwiftmailerServiceProvider(), [
     'swiftmailer.use_spool' => false
 ]);
 
+$app->register(new Mentoring\ServiceProvider\MailerServiceProvider());
+
 $app->register(new Provider\FormServiceProvider());
 $app['form.type.extensions'] = $app->share($app->extend('form.type.extensions', function ($extensions) use ($app) {
     $extensions[] = new \Mentoring\Form\Extension\MentoringFormTypeExtension();
