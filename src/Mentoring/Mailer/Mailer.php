@@ -19,10 +19,26 @@ class Mailer
 
     public function sendNotificationForNewMessage(Conversation $conversation, Message $message)
     {
-        $this->sendEmail($conversation->withUser($message->getFromUser()), 'You recieved a new message', 'email/new-message.twig', [
-            'message_from' => $message->getFromUser()->getName(),
-            'message_link' => $this->urlGenerator->generate('conversation.view', ['conversation_id' => $conversation->getId()], UrlGeneratorInterface::ABSOLUTE_URL)
-        ]);
+        $send_to = $conversation->withUser($message->getFromUser());
+
+        if (!$send_to->hasSendNotifications()) {
+            // dont send if the user unchecked the "notify" setting on the profile form
+            return;
+        }
+
+        $this->sendEmail(
+            $send_to,
+            'You recieved a new message',
+            'email/new-message.twig',
+            [
+                'message_from' => $message->getFromUser()->getName(),
+                'message_link' => $this->urlGenerator->generate(
+                    'conversation.view',
+                    ['conversation_id' => $conversation->getId()],
+                    UrlGeneratorInterface::ABSOLUTE_URL
+                )
+            ]
+        );
     }
 
     public function sendNotificationForNewConversation(Conversation $conversation)

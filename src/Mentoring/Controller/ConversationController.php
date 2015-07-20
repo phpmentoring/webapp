@@ -45,8 +45,11 @@ class ConversationController
         $form->handleRequest($request);
         if ($form->isValid()) {
             $form_data = $form->getData();
-            $conversation->addMessage(new Message($user, $form_data['body'], new \DateTime()));
+            $message = new Message($user, $form_data['body'], new \DateTime());
+            $conversation->addMessage($message);
             $conversationRepo->save($conversation);
+
+            $app['mentoring_mailer']->sendNotificationForNewMessage($conversation, $message);
 
             return $app->redirect(
                 $app['url_generator']->generate('conversation.view', ['conversation_id' => $conversation->getId()])
@@ -73,6 +76,8 @@ class ConversationController
             }
             $conversation = Conversation::startNew($user, $to_user, $form_data['subject'], $form_data['body']);
             $app['conversation_repository']->save($conversation);
+
+            $app['mentoring_mailer']->sendNotificationForNewConversation($conversation);
 
             return $app->redirect(
                 $app['url_generator']->generate('conversation.view', ['conversation_id' => $conversation->getId()])
