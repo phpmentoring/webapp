@@ -8,7 +8,8 @@ use Mentoring\Controller\IndexController;
 use Mentoring\Conversation\ConversationRepository;
 use Mentoring\Conversation\ConversationTwigExtension;
 use Mentoring\Conversation\MarkdownConverter;
-use Mentoring\Mailer\Mailer;use Silex\Application;
+use Mentoring\Mailer\Mailer;
+use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Silex\ServiceProviderInterface;
 
