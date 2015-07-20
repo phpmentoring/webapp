@@ -19,6 +19,7 @@ class User
     protected $mentorTags = [];
     protected $apprenticeTags = [];
     protected $profileImage = null;
+    protected $sendNotifications = true;
 
     public function addApprenticeTag(Term $term)
     {
@@ -153,5 +154,15 @@ class User
     public function getProfileImage()
     {
         return 'https://avatars0.githubusercontent.com/u/' . $this->githubUid;
+    }
+
+    public function setSendNotifications($sendNotifications)
+    {
+        $this->sendNotifications = (bool) $sendNotifications;
+    }
+
+    public function hasSendNotifications()
+    {
+        return $this->sendNotifications;
     }
 }
