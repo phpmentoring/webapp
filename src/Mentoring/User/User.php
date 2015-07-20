@@ -19,6 +19,9 @@ class User
     protected $mentorTags = [];
     protected $apprenticeTags = [];
     protected $profileImage = null;
+    protected $country = null;
+    protected $state = null;
+    protected $city = null;
 
     public function addApprenticeTag(Term $term)
     {
@@ -153,5 +156,50 @@ class User
     public function getProfileImage()
     {
         return 'https://avatars0.githubusercontent.com/u/' . $this->githubUid;
+    }
+
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    public function setState($state)
+    {
+        $this->state = $state;
+    }
+
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+
+    public function getLocation()
+    {
+        $location = [];
+        if($this->getCity()){
+            $location[] = $this->getCity();
+        }
+        if($this->getState()){
+            $location[] = $this->getState();
+        }
+        if($this->getCountry()){
+            $location[] = $this->getCountry();
+        }
+        return implode(', ',$location);
     }
 }

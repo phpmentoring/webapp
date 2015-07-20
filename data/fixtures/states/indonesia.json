@@ -1,0 +1,30 @@
+[
+	{
+		"name": "Jawa",
+		"code": "ID-JW"
+	},
+	{
+		"name": "Kalimantan",
+		"code": "ID-KA"
+	},
+	{
+		"name": "Maluku",
+		"code": "ID-ML"
+	},
+	{
+		"name": "Nusa Tenggara",
+		"code": "ID-NU"
+	},
+	{
+		"name": "Papua",
+		"code": "ID-PP"
+	},
+	{
+		"name": "Sulawesi",
+		"code": "ID-SL"
+	},
+	{
+		"name": "Sumatera",
+		"code": "ID-SM"
+	}
+]

@@ -10,10 +10,15 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Mentoring\Validator\Constraints\TagConstraint;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Mentoring\User\CountryService;
+
 
 class ProfileForm extends AbstractType
 {
     protected $taxonomyService;
+    protected $countryService;
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -35,9 +40,10 @@ class ProfileForm extends AbstractType
         ));
     }
 
-    public function __construct($taxonomyService)
+    public function __construct($taxonomyService, CountryService $countryService)
     {
         $this->taxonomyService = $taxonomyService;
+        $this->countryService = $countryService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -58,6 +64,8 @@ class ProfileForm extends AbstractType
 
         $builder
             ->add('name', 'text', ['constraints' => new NotBlank()])
+            ->add('country', 'country', ['constraints' => new NotBlank(), 'placeholder' => 'Please choose a country'])
+            ->add('city', 'text', ['constraints' => new NotBlank()])
             ->add('email', 'email', [
             'constraints' => [new Email()],
             ])
@@ -74,6 +82,30 @@ class ProfileForm extends AbstractType
             ])
             ->add('save', 'submit')
         ;
+
+        $formModifier = function (FormInterface $form, $country = null) {
+            $states = null === $country ? array() : $this->countryService->fetchStatesNameByCountry($country);
+            $form->add('state', 'choice', array(
+                'choices'     => $states,
+                'placeholder' => $country ? null : 'Please choose a state'
+            ));
+        };
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+                $data = $event->getData();
+                $formModifier($event->getForm(), $data->getCountry());
+            }
+        );
+
+        $builder->get('country')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                $country = $event->getForm()->getData();
+                $formModifier($event->getForm()->getParent(), $country);
+            }
+        );
     }
 
     public function getName()

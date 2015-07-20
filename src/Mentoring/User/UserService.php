@@ -57,6 +57,7 @@ class UserService
         unset($data['mentorTags']);
         unset($data['apprenticeTags']);
         unset($data['imageUrl']);
+        unset($data['location']);
 
         if (empty($data['id'])) {
             $this->dbal->insert('users', $data);

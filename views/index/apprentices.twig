@@ -3,10 +3,11 @@
     <h1>PHP Apprentices</h1>
 
     <div data-ng-controller="ApprenticeSearchController">
-        <p>Type in a tag to search for an apprentice. Right now this only supports one tag.</p>
+        <p>Type in a tag or location to search for an apprentice. Right now this only supports one tag.</p>
         <form>
             <div class="input-group">
                 <label for="name">Subject:</label> <input type="text" name="name" data-ng-model="name">
+                <label for="country-filter">Location: <input id="country-filter" ng-model="search.location"></label><br>
             </div>
         </form>
 
@@ -14,8 +15,13 @@
             <strong>Oops!</strong> We couldn't load the mentors. Try again later, or ping us on Twitter!
         </div>
 
-        <div class="panel panel-default" data-ng-repeat="apprentice in apprentices | apprenticeTags:name | orderBy :apprentice.name">
-            <div class="panel-heading"><a href="/profile/{% verbatim %}{{ apprentice.id }}{% endverbatim %}">{% verbatim %}{{ apprentice.name }}{% endverbatim %}</a></div>
+        <div class="panel panel-default" data-ng-repeat="apprentice in apprentices | apprenticeTags:name | filter:search | orderBy :apprentice.name">
+            <div class="panel-heading">
+                <a href="/profile/{% verbatim %}{{ apprentice.id }}{% endverbatim %}">{% verbatim %}{{ apprentice.name }}{% endverbatim %}</a>
+                <div class="location">
+                    {% verbatim %}{{ apprentice.location }}{% endverbatim %}
+                </div>
+            </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-2">

@@ -6,6 +6,17 @@
     {{ form_start(profile_form) }}
     {{ form_row(profile_form.name) }}
     {{ form_row(profile_form.email) }}
+    <div class="row">
+        <div class="col-xs-6 col-md-3">
+            {{ form_row(profile_form.country) }}
+        </div>
+        <div class="col-xs-6 col-md-3">
+            {{ form_row(profile_form.state) }}
+        </div>
+        <div class="col-xs-6 col-md-3">
+            {{ form_row(profile_form.city) }}
+        </div>
+    </div>
     <strong>A mentor, an apprentice, or both?</strong>
     {{ form_row(profile_form.isMentor, { label: 'I want to be a mentor' }) }}
     {{ form_row(profile_form.mentorTags, { label: 'I want to mentor on the following topics' }) }}
@@ -29,4 +40,10 @@
     </div>
     {{ form_row(profile_form.save, { label: 'Save Profile' }) }}
     {{ form_rest(profile_form) }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ app.request.baseUrl }}/js/profile.js"></script>
+
 {% endblock %}

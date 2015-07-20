@@ -38,6 +38,10 @@ class UserHydrator
             'apprenticeTags' => $object->getApprenticeTags(),
             'mentorTags' => $object->getMentorTags(),
             'imageUrl'   => $object->getProfileImage(),
+            'country'   => $object->getCountry(),
+            'state'   => $object->getState(),
+            'city'   => $object->getCity(),
+            'location'   => $object->getLocation(),
         ];
 
         if (!is_null($this->termHydrator)) {
@@ -78,6 +82,17 @@ class UserHydrator
         $object->setEmail($data['email']);
         $object->setName($data['name']);
 
+        if (isset($data['country'])) {
+            $object->setCountry($data['country']);
+        }
+
+        if (isset($data['state'])) {
+            $object->setState($data['state']);
+        }
+
+        if (isset($data['city'])) {
+            $object->setCity($data['city']);
+        }
 
         $object->setIsMentee($data['isMentee']);
         $object->setIsMentor($data['isMentor']);

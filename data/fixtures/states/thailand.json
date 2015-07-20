@@ -1,0 +1,314 @@
+[
+	{
+		"name": "Amnat Charoen",
+		"code": "TH-37"
+	},
+	{
+		"name": "Ang Thong",
+		"code": "TH-15"
+	},
+	{
+		"name": "Bueng Kan",
+		"code": "TH-38"
+	},
+	{
+		"name": "Buri Ram",
+		"code": "TH-31"
+	},
+	{
+		"name": "Chachoengsao",
+		"code": "TH-24"
+	},
+	{
+		"name": "Chai Nat",
+		"code": "TH-18"
+	},
+	{
+		"name": "Chaiyaphum",
+		"code": "TH-36"
+	},
+	{
+		"name": "Chanthaburi",
+		"code": "TH-22"
+	},
+	{
+		"name": "Chiang Mai",
+		"code": "TH-50"
+	},
+	{
+		"name": "Chiang Rai",
+		"code": "TH-57"
+	},
+	{
+		"name": "Chon Buri",
+		"code": "TH-20"
+	},
+	{
+		"name": "Chumphon",
+		"code": "TH-86"
+	},
+	{
+		"name": "Kalasin",
+		"code": "TH-46"
+	},
+	{
+		"name": "Kamphaeng Phet",
+		"code": "TH-62"
+	},
+	{
+		"name": "Kanchanaburi",
+		"code": "TH-71"
+	},
+	{
+		"name": "Khon Kaen",
+		"code": "TH-40"
+	},
+	{
+		"name": "Krabi",
+		"code": "TH-81"
+	},
+	{
+		"name": "Krung Thep Maha Nakhon",
+		"code": "TH-10"
+	},
+	{
+		"name": "Lampang",
+		"code": "TH-52"
+	},
+	{
+		"name": "Lamphun",
+		"code": "TH-51"
+	},
+	{
+		"name": "Loei",
+		"code": "TH-42"
+	},
+	{
+		"name": "Lop Buri",
+		"code": "TH-16"
+	},
+	{
+		"name": "Mae Hong Son",
+		"code": "TH-58"
+	},
+	{
+		"name": "Maha Sarakham",
+		"code": "TH-44"
+	},
+	{
+		"name": "Mukdahan",
+		"code": "TH-49"
+	},
+	{
+		"name": "Nakhon Nayok",
+		"code": "TH-26"
+	},
+	{
+		"name": "Nakhon Pathom",
+		"code": "TH-73"
+	},
+	{
+		"name": "Nakhon Phanom",
+		"code": "TH-48"
+	},
+	{
+		"name": "Nakhon Ratchasima",
+		"code": "TH-30"
+	},
+	{
+		"name": "Nakhon Sawan",
+		"code": "TH-60"
+	},
+	{
+		"name": "Nakhon Si Thammarat",
+		"code": "TH-80"
+	},
+	{
+		"name": "Nan",
+		"code": "TH-55"
+	},
+	{
+		"name": "Narathiwat",
+		"code": "TH-96"
+	},
+	{
+		"name": "Nong Bua Lam Phu",
+		"code": "TH-39"
+	},
+	{
+		"name": "Nong Khai",
+		"code": "TH-43"
+	},
+	{
+		"name": "Nonthaburi",
+		"code": "TH-12"
+	},
+	{
+		"name": "Pathum Thani",
+		"code": "TH-13"
+	},
+	{
+		"name": "Pattani",
+		"code": "TH-94"
+	},
+	{
+		"name": "Phangnga",
+		"code": "TH-82"
+	},
+	{
+		"name": "Phatthalung",
+		"code": "TH-93"
+	},
+	{
+		"name": "Phatthaya",
+		"code": "TH-S"
+	},
+	{
+		"name": "Phayao",
+		"code": "TH-56"
+	},
+	{
+		"name": "Phetchabun",
+		"code": "TH-67"
+	},
+	{
+		"name": "Phetchaburi",
+		"code": "TH-76"
+	},
+	{
+		"name": "Phichit",
+		"code": "TH-66"
+	},
+	{
+		"name": "Phitsanulok",
+		"code": "TH-65"
+	},
+	{
+		"name": "Phra Nakhon Si Ayutthaya",
+		"code": "TH-14"
+	},
+	{
+		"name": "Phrae",
+		"code": "TH-54"
+	},
+	{
+		"name": "Phuket",
+		"code": "TH-83"
+	},
+	{
+		"name": "Prachin Buri",
+		"code": "TH-25"
+	},
+	{
+		"name": "Prachuap Khiri Khan",
+		"code": "TH-77"
+	},
+	{
+		"name": "Ranong",
+		"code": "TH-85"
+	},
+	{
+		"name": "Ratchaburi",
+		"code": "TH-70"
+	},
+	{
+		"name": "Rayong",
+		"code": "TH-21"
+	},
+	{
+		"name": "Roi Et",
+		"code": "TH-45"
+	},
+	{
+		"name": "Sa Kaeo",
+		"code": "TH-27"
+	},
+	{
+		"name": "Sakon Nakhon",
+		"code": "TH-47"
+	},
+	{
+		"name": "Samut Prakan",
+		"code": "TH-11"
+	},
+	{
+		"name": "Samut Sakhon",
+		"code": "TH-74"
+	},
+	{
+		"name": "Samut Songkhram",
+		"code": "TH-75"
+	},
+	{
+		"name": "Saraburi",
+		"code": "TH-19"
+	},
+	{
+		"name": "Satun",
+		"code": "TH-91"
+	},
+	{
+		"name": "Si Sa Ket",
+		"code": "TH-33"
+	},
+	{
+		"name": "Sing Buri",
+		"code": "TH-17"
+	},
+	{
+		"name": "Songkhla",
+		"code": "TH-90"
+	},
+	{
+		"name": "Sukhothai",
+		"code": "TH-64"
+	},
+	{
+		"name": "Suphan Buri",
+		"code": "TH-72"
+	},
+	{
+		"name": "Surat Thani",
+		"code": "TH-84"
+	},
+	{
+		"name": "Surin",
+		"code": "TH-32"
+	},
+	{
+		"name": "Tak",
+		"code": "TH-63"
+	},
+	{
+		"name": "Trang",
+		"code": "TH-92"
+	},
+	{
+		"name": "Trat",
+		"code": "TH-23"
+	},
+	{
+		"name": "Ubon Ratchathani",
+		"code": "TH-34"
+	},
+	{
+		"name": "Udon Thani",
+		"code": "TH-41"
+	},
+	{
+		"name": "Uthai Thani",
+		"code": "TH-61"
+	},
+	{
+		"name": "Uttaradit",
+		"code": "TH-53"
+	},
+	{
+		"name": "Yala",
+		"code": "TH-95"
+	},
+	{
+		"name": "Yasothon",
+		"code": "TH-35"
+	}
+]

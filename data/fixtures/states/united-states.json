@@ -1,0 +1,287 @@
+[
+	{
+		"name": "District of Columbia",
+		"code": "US-DC",
+		"subdivision": "district"
+	},
+	{
+		"name": "American Samoa",
+		"code": "US-AS",
+		"subdivision": "outlying territory"
+	},
+	{
+		"name": "Guam",
+		"code": "US-GU",
+		"subdivision": "outlying territory"
+	},
+	{
+		"name": "Northern Mariana Islands",
+		"code": "US-MP",
+		"subdivision": "outlying territory"
+	},
+	{
+		"name": "Puerto Rico",
+		"code": "US-PR",
+		"subdivision": "outlying territory"
+	},
+	{
+		"name": "United States Minor Outlying Islands",
+		"code": "US-UM",
+		"subdivision": "outlying territory"
+	},
+	{
+		"name": "Virgin Islands, U.S.",
+		"code": "US-VI",
+		"subdivision": "outlying territory"
+	},
+	{
+		"name": "Alabama",
+		"code": "US-AL",
+		"subdivision": "state"
+	},
+	{
+		"name": "Alaska",
+		"code": "US-AK",
+		"subdivision": "state"
+	},
+	{
+		"name": "Arizona",
+		"code": "US-AZ",
+		"subdivision": "state"
+	},
+	{
+		"name": "Arkansas",
+		"code": "US-AR",
+		"subdivision": "state"
+	},
+	{
+		"name": "California",
+		"code": "US-CA",
+		"subdivision": "state"
+	},
+	{
+		"name": "Colorado",
+		"code": "US-CO",
+		"subdivision": "state"
+	},
+	{
+		"name": "Connecticut",
+		"code": "US-CT",
+		"subdivision": "state"
+	},
+	{
+		"name": "Delaware",
+		"code": "US-DE",
+		"subdivision": "state"
+	},
+	{
+		"name": "Florida",
+		"code": "US-FL",
+		"subdivision": "state"
+	},
+	{
+		"name": "Georgia",
+		"code": "US-GA",
+		"subdivision": "state"
+	},
+	{
+		"name": "Hawaii",
+		"code": "US-HI",
+		"subdivision": "state"
+	},
+	{
+		"name": "Idaho",
+		"code": "US-ID",
+		"subdivision": "state"
+	},
+	{
+		"name": "Illinois",
+		"code": "US-IL",
+		"subdivision": "state"
+	},
+	{
+		"name": "Indiana",
+		"code": "US-IN",
+		"subdivision": "state"
+	},
+	{
+		"name": "Iowa",
+		"code": "US-IA",
+		"subdivision": "state"
+	},
+	{
+		"name": "Kansas",
+		"code": "US-KS",
+		"subdivision": "state"
+	},
+	{
+		"name": "Kentucky",
+		"code": "US-KY",
+		"subdivision": "state"
+	},
+	{
+		"name": "Louisiana",
+		"code": "US-LA",
+		"subdivision": "state"
+	},
+	{
+		"name": "Maine",
+		"code": "US-ME",
+		"subdivision": "state"
+	},
+	{
+		"name": "Maryland",
+		"code": "US-MD",
+		"subdivision": "state"
+	},
+	{
+		"name": "Massachusetts",
+		"code": "US-MA",
+		"subdivision": "state"
+	},
+	{
+		"name": "Michigan",
+		"code": "US-MI",
+		"subdivision": "state"
+	},
+	{
+		"name": "Minnesota",
+		"code": "US-MN",
+		"subdivision": "state"
+	},
+	{
+		"name": "Mississippi",
+		"code": "US-MS",
+		"subdivision": "state"
+	},
+	{
+		"name": "Missouri",
+		"code": "US-MO",
+		"subdivision": "state"
+	},
+	{
+		"name": "Montana",
+		"code": "US-MT",
+		"subdivision": "state"
+	},
+	{
+		"name": "Nebraska",
+		"code": "US-NE",
+		"subdivision": "state"
+	},
+	{
+		"name": "Nevada",
+		"code": "US-NV",
+		"subdivision": "state"
+	},
+	{
+		"name": "New Hampshire",
+		"code": "US-NH",
+		"subdivision": "state"
+	},
+	{
+		"name": "New Jersey",
+		"code": "US-NJ",
+		"subdivision": "state"
+	},
+	{
+		"name": "New Mexico",
+		"code": "US-NM",
+		"subdivision": "state"
+	},
+	{
+		"name": "New York",
+		"code": "US-NY",
+		"subdivision": "state"
+	},
+	{
+		"name": "North Carolina",
+		"code": "US-NC",
+		"subdivision": "state"
+	},
+	{
+		"name": "North Dakota",
+		"code": "US-ND",
+		"subdivision": "state"
+	},
+	{
+		"name": "Ohio",
+		"code": "US-OH",
+		"subdivision": "state"
+	},
+	{
+		"name": "Oklahoma",
+		"code": "US-OK",
+		"subdivision": "state"
+	},
+	{
+		"name": "Oregon",
+		"code": "US-OR",
+		"subdivision": "state"
+	},
+	{
+		"name": "Pennsylvania",
+		"code": "US-PA",
+		"subdivision": "state"
+	},
+	{
+		"name": "Rhode Island",
+		"code": "US-RI",
+		"subdivision": "state"
+	},
+	{
+		"name": "South Carolina",
+		"code": "US-SC",
+		"subdivision": "state"
+	},
+	{
+		"name": "South Dakota",
+		"code": "US-SD",
+		"subdivision": "state"
+	},
+	{
+		"name": "Tennessee",
+		"code": "US-TN",
+		"subdivision": "state"
+	},
+	{
+		"name": "Texas",
+		"code": "US-TX",
+		"subdivision": "state"
+	},
+	{
+		"name": "Utah",
+		"code": "US-UT",
+		"subdivision": "state"
+	},
+	{
+		"name": "Vermont",
+		"code": "US-VT",
+		"subdivision": "state"
+	},
+	{
+		"name": "Virginia",
+		"code": "US-VA",
+		"subdivision": "state"
+	},
+	{
+		"name": "Washington",
+		"code": "US-WA",
+		"subdivision": "state"
+	},
+	{
+		"name": "West Virginia",
+		"code": "US-WV",
+		"subdivision": "state"
+	},
+	{
+		"name": "Wisconsin",
+		"code": "US-WI",
+		"subdivision": "state"
+	},
+	{
+		"name": "Wyoming",
+		"code": "US-WY",
+		"subdivision": "state"
+	}
+]
