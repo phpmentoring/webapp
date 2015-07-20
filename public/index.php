@@ -33,7 +33,16 @@ $app['debug'] = true;
 $app->register(new Provider\SessionServiceProvider());
 $app->register(new Provider\ServiceControllerServiceProvider());
 $app->register(new Provider\UrlGeneratorServiceProvider());
-$app->register(new Provider\SwiftmailerServiceProvider());
+
+$app->register(new Provider\SwiftmailerServiceProvider(), [
+    'swiftmailer.options' => [
+        'host' => getenv('MAIL_HOST') ?: 'localhost',
+        'port' => getenv('MAIL_PORT') ?: 25,
+        'username' => getenv('MAIL_USERNAME') ?: '',
+        'password' => getenv('MAIL_PASSWORD') ?: '',
+    ],
+    'swiftmailer.use_spool' => false
+]);
 
 $app->register(new Provider\FormServiceProvider());
 $app['form.type.extensions'] = $app->share($app->extend('form.type.extensions', function ($extensions) use ($app) {
@@ -43,22 +52,22 @@ $app['form.type.extensions'] = $app->share($app->extend('form.type.extensions', 
 }));
 
 $app->register(new Provider\ValidatorServiceProvider());
-$app->register(new Provider\TranslationServiceProvider(), array(
+$app->register(new Provider\TranslationServiceProvider(), [
     'locale_fallbacks' => array('en')
-));
+]);
 
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
+$app->register(new Silex\Provider\TwigServiceProvider(), [
     'twig.path' => __DIR__ . '/../views',
     'twig.form.templates' => ['form/fields.twig']
-));
+]);
 
-$app->register(new Silex\Provider\MonologServiceProvider(), array(
+$app->register(new Silex\Provider\MonologServiceProvider(), [
     'monolog.logfile' => __DIR__ . '/../data/logs/development.log',
-));
+]);
 
-$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
+$app->register(new Silex\Provider\DoctrineServiceProvider(), [
     'db.options' => $dbOptions
-));
+]);
 
 $taxonomyServiceProvider = new \Mentoring\ServiceProvider\TaxonomyServiceProvider();
 $app->register($taxonomyServiceProvider);

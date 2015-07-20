@@ -13,6 +13,9 @@ vagrantfile-local:
                 lGmEQvS9434L:
                     host: '8080'
                     guest: '80'
+                JakjKJkk333r:
+                    host: '1080'
+                    guest: '1080'
                 A0D5w6UwEnrX:
                     host: '7512'
                     guest: '3306'
