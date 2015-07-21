@@ -27,14 +27,6 @@ class CountriesAndCities extends AbstractMigration
         $states->create();
         $states->addForeignKey('country_iso', 'countries', 'iso', array('delete'=> 'SET_NULL', 'update'=> 'NO_ACTION'));
 
-        $cities = $this->table('cities');
-        $cities->addColumn('name', 'string');
-        $cities->addColumn('state_id', 'integer');
-        $cities->addIndex(['id'], ['unique' => true]);
-        $cities->addIndex(['name']);
-        $cities->create();
-        $cities->addForeignKey('state_id', 'states', 'id', array('delete'=> 'SET_NULL', 'update'=> 'NO_ACTION'));
-
         $this->populateCountries();
         $this->populateStates();
 
@@ -60,7 +52,6 @@ class CountriesAndCities extends AbstractMigration
         $users->removeColumn('city');
         $users->update();
 
-        $this->dropTable('cities');
         $this->dropTable('states');
         $this->dropTable('countries');
     }
