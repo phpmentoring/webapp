@@ -24,6 +24,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
             'enabled' => true,
             'isMentee' => true,
             'isMentor' => false,
+            'country' => 'US',
+            'state' => 'Washington',
+            'city' => 'Seattle',
         ];
 
         $user = new User();
@@ -36,6 +39,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $user->setIsEnabled($testData['enabled']);
         $user->setIsMentee($testData['isMentee']);
         $user->setIsMentor($testData['isMentor']);
+        $user->setCity($testData['city']);
+        $user->setState($testData['state']);
+        $user->setCountry($testData['country']);
 
         $this->assertEquals($testData['email'], $user->getEmail());
         $this->assertEquals($testData['githubUid'], $user->getGithubUid());
@@ -46,5 +52,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($testData['enabled'], $user->isEnabled());
         $this->assertEquals($testData['isMentee'], $user->isMentee());
         $this->assertEquals($testData['isMentor'], $user->isMentor());
+        $this->assertEquals($testData['city'], $user->getCity());
+        $this->assertEquals($testData['state'], $user->getState());
+        $this->assertEquals($testData['country'], $user->getCountry());
     }
 }

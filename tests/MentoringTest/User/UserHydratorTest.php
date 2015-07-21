@@ -17,6 +17,9 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
         return [
             'email' => 'test@test.com',
             'githubUid' => '1234',
+            'country' => 'US',
+            'state' => 'Washington',
+            'city' => 'Seattle',
             'id' => 1,
             'name' => 'Mr. McTest',
             'roles' => ['ROLE_USER'],
@@ -37,6 +40,9 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
         $user->setGithubUid($testData['githubUid']);
         $user->setId($testData['id']);
         $user->setName($testData['name']);
+        $user->setCountry($testData['country']);
+        $user->setState($testData['state']);
+        $user->setCity($testData['city']);
         $user->setRoles($testData['roles']);
         $user->setTimeCreated($testData['timeCreated']);
         $user->setIsEnabled($testData['isEnabled']);
@@ -65,6 +71,9 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($testData['githubUid'], $user->getGithubUid());
         $this->assertEquals($testData['id'], $user->getId());
         $this->assertEquals($testData['name'], $user->getName());
+        $this->assertEquals($testData['country'], $user->getCountry());
+        $this->assertEquals($testData['state'], $user->getState());
+        $this->assertEquals($testData['city'], $user->getCity());
         $this->assertEquals($testData['roles'], $user->getRoles());
         $this->assertEquals($testData['timeCreated'], $user->getTimeCreated());
         $this->assertEquals($testData['isEnabled'], $user->isEnabled());

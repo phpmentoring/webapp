@@ -7,6 +7,7 @@ use Mentoring\Controller\IndexController;
 use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Silex\ServiceProviderInterface;
+use Mentoring\User\CountryService;
 
 class AccountServiceProvider implements ServiceProviderInterface, ControllerProviderInterface
 {
@@ -35,5 +36,9 @@ class AccountServiceProvider implements ServiceProviderInterface, ControllerProv
                 return new AccountController();
             }
         );
+
+        $app['country.manager'] = function () use ($app) {
+            return new CountryService($app['db']);
+        };
     }
 }

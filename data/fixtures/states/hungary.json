@@ -1,0 +1,174 @@
+[
+	{
+		"name": "Baranya",
+		"code": "HU-BA"
+	},
+	{
+		"name": "Borsod-Abaúj-Zemplén",
+		"code": "HU-BZ"
+	},
+	{
+		"name": "Budapest",
+		"code": "HU-BU"
+	},
+	{
+		"name": "Bács-Kiskun",
+		"code": "HU-BK"
+	},
+	{
+		"name": "Békés",
+		"code": "HU-BE"
+	},
+	{
+		"name": "Békéscsaba",
+		"code": "HU-BC"
+	},
+	{
+		"name": "Csongrád",
+		"code": "HU-CS"
+	},
+	{
+		"name": "Debrecen",
+		"code": "HU-DE"
+	},
+	{
+		"name": "Dunaújváros",
+		"code": "HU-DU"
+	},
+	{
+		"name": "Eger",
+		"code": "HU-EG"
+	},
+	{
+		"name": "Fejér",
+		"code": "HU-FE"
+	},
+	{
+		"name": "Győr",
+		"code": "HU-GY"
+	},
+	{
+		"name": "Győr-Moson-Sopron",
+		"code": "HU-GS"
+	},
+	{
+		"name": "Hajdú-Bihar",
+		"code": "HU-HB"
+	},
+	{
+		"name": "Heves",
+		"code": "HU-HE"
+	},
+	{
+		"name": "Hódmezővásárhely",
+		"code": "HU-HV"
+	},
+	{
+		"name": "Jász-Nagykun-Szolnok",
+		"code": "HU-JN"
+	},
+	{
+		"name": "Kaposvár",
+		"code": "HU-KV"
+	},
+	{
+		"name": "Kecskemét",
+		"code": "HU-KM"
+	},
+	{
+		"name": "Komárom-Esztergom",
+		"code": "HU-KE"
+	},
+	{
+		"name": "Miskolc",
+		"code": "HU-MI"
+	},
+	{
+		"name": "Nagykanizsa",
+		"code": "HU-NK"
+	},
+	{
+		"name": "Nyíregyháza",
+		"code": "HU-NY"
+	},
+	{
+		"name": "Nógrád",
+		"code": "HU-NO"
+	},
+	{
+		"name": "Pest",
+		"code": "HU-PE"
+	},
+	{
+		"name": "Pécs",
+		"code": "HU-PS"
+	},
+	{
+		"name": "Salgótarján",
+		"code": "HU-ST"
+	},
+	{
+		"name": "Somogy",
+		"code": "HU-SO"
+	},
+	{
+		"name": "Sopron",
+		"code": "HU-SN"
+	},
+	{
+		"name": "Szabolcs-Szatmár-Bereg",
+		"code": "HU-SZ"
+	},
+	{
+		"name": "Szeged",
+		"code": "HU-SD"
+	},
+	{
+		"name": "Szekszárd",
+		"code": "HU-SS"
+	},
+	{
+		"name": "Szolnok",
+		"code": "HU-SK"
+	},
+	{
+		"name": "Szombathely",
+		"code": "HU-SH"
+	},
+	{
+		"name": "Székesfehérvár",
+		"code": "HU-SF"
+	},
+	{
+		"name": "Tatabánya",
+		"code": "HU-TB"
+	},
+	{
+		"name": "Tolna",
+		"code": "HU-TO"
+	},
+	{
+		"name": "Vas",
+		"code": "HU-VA"
+	},
+	{
+		"name": "Veszprém",
+		"code": "HU-VE"
+	},
+	{
+		"name": "Veszprém",
+		"code": "HU-VM"
+	},
+	{
+		"name": "Zala",
+		"code": "HU-ZA"
+	},
+	{
+		"name": "Zalaegerszeg",
+		"code": "HU-ZE"
+	},
+	{
+		"name": "Érd",
+		"code": "HU-ER"
+	}
+]
