@@ -55,10 +55,12 @@ You should have [Composer](http://getcomposer.org) installed and available. If y
 
 #### Running Without Vagrant
 
-If you want to help out and cannot download or run Vagrant, you can run the application locally using PHP's built in dev server. You will need the following packages:
+If you want to help out and cannot download or run Vagrant, you can run the application locally using PHP's built in dev server. You will need the following PHP extensions:
 
 * php-curl
 * php-intl
+
+Steps:
 
 1. Clone this repo.
 2. Add the following entry to your hosts file. On unix-like systems, its usually found at `/etc/hosts`: 
@@ -66,27 +68,29 @@ If you want to help out and cannot download or run Vagrant, you can run the appl
     127.0.0.1    www.mentoring.dev mentoring.dev
 
 
-3. CD to the directory where you cloned the project in step 1 and run `composer install`
-4. From the same directory, run `vendor/bin/phinx init` to generate a `phinx.yml` file.
-5. Edit `/var/www/phinx.yml`'s development section (lines 19-21) with the following values for MySQL.
+3. Change directory to the directory where you cloned the project in step 1 and run `composer install`
+4. Copy `.env.example` to `.env`
+5. From the same directory, run `vendor/bin/phinx init` to generate a `phinx.yml` file.
+6. Edit `./phinx.yml`'s development section (lines 19-21) with the following values for MySQL.
 
-```{.yaml}
-    - name: mentoring
-    - user: mentoring
-    - pass: vagrant
-```
+    ```{.yaml}
+    name: mentoring
+    user: mentoring
+    pass: vagrant
+    ```
 
-To use sqlite, in `/var/www/phinx.yml` change change the adapter to `sqlite` (line 17) the name (line 19) to `data/mentoring.db`. In `.env` change `DB_DRIVER` to `pdo_sqlite` on line 1.
+    To use sqlite, in `./phinx.yml` change change the adapter to `sqlite` (line 17) the name (line 19) to `data/mentoring.db`. In `.env` change `DB_DRIVER` to `pdo_sqlite` on line 1.
 
-6. Edit `/var/www/phinx.yml`'s `paths.migrations` value (line 2) to: 
+7. Edit `./phinx.yml`'s `paths.migrations` value (line 2) to:
 
+    ```
     %%PHINX_CONFIG_DIR%%/data/migrations
+    ```
 
-7. Run `vendor/bin/phinx migrate` to run the database migrations.
-8. Copy `.env.example` to `.env`
+8. Run `vendor/bin/phinx migrate` to run the database migrations.
 9. Create a new Github Application at <https://github.com/settings/applications/new>
     - Set the **Homepage** and **Authorization callback URL** to <http://mentoring.dev:8080>
-10. Update lines 7 and 8 for `GITHUB_API_KEY` and `GITHUB_API_SECRET` in your `.env` file with the Client ID and Client Secret for your app.
+10. Update your `.env` file and set the `GITHUB_API_KEY` and `GITHUB_API_SECRET` to the Client ID and Client Secret for your app.
 11 To run using PHP's built-in server, navigate to the root of the project and run:
    
     php -S mentoring.dev:8080 -t public public/index.php
