@@ -63,7 +63,7 @@ If you want to help out and cannot download or run Vagrant, you can run the appl
 
 3. CD to the directory where you cloned the project in step 1 and run `composer install`
 4. From the same directory, run `vendor/bin/phinx init` to generate a `phinx.yml` file.
-5. Edit `phinx.yml`'s development section (lines 19-21) with the following values for MySQL.
+5. Edit `/var/www/phinx.yml`'s development section (lines 19-21) with the following values for MySQL.
 
 ```{.yaml}
     - name: mentoring
@@ -71,9 +71,9 @@ If you want to help out and cannot download or run Vagrant, you can run the appl
     - pass: vagrant
 ```
 
-To use sqlite, in `phinx.yml` change change the adapter to `sqlite` (line 17) the name (line 19) to `data/mentoring.db`. In `.env` change `DB_DRIVER` to `pdo_sqlite` on line 1.
+To use sqlite, in `/var/www/phinx.yml` change change the adapter to `sqlite` (line 17) the name (line 19) to `data/mentoring.db`. In `.env` change `DB_DRIVER` to `pdo_sqlite` on line 1.
 
-6. Edit `phinx.yml`'s `paths.migrations` value (line 2) to: 
+6. Edit `/var/www/phinx.yml`'s `paths.migrations` value (line 2) to: 
 
     %%PHINX_CONFIG_DIR%%/data/migrations
 
