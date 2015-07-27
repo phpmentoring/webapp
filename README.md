@@ -19,34 +19,39 @@ You should have [Composer](http://getcomposer.org) installed and available. If y
     192.168.56.101    www.mentoring.dev mentoring.dev
 
 4. Run `vagrant ssh` to go into the VM.
-5. CD to `/var/www` and run `composer install`
-6. From the same directory, run `vendor/bin/phinx init` to generate a `phinx.yml` file.
-7. If you get an error like the following:
+5. Change directory to `/var/www` and run `composer install`
+
+    If you get an error like the following:
 
         Could not fetch https://api.github.com/repos/vlucas/phpdotenv/zipball/732d2adb7d916c9593b9d58c3b0d9ebefead07aa, please create a GitHub OAuth token to go over the API rate limit
         Head to https://github.com/settings/tokens/new?scopes=repo&description=Composer+on+packer-virtualbox-iso-1422588891+2015-05-22+0002 to retrieve a token.
         It will be stored in "/home/vagrant/.composer/auth.json" for future use by Composer.
-        
-You will need to navigate to the URL in a browser, authenticate with GitHub, and generate the access token.
 
-8. Edit `/var/www/phinx.yml`'s development section with the following values for MySQL credentials:
+    You will need to navigate to the URL in a browser, authenticate with GitHub, and generate the access token.
+    
+6. From the same directory, run `vendor/bin/phinx init` to generate a `phinx.yml` file.
+7. Edit `/var/www/phinx.yml`:
 
-```{.yaml}
-    - name: mentoring
-    - user: mentoring
-    - pass: vagrant
-```
+    In the `paths` section, set the `migrations` value to:
 
-9. Edit `/var/www/phinx.yml`'s `paths.migrations` value to: 
+    ```{.yaml}
+    migrations: %%PHINX_CONFIG_DIR%%/data/migrations
+    ```
 
-    %%PHINX_CONFIG_DIR%%/data/migrations
+    In the `development` section, set the following MySQL credentials:
 
-10. Run `vendor/bin/phinx migrate` to run the database migrations.
-11. Copy `.env.example` to `.env`
-12. Create a new Github Application at <https://github.com/settings/applications/new>
+    ```{.yaml}
+    name: mentoring
+    user: mentoring
+    pass: vagrant
+    ```
+
+9. Run `vendor/bin/phinx migrate` to run the database migrations.
+10. Copy `.env.example` to `.env`
+11. Create a new Github Application at <https://github.com/settings/applications/new>
     - Set the **Homepage** and **Authorization callback URL** to <http://mentoring.dev>
-13. Update lines 7 and 8 for `GITHUB_API_KEY` and `GITHUB_API_SECRET` in your `.env` file with the Client ID and Client Secret for your app.
-14. Visit <http://mentoring.dev> in your browser!
+10. Update your `.env` file and set the `GITHUB_API_KEY` and `GITHUB_API_SECRET` to the Client ID and Client Secret for your app.
+13. Visit <http://mentoring.dev> in your browser!
 
 #### Running Without Vagrant
 
