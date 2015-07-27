@@ -29,7 +29,7 @@ You should have [Composer](http://getcomposer.org) installed and available. If y
         
 You will need to navigate to the URL in a browser, authenticate with GitHub, and generate the access token.
 
-8. Edit `phinx.yml`'s development section with the following values for MySQL credentials:
+8. Edit `/var/www/phinx.yml`'s development section with the following values for MySQL credentials:
 
 ```{.yaml}
     - name: mentoring
@@ -37,7 +37,7 @@ You will need to navigate to the URL in a browser, authenticate with GitHub, and
     - pass: vagrant
 ```
 
-9. Edit `phinx.yml`'s `paths.migrations` value to: 
+9. Edit `/var/www/phinx.yml`'s `paths.migrations` value to: 
 
     %%PHINX_CONFIG_DIR%%/data/migrations
 
