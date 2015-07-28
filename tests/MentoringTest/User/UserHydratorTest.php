@@ -24,7 +24,8 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
             'isEnabled' => true,
             'isMentee' => true,
             'isMentor' => false,
-            'profile' => 'my profile information.'
+            'profile' => 'my profile information.',
+            'sendNotifications' => false
         ];
     }
 
@@ -43,6 +44,7 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
         $user->setIsMentee($testData['isMentee']);
         $user->setIsMentor($testData['isMentor']);
         $user->setProfile($testData['profile']);
+        $user->setSendNotifications($testData['sendNotifications']);
 
         return $user;
     }
@@ -71,6 +73,7 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($testData['isMentee'], $user->isMentee());
         $this->assertEquals($testData['isMentor'], $user->isMentor());
         $this->assertEquals($testData['profile'], $user->getProfile());
+        $this->assertEquals($testData['sendNotifications'], $user->hasSendNotifications());
     }
 
     /**
@@ -138,6 +141,7 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($data['isMentee'], $user->isMentee());
         $this->assertEquals($data['isMentor'], $user->isMentor());
         $this->assertEquals($data['profile'], $user->getProfile());
+        $this->assertEquals($data['sendNotifications'], $user->hasSendNotifications());
     }
 
     /**

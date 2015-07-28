@@ -87,3 +87,19 @@ To use sqlite, in `/var/www/phinx.yml` change change the adapter to `sqlite` (li
     php -S mentoring.dev:8080 -t public public/index.php
    
 12. Visit <http://mentoring.dev:8080> in your browser!
+
+
+### Email in Development
+
+Before you start the VM, you need to change your .evn file. To use mailcatcher, you'll want the following config:
+
+MAIL_HOST=0.0.0.0
+MAIL_PORT=1025
+
+Mailcatcher is installed in the VM, but to use it you need to ssh into the VM and execute the following command to start the mail server:
+
+`mailcatcher --ip=0.0.0.0`
+
+You can then view all emails being sent out by the app in your host machine's browser at the following address:
+
+`http://192.168.56.101:1080`

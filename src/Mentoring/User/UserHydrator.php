@@ -38,6 +38,7 @@ class UserHydrator
             'apprenticeTags' => $object->getApprenticeTags(),
             'mentorTags' => $object->getMentorTags(),
             'imageUrl'   => $object->getProfileImage(),
+            'sendNotifications' => $object->hasSendNotifications()
         ];
 
         if (!is_null($this->termHydrator)) {
@@ -77,6 +78,7 @@ class UserHydrator
     {
         $object->setEmail($data['email']);
         $object->setName($data['name']);
+        $object->setSendNotifications($data['sendNotifications']);
 
 
         $object->setIsMentee($data['isMentee']);

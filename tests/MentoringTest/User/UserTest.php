@@ -24,6 +24,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
             'enabled' => true,
             'isMentee' => true,
             'isMentor' => false,
+            'sendNotifications' => true
         ];
 
         $user = new User();
@@ -36,6 +37,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $user->setIsEnabled($testData['enabled']);
         $user->setIsMentee($testData['isMentee']);
         $user->setIsMentor($testData['isMentor']);
+        $user->setSendNotifications($testData['sendNotifications']);
 
         $this->assertEquals($testData['email'], $user->getEmail());
         $this->assertEquals($testData['githubUid'], $user->getGithubUid());
@@ -46,5 +48,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($testData['enabled'], $user->isEnabled());
         $this->assertEquals($testData['isMentee'], $user->isMentee());
         $this->assertEquals($testData['isMentor'], $user->isMentor());
+        $this->assertEquals($testData['sendNotifications'], $user->hasSendNotifications());
     }
 }

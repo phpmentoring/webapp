@@ -59,18 +59,21 @@ class ProfileForm extends AbstractType
         $builder
             ->add('name', 'text', ['constraints' => new NotBlank()])
             ->add('email', 'email', [
-            'constraints' => [new Email()],
+                'constraints' => [new Email()],
             ])
             ->add('isMentor', 'checkbox', [
-            'required' => false,
+                'required' => false,
             ])
             ->add($mentorTags)
             ->add('isMentee', 'checkbox', [
-            'required' => false,
+                'required' => false,
             ])
             ->add($menteeTags)
             ->add('profile', 'textarea', [
-            'required' => false,
+                'required' => false,
+            ])
+            ->add('sendNotifications', 'checkbox', [
+                'required' => false,
             ])
             ->add('save', 'submit')
         ;

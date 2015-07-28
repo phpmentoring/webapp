@@ -27,6 +27,7 @@
           </div>
         </div>
     </div>
+    {{ form_row(profile_form.sendNotifications, { label: 'I want to recieve email notifications when someone sends me a message' }) }}
     {{ form_row(profile_form.save, { label: 'Save Profile' }) }}
     {{ form_rest(profile_form) }}
 {% endblock %}
