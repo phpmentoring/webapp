@@ -18,9 +18,13 @@
         {% if viewing_user.isMentee %}
         <strong>Apprentice</strong>
         <div class="tags">
+            <ul class="list-inline">
             {% for tag in viewing_user.apprenticeTags %}
-            <span class="label label-primary">
-                {{ tag.name }}
+                <li>
+                    <span class="label label-primary">
+                        {{ tag.name }}
+                    </span>
+                </li>
             </span>
             {% endfor %}
         </div>
