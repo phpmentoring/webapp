@@ -28,7 +28,7 @@ class Mailer
 
         $this->sendEmail(
             $send_to,
-            'You recieved a new message',
+            'You received a new message',
             'email/new-message.twig',
             [
                 'message_from' => $message->getFromUser()->getName(),
