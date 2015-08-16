@@ -6,7 +6,7 @@
         <p>Type in a tag to search for a mentor. Separate tags with comma (e.g. PHP, testing).</p>
         <form>
             <div class="input-group">
-                <label for="name">Subject:</label> <input type="text" name="name" data-ng-model="name">
+                <label for="name">Subject: </label> <input type="text" name="name" data-ng-model="name">
             </div>
         </form>
 
@@ -24,7 +24,7 @@
                         <img src="{% verbatim %}{{ mentor.imageUrl }}{% endverbatim %}?s=150" width="150" height="150"/>
 
                         <div class="tags">
-                            <span class="label label-primary" data-ng-repeat="tag in mentor.mentorTags">
+                            <span class="label label-primary mentor-label" data-ng-repeat="tag in mentor.mentorTags">
                                 {% verbatim %}{{ tag.name }}{% endverbatim %}
                             </span>
                         </div>
