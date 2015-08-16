@@ -29,10 +29,16 @@ mentoringApp.filter('mentorTags', function() {
             }
 
             tags = tags.toLowerCase();
+            tags = tags.split(",");
             for(var i in mentor.mentorTags) {
                 var name = mentor.mentorTags[i].name.toLowerCase();
-                if(name.indexOf(tags) > -1) {
-                    return true;
+
+                for(var x = 0; x < tags.length; x++) {
+                    var tag = tags[x].trim();
+
+                    if(name.indexOf(tag) > -1 && tag != "") {
+                        return true;
+                    }
                 }
             }
 
