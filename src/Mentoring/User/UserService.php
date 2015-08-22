@@ -113,6 +113,7 @@ class UserService
         $data['isEnabled'] = true;
         $data['isMentee'] = false;
         $data['isMentor'] = false;
+        $data['sendNotifications'] = true;
 
         $user = $this->hydrator->hydrate($data, new User());
 
