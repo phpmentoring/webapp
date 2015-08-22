@@ -22,9 +22,13 @@
                         <img src="{% verbatim %}{{ apprentice.imageUrl }}{% endverbatim %}?s=150" width="150" height="150" />
 
                         <div class="tags">
-                            <span class="label label-primary" data-ng-repeat="tag in apprentice.apprenticeTags">
-                                {% verbatim %}{{ tag.name }}{% endverbatim %}
-                            </span>
+                            <ul class="list-inline">
+                                <li data-ng-repeat="tag in apprentice.apprenticeTags">
+                                    <span class="label label-primary">
+                                        {% verbatim %}{{ tag.name }}{% endverbatim %}
+                                    </span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <div class="col-lg-10" ng-bind-html="apprentice.profile_markdown | unsafe"></div>
