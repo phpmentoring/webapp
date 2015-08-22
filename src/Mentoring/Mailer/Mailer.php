@@ -2,7 +2,10 @@
 
 namespace Mentoring\Mailer;
 
-use Mentoring\Conversation\Conversation;use Mentoring\Conversation\Message;use Mentoring\User\User;use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Mentoring\Conversation\Conversation;
+use Mentoring\Conversation\Message;
+use Mentoring\User\User;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class Mailer
 {
