@@ -28,8 +28,11 @@ mentoringApp.filter('mentorTags', function() {
                 return true;
             }
 
-            tags = tags.toLowerCase();
-            tags = tags.split(",");
+            if (typeof tags === 'string') {
+                tags = tags.toLowerCase();
+                tags = tags.split(",");
+            }
+
             for(var i in mentor.mentorTags) {
                 var name = mentor.mentorTags[i].name.toLowerCase();
 
