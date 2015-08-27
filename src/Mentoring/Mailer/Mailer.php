@@ -2,7 +2,10 @@
 
 namespace Mentoring\Mailer;
 
-use Mentoring\Conversation\Conversation;use Mentoring\Conversation\Message;use Mentoring\User\User;use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Mentoring\Conversation\Conversation;
+use Mentoring\Conversation\Message;
+use Mentoring\User\User;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class Mailer
 {
@@ -28,7 +31,7 @@ class Mailer
 
         $this->sendEmail(
             $send_to,
-            'You recieved a new message',
+            'You received a new message',
             'email/new-message.twig',
             [
                 'message_from' => $message->getFromUser()->getName(),

@@ -7,11 +7,15 @@
         {% if viewing_user.isMentor %}
         <strong>Mentor</strong>
         <div class="tags">
+            <ul class="list-inline">
             {% for tag in viewing_user.mentorTags %}
-            <span class="label label-primary">
-                {{ tag.name }}
-            </span>
+                <li>
+                    <span class="label label-primary">
+                        {{ tag.name }}
+                    </span>
+                </li>
             {% endfor %}
+            </ul>
         </div>
         {% endif %}
 
@@ -25,8 +29,8 @@
                         {{ tag.name }}
                     </span>
                 </li>
-            </span>
             {% endfor %}
+            </ul>
         </div>
         {% endif %}
 

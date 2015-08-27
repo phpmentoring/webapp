@@ -24,9 +24,13 @@
                         <img src="{% verbatim %}{{ mentor.imageUrl }}{% endverbatim %}?s=150" width="150" height="150"/>
 
                         <div class="tags">
-                            <span class="label label-primary mentor-label" data-ng-repeat="tag in mentor.mentorTags">
-                                {% verbatim %}{{ tag.name }}{% endverbatim %}
-                            </span>
+                            <ul class="list-inline">
+                                <li data-ng-repeat="tag in mentor.mentorTags">
+                                    <span class="label label-primary mentor-label" >
+                                        {% verbatim %}{{ tag.name }}{% endverbatim %}
+                                    </span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <div class="col-lg-10" ng-bind-html="mentor.profile_markdown | unsafe"></div>
