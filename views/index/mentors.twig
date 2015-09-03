@@ -14,6 +14,8 @@
             <strong>Oops!</strong> We couldn't load the mentors. Try again later, or ping us on Twitter!
         </div>
 
+        <br />
+
         <div class="panel panel-default" data-ng-repeat="mentor in mentors | mentorTags:name | orderBy :mentor.name">
             <div class="panel-heading"><a href="/profile/{% verbatim %}{{ mentor.id }}{% endverbatim %}">{% verbatim %}{{ mentor.name }}{% endverbatim %}</a></div>
              <div class="panel-body">
@@ -24,7 +26,7 @@
                         <div class="tags">
                             <ul class="list-inline">
                                 <li data-ng-repeat="tag in mentor.mentorTags">
-                                    <span class="label label-primary" >
+                                    <span class="label label-primary mentor-label" >
                                         {% verbatim %}{{ tag.name }}{% endverbatim %}
                                     </span>
                                 </li>
