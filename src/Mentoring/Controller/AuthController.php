@@ -52,6 +52,7 @@ class AuthController
                     'roles' => ['ROLE_USER'],
                     'name' => $userDetails->name,
                     'githubUid' => $userDetails->uid,
+                    'githubName' => $userDetails->nickname,
                 ]);
 
                 $app['user.manager']->saveUser($user);
