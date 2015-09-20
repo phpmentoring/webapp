@@ -21,7 +21,7 @@ class ApiController
         $hydrator = $app['user.hydrator'];
         foreach ($mentees as $mentee) {
             $data = $hydrator->extract($mentee);
-            $data['profile_markdown'] = $app['conversation.markdown_converter']->convert($data['profile']);
+            $data['profileMarkdown'] = $app['conversation.markdown_converter']->convert($data['profile']);
             $responseData[] = $data;
         }
 
@@ -39,7 +39,7 @@ class ApiController
         $hydrator = $app['user.hydrator'];
         foreach ($mentors as $mentor) {
             $data = $hydrator->extract($mentor);
-            $data['profile_markdown'] = $app['conversation.markdown_converter']->convert($data['profile']);
+            $data['profileMarkdown'] = $app['conversation.markdown_converter']->convert($data['profile']);
             $responseData[] = $data;
         }
 
