@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+
+// set to run indefinitely if needed
+set_time_limit(0);
+
+// include the composer autoloader
+require_once __DIR__ . '/../vendor/autoload.php';
+
+// import the Symfony Console Application
+use Symfony\Component\Console\Application;
+use Mentoring\Command\AddMissingGithubUsernamesCommand;
+
+$app = new Application();
+$app->add(new AddMissingGithubUsernamesCommand());
+$app->run();
