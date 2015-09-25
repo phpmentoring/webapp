@@ -50,12 +50,14 @@ EOT
                 $row['name']
             ));
 
-            $ch = curl_init('https://api.github.com/users?per_page=1&since=' . ($row['githubUid'] - 1));//Here is the file we are downloading, replace spaces with %20
+            $ch = curl_init('https://api.github.com/users?per_page=1&since=' . ($row['githubUid'] - 1));
             curl_setopt($ch, CURLOPT_TIMEOUT, 2);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-//                sprintf('Authorization: token %s', $data['GITHUB_API_KEY']),
+                // Depending on the number of entries you'd want to include a
+                // GITHUB-API-TOKEN which you'd have to create first....
+                // sprintf('Authorization: token %s', YOUR_GITHUB_TOKEN),
                 'User-Agent: PHPMentoring-App',
             ));
             $info = curl_exec($ch); // get curl response
