@@ -38,6 +38,11 @@
     <div class="col-lg-9">
     <h1>{{ viewing_user.name }}</h1>
     <p>{{ viewing_user.profile|markdown }}</p>
+
+    {% if viewing_user.timezone %}
+        <p>Timezone: {{ viewing_user.timezone.name }}</p>
+    {% endif %}
+
     {% if message_form and not viewing_yourself %}
         <h3>Send a message to {{ viewing_user.name }}</h3>
         {{ form_start(message_form) }}
