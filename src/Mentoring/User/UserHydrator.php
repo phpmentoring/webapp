@@ -32,6 +32,7 @@ class UserHydrator
             'timeCreated' => $object->getTimeCreated(),
             'isEnabled' => $object->isEnabled(),
             'githubUid' => $object->getGithubUid(),
+            'githubName' => $object->getGithubName(),
             'isMentee' => $object->isMentee(),
             'isMentor' => $object->isMentor(),
             'profile' => $object->getProfile(),
@@ -90,6 +91,10 @@ class UserHydrator
 
         if (isset($data['githubUid'])) {
             $object->setGithubUid($data['githubUid']);
+        }
+
+        if (isset($data['githubName'])) {
+            $object->setGithubName($data['githubName']);
         }
 
         if (isset($data['timeCreated'])) {

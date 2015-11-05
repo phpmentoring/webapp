@@ -38,6 +38,8 @@ class AuthController
 
             try {
                 $user = $app['user.manager']->fetchUserByGithubUid($userDetails->uid);
+                $user->setGithubName($userDetails->nickname);
+                $app['user.manager']->saveUser($user);
             } catch (UserNotFoundException $exception) {
                 $email = null;
                 foreach ($provider->getUserEmails($token) as $providerEmail) {
@@ -52,6 +54,7 @@ class AuthController
                     'roles' => ['ROLE_USER'],
                     'name' => $userDetails->name,
                     'githubUid' => $userDetails->uid,
+                    'githubName' => $userDetails->nickname,
                 ]);
 
                 $app['user.manager']->saveUser($user);

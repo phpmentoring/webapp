@@ -13,6 +13,7 @@ class User
     protected $timeCreated;
     protected $isEnabled = true;
     protected $githubUid = null;
+    protected $githubName = '';
     protected $isMentor = false;
     protected $isMentee = false;
     protected $profile = '';
@@ -44,6 +45,11 @@ class User
     public function getGithubUid()
     {
         return $this->githubUid;
+    }
+
+    public function getGithubName()
+    {
+        return $this->githubName;
     }
 
     public function getId()
@@ -99,6 +105,11 @@ class User
     public function setGithubUid($uid)
     {
         $this->githubUid = $uid;
+    }
+
+    public function setGithubName($name)
+    {
+        $this->githubName = $name;
     }
 
     public function setId($id)
