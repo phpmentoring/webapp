@@ -70,6 +70,11 @@ a ticket number.
 * The core team looks at Pull Requests on a fairly regular basis.
 * After reviewing the pull request, the PR will either be merged into master, responded to with some additional needs or changes, or closed depending on the situation. The core team will try and be as responsive as possible. Others may respond to the ticket, but only core team members have write access to the repository.
 
+## Code of Conduct
+
+Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree
+to abide by its terms. For more details see the [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
 # Additional Resources
 
 * [General GitHub documentation](http://help.github.com/)
