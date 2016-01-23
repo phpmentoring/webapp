@@ -41,9 +41,9 @@ You should have [Composer](http://getcomposer.org) installed and available. If y
     In the `development` section, set the following MySQL credentials:
 
     ```{.yaml}
-    name: mentoring
-    user: mentoring
-    pass: vagrant
+    name: scotchbox
+    user: root
+    pass: root
     ```
 
 9. Run `vendor/bin/phinx migrate` to run the database migrations.
