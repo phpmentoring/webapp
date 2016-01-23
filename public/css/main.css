@@ -1,6 +1,7 @@
 body {
 	padding-top: 50px;
 	padding-bottom: 20px;
+	margin:0px 0px;
 }
 
 img.avatar-small {
@@ -18,13 +19,28 @@ img.avatar-medium {
 	margin-right: 1px;
 }
 
+#hero {
+	background-image:url('./footer_lodyas.png');
+	background-size:cover;
+	position:relative;
+	height:100vh;
+}
 
+.header{
+	position:absolute;
+	top:50%;
+	text-align:center;
+	width:100%;
+	color:#fff;
+	font-size:36px;
+	-ms-transform: translate(0,-50%); /* IE 9 */
+	-webkit-transform: translate(0,-50%); /* Safari */
+	transform: translate(0,-50%);
+}
 
-
-
-
-
-
-
-
-
+.header img {
+	display: block;
+	align: center;
+	margin-left: auto;
+	margin-right: auto;
+}

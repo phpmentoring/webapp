@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class IndexController
 {
+    public function aboutAction(Application $app)
+    {
+        return $app['twig']->render('index/about.twig');
+    }
+
     public function guidelinesAction(Application $app)
     {
         return $app['twig']->render('index/guidelines.twig');

@@ -16,8 +16,6 @@
     <link rel="apple-touch-icon" href="{{ app.request.baseUrl }}/apple-touch-icon.png">
 
     <link rel="stylesheet" href="{{ app.request.baseUrl }}/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ app.request.baseUrl }}/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="{{ app.request.baseUrl }}/css/prism.css">
     <link rel="stylesheet" href="{{ app.request.baseUrl }}/css/main.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
     <!--[if lt IE 9]>
@@ -31,7 +29,7 @@
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -45,6 +43,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
+                <li><a href="{{ path('about') }}">About</a></li>
                 <li><a href="{{ path('guidelines') }}">Guidelines</a></li>
                 <li><a href="{{ path('why') }}">Why Mentoring</a></li>
                 <li><a href="{{ path('mentors') }}">Search Mentors</a></li>
@@ -68,8 +67,6 @@
     </div>
 </nav>
 
-<div class="container">
-
     {% block flashes %}
         {# System Flash Messages #}
         {% for flash_type,flash_messages in app.session.getFlashBag().all() %}
@@ -82,7 +79,7 @@
     {% endblock %}
 
     {% block content %}{% endblock %}
-</div>
+
 
 
 <div class="github-fork-ribbon-wrapper right-bottom">
