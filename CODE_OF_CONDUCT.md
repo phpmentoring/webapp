@@ -1,33 +1,43 @@
 # Contributor Code of Conduct
 
-As contributors and maintainers of this project, and in the interest of fostering an open and welcoming community, we 
-pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, 
-submitting pull requests or patches, and other activities.
+The PHP Mentoring Web App project adheres to [The Code Manifesto](http://codemanifesto.com)
+as its guidelines for contributor interactions.
 
-We are committed to making participation in this project a harassment-free experience for everyone, regardless of level 
-of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, 
-race, ethnicity, age, religion, or nationality.
+## The Code Manifesto
 
-Examples of unacceptable behavior by participants include:
+We want to work in an ecosystem that empowers developers to reach their
+potential — one that encourages growth and effective collaboration. A space that
+is safe for all.
 
-* The use of sexualized language or imagery
-* Personal attacks
-* Trolling or insulting/derogatory comments
-* Public or private harassment
-* Publishing other's private information, such as physical or electronic addresses, without explicit permission
-* Other unethical or unprofessional conduct.
+A space such as this benefits everyone that participates in it. It encourages
+new developers to enter our field. It is through discussion and collaboration
+that we grow, and through growth that we improve.
 
-Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, 
-issues, and other contributions that are not aligned to this Code of Conduct. By adopting this Code of Conduct, project 
-maintainers commit themselves to fairly and consistently applying these principles to every aspect of managing this 
-project. Project maintainers who do not follow or enforce the Code of Conduct may be permanently removed from the 
-project team.
+In the effort to create such a place, we hold to these values:
 
-This code of conduct applies both within project spaces and in public spaces when an individual is representing the 
-project or its community.
-
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by opening an issue or contacting 
-one or more of the project maintainers.
-
-This Code of Conduct is adapted from the [Contributor Covenant](http://contributor-covenant.org), version 1.2.0, 
-available at [http://contributor-covenant.org/version/1/2/0/](http://contributor-covenant.org/version/1/2/0/)
+1. **Discrimination limits us.** This includes discrimination on the basis of
+   race, gender, sexual orientation, gender identity, age, nationality, technology
+   and any other arbitrary exclusion of a group of people.
+2. **Boundaries honor us.** Your comfort levels are not everyone’s comfort
+   levels. Remember that, and if brought to your attention, heed it.
+3. **We are our biggest assets.** None of us were born masters of our trade.
+   Each of us has been helped along the way. Return that favor, when and where
+   you can.
+4. **We are resources for the future.** As an extension of #3, share what you
+   know. Make yourself a resource to help those that come after you.
+5. **Respect defines us.** Treat others as you wish to be treated. Make your
+   discussions, criticisms and debates from a position of respectfulness. Ask
+   yourself, is it true? Is it necessary? Is it constructive? Anything less is
+   unacceptable.
+6. **Reactions require grace.** Angry responses are valid, but abusive language
+   and vindictive actions are toxic. When something happens that offends you,
+   handle it assertively, but be respectful. Escalate reasonably, and try to
+   allow the offender an opportunity to explain themselves, and possibly correct
+   the issue.
+7. **Opinions are just that: opinions.** Each and every one of us, due to our
+   background and upbringing, have varying opinions. The fact of the matter, is
+   that is perfectly acceptable. Remember this: if you respect your own
+   opinions, you should respect the opinions of others.
+8. **To err is human.** You might not intend it, but mistakes do happen and
+   contribute to build experience. Tolerate honest mistakes, and don't hesitate
+   to apologize if you make one yourself.
