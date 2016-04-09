@@ -6,6 +6,7 @@
     {{ form_start(profile_form) }}
     {{ form_row(profile_form.name) }}
     {{ form_row(profile_form.email) }}
+    {{ form_row(profile_form.timezone) }}
     <strong>A mentor, an apprentice, or both?</strong>
     {{ form_row(profile_form.isMentor, { label: 'I want to be a mentor' }) }}
     {{ form_row(profile_form.mentorTags, { label: 'I want to mentor on the following topics' }) }}

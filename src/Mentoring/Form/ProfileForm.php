@@ -3,6 +3,7 @@
 namespace Mentoring\Form;
 
 use Mentoring\Form\DataTransformer\TextToTagsTransformer;
+use Mentoring\Validator\Constraints\TimezoneConstraint;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Email;
@@ -60,6 +61,10 @@ class ProfileForm extends AbstractType
             ->add('name', 'text', ['constraints' => new NotBlank()])
             ->add('email', 'email', [
                 'constraints' => [new Email()],
+            ])
+            ->add('timezone', 'timezone', [
+                'required' => false,
+                'constraints' => new TimezoneConstraint(),
             ])
             ->add('isMentor', 'checkbox', [
                 'required' => false,

@@ -38,7 +38,8 @@ class UserHydrator
             'profile' => $object->getProfile(),
             'apprenticeTags' => $object->getApprenticeTags(),
             'mentorTags' => $object->getMentorTags(),
-            'imageUrl'   => $object->getProfileImage(),
+            'imageUrl' => $object->getProfileImage(),
+            'timezone' => $object->getTimezone(),
             'sendNotifications' => $object->hasSendNotifications()
         ];
 
@@ -64,6 +65,10 @@ class UserHydrator
             $data['timeCreated'] = $data['timeCreated']->format(\DateTime::ISO8601);
         }
 
+        if ($data['timezone'] instanceof \DateTimeZone) {
+            $data['timezone'] = $data['timezone']->getName();
+        }
+
         return $data;
     }
 
@@ -81,6 +86,13 @@ class UserHydrator
         $object->setName($data['name']);
         $object->setSendNotifications($data['sendNotifications']);
 
+        if (isset($data['timezone'])) {
+            if (!$data['timezone'] instanceof \DateTimeZone) {
+                $object->setTimezone(new \DateTimeZone($data['timezone']));
+            } else {
+                $object->setTimezone($data['timezone']);
+            }
+        }
 
         $object->setIsMentee($data['isMentee']);
         $object->setIsMentor($data['isMentor']);
