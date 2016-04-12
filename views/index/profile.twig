@@ -65,6 +65,12 @@
     </div>
     {{ form_end(message_form) }}
     {% endif %}
+
+    {% if not app.session.get('user') %}
+        <p>
+            If you would like to contact {{ viewing_user.name }} please <a href="{{ path('auth.login') }}">Login</a>.
+        </p>
+    {% endif %}
     </div>
     </div>
 {% endblock %}
