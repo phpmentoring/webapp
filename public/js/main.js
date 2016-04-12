@@ -91,6 +91,9 @@ controllers.MentorSearchController = function($scope, $http, $timeout) {
     $http.get('/api/v0/mentors').
         success(function(data, status, headers, config){
             $scope.mentors = data;
+            $scope.random = function() {
+                return 0.5 - Math.random();
+            },
             $timeout(function () {
                 Prism.highlightAll();
             }, 50);

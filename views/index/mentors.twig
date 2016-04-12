@@ -16,7 +16,7 @@
 
         <br />
 
-        <div class="panel panel-default" data-ng-repeat="mentor in mentors | mentorTags:name | orderBy :mentor.name">
+        <div class="panel panel-default" data-ng-repeat="mentor in mentors | mentorTags:name | orderBy:random">
             <div class="panel-heading"><a href="/profile/{% verbatim %}{{ mentor.id }}{% endverbatim %}">{% verbatim %}{{ mentor.name }}{% endverbatim %}</a></div>
              <div class="panel-body">
                 <div class="row">
