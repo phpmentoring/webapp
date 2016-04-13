@@ -10,6 +10,40 @@
     </div>
 
     <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2><span class="glyphicon glyphicon-user"></span> Find a Mentor</h2>
 
+                <p>Finding a mentor is a great way to help yourself learn and grow as a developer. Finding a mentor on a topic you are learning will help accelerate learning and give you someone to lean on.</p>
+            </div>
+
+            <div class="col-md-4">
+                <h2><span class="glyphicon glyphicon-road"></span> Be a Mentor</h2>
+
+                <p>By being a mentor, you can help developers from all roads of life grow their skills. Everyone needs some help along the way, and you can help provide that. You might even learn something along the way.</p>
+            </div>
+
+            <div class="col-md-4">
+                <h2><span class="glyphicon glyphicon-globe"></span> Join the Community</h2>
+
+                <p>PHP Mentoring is sponsored and part of the wider PHP Community. You'll meet a wide range of people, make friends, and hopefully pay forward what you've learned.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <h2>Get Started Today!</h2>
+
+            <p>
+                Head on over to our <a href="{{ path('mentors') }}">search page</a> and start searching for a topic to find a mentor. From there you can either <a href="http://webchat.freenode.net/?channels=phpmentoring&uio=MTE9MjI2dd">join us on IRC</a> at #phpmentoring on Freenode using your favorite IRC client, or the handy webchat. If you log in to our website, you can also message mentors!
+            </p>
+
+            <p>
+                If you would like to become a mentor, simply <a href="{{ path('auth.login') }}">log in</a> at the top of this page and make an account. All you need is an account on <a href="https://github.com">Github</a>. Fill out a simple form, and you can start helping people right away.
+            </p>
+
+            <p>
+                If you ever have any questions, hop onto the IRC channel and ask!
+            </p>
+        </div>
     </div>
 {% endblock %}
