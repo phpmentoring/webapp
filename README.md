@@ -100,7 +100,7 @@ Steps:
 
 ### Email in Development
 
-Before you start the VM, you need to change your .evn file. To use mailcatcher, you'll want the following config:
+Before you start the VM, you need to change your .env file. To use mailcatcher, you'll want the following config:
 
 MAIL_HOST=0.0.0.0
 MAIL_PORT=1025
