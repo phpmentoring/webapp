@@ -32,11 +32,11 @@ mentoringApp.filter('mentorTags', function() {
                 tags = tags.toLowerCase();
                 tags = tags.split(",");
             }
-
+            
+            var lTags = tags.length;
             for(var i in mentor.mentorTags) {
                 var name = mentor.mentorTags[i].name.toLowerCase();
-
-                for(var x = 0; x < tags.length; x++) {
+                for(var x = 0; x < lTags; x++) {
                     var tag = tags[x].trim();
 
                     if(name.indexOf(tag) > -1 && tag != "") {
