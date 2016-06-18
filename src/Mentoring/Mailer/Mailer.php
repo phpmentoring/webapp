@@ -69,6 +69,6 @@ class Mailer
 
     public function getDefaultFromEmail()
     {
-        return 'no-reply@phpmentoring.org';
+        return 'phpmentoring@gmail.com';
     }
 }
