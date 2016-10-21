@@ -59,7 +59,7 @@ $app->register(new Provider\TranslationServiceProvider(), [
 ]);
 
 $app->register(new Silex\Provider\TwigServiceProvider(), [
-    'twig.path' => __DIR__ . '/../views',
+    'twig.path' => [__DIR__ . '/../source/_views', __DIR__ . '/../source/_layouts'],
     'twig.form.templates' => ['form/fields.twig']
 ]);
 
