@@ -50,8 +50,12 @@ You should have [Composer](http://getcomposer.org) installed and available. If y
 10. Copy `.env.example` to `.env`
 11. Create a new Github Application at <https://github.com/settings/applications/new>
     - Set the **Homepage** and **Authorization callback URL** to <http://mentoring.dev>
-10. Update your `.env` file and set the `GITHUB_API_KEY` and `GITHUB_API_SECRET` to the Client ID and Client Secret for your app.
-13. Visit <http://mentoring.dev> in your browser!
+12. Update your `.env` file and set the `GITHUB_API_KEY` and `GITHUB_API_SECRET` to the Client ID and Client Secret for your app.
+13. Generate the public directory output with:
+
+    `rm -rf public/; vendor/bin/sculpin generate; mv output_dev public; cp source/.htaccess public/;`
+
+14. Visit <http://mentoring.dev> in your browser!
 
 #### Running Without Vagrant
 
@@ -91,11 +95,15 @@ Steps:
 9. Create a new Github Application at <https://github.com/settings/applications/new>
     - Set the **Homepage** and **Authorization callback URL** to <http://mentoring.dev:8080>
 10. Update your `.env` file and set the `GITHUB_API_KEY` and `GITHUB_API_SECRET` to the Client ID and Client Secret for your app.
-11 To run using PHP's built-in server, navigate to the root of the project and run:
+12. Generate the public directory output with:
+
+   `rm -rf public/; vendor/bin/sculpin generate; mv output_dev public; cp source/.htaccess public/;`
+
+13. To run using PHP's built-in server, navigate to the root of the project and run:
    
     php -S mentoring.dev:8080 -t public public/index.php
    
-12. Visit <http://mentoring.dev:8080> in your browser!
+14. Visit <http://mentoring.dev:8080> in your browser!
 
 
 ### Email in Development

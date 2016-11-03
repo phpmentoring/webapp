@@ -41,25 +41,23 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ path('index') }}">PHP Mentoring</a>
+            <a class="navbar-brand" href="/">PHP Mentoring</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="{{ path('guidelines') }}">Guidelines</a></li>
-                <li><a href="{{ path('why') }}">Why Mentoring</a></li>
-                <li><a href="{{ path('mentors') }}">Search Mentors</a></li>
-                <!-- <li><a href="{{ path('apprentices') }}">Search Apprentices</a></li> -->
+                <li><a href="/guidelines">Guidelines</a></li>
+                <li><a href="/why">Why Mentoring</a></li>
+                <li><a href="/mentors">Search Mentors</a></li>
                 <li><a href="http://webchat.freenode.net/?channels=phpmentoring&uio=MTE9MjI2dd">Join us on IRC</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
             {% if app.session.get('user') %}
-                <li><a href="{{ path('account.profile') }}">My Profile</a></li>
-                {% set unread = unread_messages(app.session.get('user')) %}
-                <li><a href="{{ path('conversation.index') }}">Inbox{% if unread > 0 %} ({{ unread }}){% endif %}</a></li>
-                <li><a href="{{ path('auth.logout') }}">Logout</a></li>
+                <li><a href="/account/profile">My Profile</a></li>
+                <li><a href="/account/inbox">Inbox</a></li>
+                <li><a href="/auth/logout">Logout</a></li>
             {% else %}
-                <li><a href="{{ path('auth.login') }}">Login</a></li>
+                <li><a href="/auth/github">Login</a></li>
             {% endif %}
             </ul>
 

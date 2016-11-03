@@ -1,4 +1,6 @@
 {
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "silex/silex": "~1.2",
         "twig/twig": "~1.18",
@@ -7,8 +9,7 @@
         "robmorgan/phinx": "0.4.*",
         "monolog/monolog": "~1.13",
         "doctrine/dbal": "~2.2",
-        "guzzlehttp/guzzle": "~3.7",
-        "league/oauth2-client": "0.10.*",
+        "league/oauth2-client": "~1.0",
         "symfony/validator": "~2.6",
         "symfony/config": "~2.6",
         "symfony/translation": "~2.6",
@@ -17,7 +18,9 @@
         "mockery/mockery": "0.9.*",
         "erusev/parsedown": "1.5.3",
         "ezyang/htmlpurifier": "4.6.0",
-        "swiftmailer/swiftmailer": "^5.4"
+        "swiftmailer/swiftmailer": "^5.4",
+        "sculpin/sculpin": "~2.0",
+        "league/oauth2-github": "^0.2.1"
     },
     "require-dev": {
         "phpunit/phpunit": "4.6.*",
