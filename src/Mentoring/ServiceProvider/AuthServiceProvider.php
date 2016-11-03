@@ -11,7 +11,7 @@ use Pimple\ServiceProviderInterface;
 use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
 
-class AuthServiceProvider implements ServiceProviderInterface , ControllerProviderInterface
+class AuthServiceProvider implements ServiceProviderInterface, ControllerProviderInterface
 {
     public function boot(Application $app)
     {

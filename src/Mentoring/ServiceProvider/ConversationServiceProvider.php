@@ -13,7 +13,7 @@ use Pimple\ServiceProviderInterface;
 use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
 
-class ConversationServiceProvider implements ServiceProviderInterface , ControllerProviderInterface
+class ConversationServiceProvider implements ServiceProviderInterface, ControllerProviderInterface
 {
     public function boot(Application $app)
     {
@@ -66,7 +66,7 @@ class ConversationServiceProvider implements ServiceProviderInterface , Controll
             return new ConversationReplyForm();
         };
 
-        $app->extend('form.types', function($types) use ($app) {
+        $app->extend('form.types', function ($types) use ($app) {
             $types[] = 'conversation.type.conversation_start';
             $types[] = 'conversation.type.conversation_reply';
 

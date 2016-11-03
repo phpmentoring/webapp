@@ -10,7 +10,7 @@ use Pimple\ServiceProviderInterface;
 use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
 
-class TaxonomyServiceProvider implements ServiceProviderInterface , ControllerProviderInterface
+class TaxonomyServiceProvider implements ServiceProviderInterface, ControllerProviderInterface
 {
     public function boot(Application $app)
     {

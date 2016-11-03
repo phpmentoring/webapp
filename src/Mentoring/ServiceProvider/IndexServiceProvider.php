@@ -8,7 +8,7 @@ use Pimple\ServiceProviderInterface;
 use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
 
-class IndexServiceProvider implements ServiceProviderInterface , ControllerProviderInterface
+class IndexServiceProvider implements ServiceProviderInterface, ControllerProviderInterface
 {
     public function boot(Application $app)
     {

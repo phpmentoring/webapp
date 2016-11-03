@@ -9,7 +9,7 @@ use Pimple\ServiceProviderInterface;
 use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
 
-class AccountServiceProvider implements ServiceProviderInterface , ControllerProviderInterface
+class AccountServiceProvider implements ServiceProviderInterface, ControllerProviderInterface
 {
     public function boot(Application $app)
     {
@@ -39,7 +39,7 @@ class AccountServiceProvider implements ServiceProviderInterface , ControllerPro
             return new ProfileForm($app['taxonomy.service']);
         };
 
-        $app->extend('form.types', function($types) use ($app) {
+        $app->extend('form.types', function ($types) use ($app) {
             $types[] = 'account.type.profile';
 
             return $types;
