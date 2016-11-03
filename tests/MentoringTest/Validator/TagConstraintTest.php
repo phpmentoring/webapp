@@ -33,11 +33,13 @@ class TagConstraintTest extends \PHPUnit_Framework_TestCase
     {
         $validator  = new TagConstraintValidator();
         $constraint = new TagConstraint();
-        $context = $this->getMockBuilder('Symfony\Component\Validator\ExecutionContext')-> disableOriginalConstructor()->getMock();
+        $context = \Mockery::mock('Symfony\Component\Validator\Context\ExecutionContextInterface');
 
-        $context->expects($this->once())
-            ->method('addViolation')
-            ->with($this->equalTo('You must specify at least one topic.'));
+        $context
+            ->shouldReceive('addViolation')
+            ->once()
+            ->with('You must specify at least one topic.')
+        ;
 
         $validator->initialize($context);
 
@@ -50,10 +52,11 @@ class TagConstraintTest extends \PHPUnit_Framework_TestCase
     {
         $validator  = new TagConstraintValidator();
         $constraint = new TagConstraint();
-        $context = $this->getMockBuilder('Symfony\Component\Validator\ExecutionContext')-> disableOriginalConstructor()->getMock();
+        $context = \Mockery::mock('Symfony\Component\Validator\Context\ExecutionContextInterface');
 
-        $context->expects($this->never())
-            ->method('addViolation');
+        $context
+            ->shouldNotReceive('addViolation')
+        ;
 
         $validator->initialize($context);
 

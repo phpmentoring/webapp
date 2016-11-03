@@ -2,7 +2,7 @@
 
 {% block form_label %}
     {{ parent() }}
-    {% if help %}
+    {% if help is defined %}
         <p class="help-block">
             {{ help }}
         </p>

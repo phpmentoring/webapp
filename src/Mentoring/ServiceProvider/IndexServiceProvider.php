@@ -3,12 +3,12 @@
 namespace Mentoring\ServiceProvider;
 
 use Mentoring\Controller\IndexController;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
+use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
-use Silex\ControllerProviderInterface;
-use Silex\ServiceControllerResolver;
-use Silex\ServiceProviderInterface;
 
-class IndexServiceProvider implements ServiceProviderInterface, ControllerProviderInterface
+class IndexServiceProvider implements ServiceProviderInterface , ControllerProviderInterface
 {
     public function boot(Application $app)
     {
@@ -46,12 +46,10 @@ class IndexServiceProvider implements ServiceProviderInterface, ControllerProvid
         return $controllers;
     }
 
-    public function register(Application $app)
+    public function register(Container $app)
     {
-        $app['controller.index'] = $app->share(
-            function ($app) {
-                return new IndexController();
-            }
-        );
+        $app['controller.index'] = function ($app) {
+            return new IndexController();
+        };
     }
 }

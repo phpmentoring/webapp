@@ -43,7 +43,7 @@ class IndexController
 
         $form = null;
         if ($user = $app['session']->get('user')) {
-            $form = $app['form.factory']->create(new ConversationStartForm(), ['to' => $user_id], [
+            $form = $app['form.factory']->create('conversation.type.conversation_start', ['to' => $user_id], [
                 'action' => $app['url_generator']->generate('conversation.create')
             ]);
         }

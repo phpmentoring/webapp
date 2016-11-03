@@ -9,8 +9,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Silex\Application;
 use Silex\Provider;
+use Dotenv\Dotenv;
 
-Dotenv::load(__DIR__ . '/../');
+$dotenv = new Dotenv(__DIR__ . '/../');
+$dotenv->load();
 
 $mySqlOptions = [
     'driver' => 'pdo_mysql',
@@ -32,7 +34,7 @@ $app['debug'] = true;
 
 $app->register(new Provider\SessionServiceProvider());
 $app->register(new Provider\ServiceControllerServiceProvider());
-$app->register(new Provider\UrlGeneratorServiceProvider());
+$app->register(new Provider\RoutingServiceProvider());
 
 $app->register(new Provider\SwiftmailerServiceProvider(), [
     'swiftmailer.options' => [
@@ -47,15 +49,15 @@ $app->register(new Provider\SwiftmailerServiceProvider(), [
 $app->register(new Mentoring\ServiceProvider\MailerServiceProvider());
 
 $app->register(new Provider\FormServiceProvider());
-$app['form.type.extensions'] = $app->share($app->extend('form.type.extensions', function ($extensions) use ($app) {
+$app['form.type.extensions'] = $app->extend('form.type.extensions', function ($extensions) use ($app) {
     $extensions[] = new \Mentoring\Form\Extension\MentoringFormTypeExtension();
 
     return $extensions;
-}));
+});
 
 $app->register(new Provider\ValidatorServiceProvider());
 $app->register(new Provider\TranslationServiceProvider(), [
-    'locale_fallbacks' => array('en')
+    'locale' => 'en'
 ]);
 
 $app->register(new Silex\Provider\TwigServiceProvider(), [
