@@ -67,7 +67,7 @@ class ConversationController
     {
         $user = $app['session']->get('user');
 
-        $form = $app['form.factory']->create(new ConversationStartForm());
+        $form = $app['form.factory']->create('conversation.type.conversation_reply');
         $form->handleRequest($request);
         if ($form->isValid()) {
             $form_data = $form->getData();
