@@ -6,10 +6,10 @@ use Mentoring\Controller\AuthController;
 use Mentoring\Taxonomy\TermHydrator;
 use Mentoring\User\UserHydrator;
 use Mentoring\User\UserService;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
+use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
-use Silex\ControllerProviderInterface;
-use Silex\ServiceProviderInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 class AuthServiceProvider implements ServiceProviderInterface, ControllerProviderInterface
 {
@@ -34,7 +34,7 @@ class AuthServiceProvider implements ServiceProviderInterface, ControllerProvide
         return $controllers;
     }
 
-    public function register(Application $app)
+    public function register(Container $app)
     {
         $app['user.hydrator'] = function () use ($app) {
             return new UserHydrator($app['taxonomy.service'], new TermHydrator());
@@ -62,10 +62,8 @@ class AuthServiceProvider implements ServiceProviderInterface, ControllerProvide
             };
         };
 
-        $app['controller.auth'] = $app->share(
-            function ($app) {
-                return new AuthController();
-            }
-        );
+        $app['controller.auth'] = function ($app) {
+            return new AuthController();
+        };
     }
 }

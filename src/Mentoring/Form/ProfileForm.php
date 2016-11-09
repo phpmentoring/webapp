@@ -5,6 +5,12 @@ namespace Mentoring\Form;
 use Mentoring\Form\DataTransformer\TextToTagsTransformer;
 use Mentoring\Validator\Constraints\TimezoneConstraint;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -44,43 +50,43 @@ class ProfileForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $mentorTags = $builder
-            ->create('mentorTags', 'text', [
+            ->create('mentorTags', TextType::class, [
                     'required' => false,
                     'constraints' => new TagConstraint(array('groups' => array('mentorValidation'))),
             ])
             ->addModelTransformer(new TextToTagsTransformer($this->taxonomyService, 'mentor'));
 
         $menteeTags = $builder
-            ->create('apprenticeTags', 'text', [
+            ->create('apprenticeTags', TextType::class, [
                     'required' => false,
                     'constraints' => new TagConstraint(array('groups' => array('menteeValidation'))),
             ])
             ->addModelTransformer(new TextToTagsTransformer($this->taxonomyService, 'apprentice'));
 
         $builder
-            ->add('name', 'text', ['constraints' => new NotBlank()])
-            ->add('email', 'email', [
+            ->add('name', TextType::class, ['constraints' => new NotBlank()])
+            ->add('email', EmailType::class, [
                 'constraints' => [new Email()],
             ])
-            ->add('timezone', 'timezone', [
+            ->add('timezone', TimezoneType::class, [
                 'required' => false,
                 'constraints' => new TimezoneConstraint(),
             ])
-            ->add('isMentor', 'checkbox', [
+            ->add('isMentor', CheckboxType::class, [
                 'required' => false,
             ])
             ->add($mentorTags)
-            ->add('isMentee', 'checkbox', [
+            ->add('isMentee', CheckboxType::class, [
                 'required' => false,
             ])
             ->add($menteeTags)
-            ->add('profile', 'textarea', [
+            ->add('profile', TextareaType::class, [
                 'required' => false,
             ])
-            ->add('sendNotifications', 'checkbox', [
+            ->add('sendNotifications', CheckboxType::class, [
                 'required' => false,
             ])
-            ->add('save', 'submit')
+            ->add('save', SubmitType::class)
         ;
     }
 

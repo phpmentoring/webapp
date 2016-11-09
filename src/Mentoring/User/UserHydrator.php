@@ -87,11 +87,7 @@ class UserHydrator
         $object->setSendNotifications($data['sendNotifications']);
 
         if (isset($data['timezone'])) {
-            if (!$data['timezone'] instanceof \DateTimeZone) {
-                $object->setTimezone(new \DateTimeZone($data['timezone']));
-            } else {
-                $object->setTimezone($data['timezone']);
-            }
+            $object->setTimezone($data['timezone']);
         }
 
         $object->setIsMentee($data['isMentee']);

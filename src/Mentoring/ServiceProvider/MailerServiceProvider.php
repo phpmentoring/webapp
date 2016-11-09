@@ -2,16 +2,11 @@
 
 namespace Mentoring\ServiceProvider;
 
-use Mentoring\Controller\AccountController;
-use Mentoring\Controller\ConversationController;
-use Mentoring\Controller\IndexController;
-use Mentoring\Conversation\ConversationRepository;
-use Mentoring\Conversation\ConversationTwigExtension;
-use Mentoring\Conversation\MarkdownConverter;
 use Mentoring\Mailer\Mailer;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
+use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
-use Silex\ControllerProviderInterface;
-use Silex\ServiceProviderInterface;
 
 class MailerServiceProvider implements ServiceProviderInterface, ControllerProviderInterface
 {
@@ -23,12 +18,10 @@ class MailerServiceProvider implements ServiceProviderInterface, ControllerProvi
     {
     }
 
-    public function register(Application $app)
+    public function register(Container $container)
     {
-        $app['mentoring_mailer'] = $app->share(
-            function (Application $app) {
-                return new Mailer($app['mailer'], $app['twig'], $app['url_generator']);
-            }
-        );
+        $container['mentoring_mailer'] = function ($container) {
+            return new Mailer($container['mailer'], $container['twig'], $container['url_generator']);
+        };
     }
 }

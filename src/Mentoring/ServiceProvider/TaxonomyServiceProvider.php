@@ -5,9 +5,10 @@ namespace Mentoring\ServiceProvider;
 use Mentoring\Taxonomy\TaxonomyService;
 use Mentoring\Taxonomy\TermHydrator;
 use Mentoring\Taxonomy\VocabularyHydrator;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
+use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
-use Silex\ControllerProviderInterface;
-use Silex\ServiceProviderInterface;
 
 class TaxonomyServiceProvider implements ServiceProviderInterface, ControllerProviderInterface
 {
@@ -21,12 +22,10 @@ class TaxonomyServiceProvider implements ServiceProviderInterface, ControllerPro
         // No controllers currently being registered
     }
 
-    public function register(Application $app)
+    public function register(Container $app)
     {
-        $app['taxonomy.service'] = $app->share(
-            function ($app) {
-                return new TaxonomyService($app['db'], new VocabularyHydrator(), new TermHydrator());
-            }
-        );
+        $app['taxonomy.service'] = function ($app) {
+            return new TaxonomyService($app['db'], new VocabularyHydrator(), new TermHydrator());
+        };
     }
 }

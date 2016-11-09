@@ -4,12 +4,11 @@ namespace Mentoring\Controller;
 
 use Mentoring\Conversation\Conversation;
 use Mentoring\Conversation\Message;
-use Mentoring\Form\ConversationReplyForm;
-use Mentoring\Form\ConversationStartForm;
 use Mentoring\User\UserNotFoundException;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Form\FormInterface;
 
 class ConversationController
 {
@@ -41,7 +40,7 @@ class ConversationController
         $conversation->markUserHasRead($user);
         $conversationRepo->save($conversation);
 
-        $form = $app['form.factory']->create(new ConversationReplyForm());
+        $form = $app['form.factory']->create('conversation.type.conversation_reply');
         $form->handleRequest($request);
         if ($form->isValid()) {
             $form_data = $form->getData();
@@ -67,7 +66,8 @@ class ConversationController
     {
         $user = $app['session']->get('user');
 
-        $form = $app['form.factory']->create(new ConversationStartForm());
+        /** @var FormInterface $form **/
+        $form = $app['form.factory']->create('conversation.type.conversation_start');
         $form->handleRequest($request);
         if ($form->isValid()) {
             $form_data = $form->getData();

@@ -3,10 +3,11 @@
 namespace Mentoring\ServiceProvider;
 
 use Mentoring\Controller\AccountController;
-use Mentoring\Controller\IndexController;
+use Mentoring\Form\ProfileForm;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
+use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
-use Silex\ControllerProviderInterface;
-use Silex\ServiceProviderInterface;
 
 class AccountServiceProvider implements ServiceProviderInterface, ControllerProviderInterface
 {
@@ -28,12 +29,20 @@ class AccountServiceProvider implements ServiceProviderInterface, ControllerProv
         return $controllers;
     }
 
-    public function register(Application $app)
+    public function register(Container $app)
     {
-        $app['controller.account'] = $app->share(
-            function ($app) {
-                return new AccountController();
-            }
-        );
+        $app['controller.account'] = function ($app) {
+            return new AccountController();
+        };
+
+        $app['account.type.profile'] = function ($app) {
+            return new ProfileForm($app['taxonomy.service']);
+        };
+
+        $app->extend('form.types', function ($types) use ($app) {
+            $types[] = 'account.type.profile';
+
+            return $types;
+        });
     }
 }

@@ -13,11 +13,13 @@ class TimezoneConstraintTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new TimezoneConstraintValidator();
         $constraint = new TimezoneConstraint();
-        $context = $this->getMockBuilder('Symfony\Component\Validator\ExecutionContext')->disableOriginalConstructor()->getMock();
+        $context = \Mockery::mock('Symfony\Component\Validator\Context\ExecutionContextInterface');
 
-        $context->expects($this->once())
-            ->method('addViolation')
-            ->with($this->equalTo('Please select a valid timezone.'));
+        $context
+            ->shouldReceive('addViolation')
+            ->once()
+            ->with('Please select a valid timezone.')
+        ;
 
         $validator->initialize($context);
 
@@ -30,10 +32,11 @@ class TimezoneConstraintTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new TimezoneConstraintValidator();
         $constraint = new TimezoneConstraint();
-        $context = $this->getMockBuilder('Symfony\Component\Validator\ExecutionContext')->disableOriginalConstructor()->getMock();
+        $context = \Mockery::mock('Symfony\Component\Validator\Context\ExecutionContextInterface');
 
-        $context->expects($this->never())
-            ->method('addViolation');
+        $context
+            ->shouldNotReceive('addViolation')
+        ;
 
         $validator->initialize($context);
 

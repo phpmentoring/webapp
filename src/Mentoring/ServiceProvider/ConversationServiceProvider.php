@@ -2,15 +2,16 @@
 
 namespace Mentoring\ServiceProvider;
 
-use Mentoring\Controller\AccountController;
 use Mentoring\Controller\ConversationController;
-use Mentoring\Controller\IndexController;
 use Mentoring\Conversation\ConversationRepository;
 use Mentoring\Conversation\ConversationTwigExtension;
 use Mentoring\Conversation\MarkdownConverter;
+use Mentoring\Form\ConversationReplyForm;
+use Mentoring\Form\ConversationStartForm;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
+use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
-use Silex\ControllerProviderInterface;
-use Silex\ServiceProviderInterface;
 
 class ConversationServiceProvider implements ServiceProviderInterface, ControllerProviderInterface
 {
@@ -43,25 +44,34 @@ class ConversationServiceProvider implements ServiceProviderInterface, Controlle
         return $controllers;
     }
 
-    public function register(Application $app)
+    public function register(Container $app)
     {
-        $app['conversation_repository'] = $app->share(
-            function (Application $app) {
-                return new ConversationRepository($app['db'], $app['user.manager']);
-            }
-        );
+        $app['conversation_repository'] = function (Application $app) {
+            return new ConversationRepository($app['db'], $app['user.manager']);
+        };
 
-        $app['controller.conversation'] = $app->share(
-            function (Application $app) {
-                return new ConversationController();
-            }
-        );
+        $app['controller.conversation'] = function (Application $app) {
+            return new ConversationController();
+        };
 
-        $app['conversation.markdown_converter'] = $app->share(
-            function (Application $app) {
-                return new MarkdownConverter();
-            }
-        );
+        $app['conversation.markdown_converter'] = function (Application $app) {
+            return new MarkdownConverter();
+        };
+
+        $app['conversation.type.conversation_start'] = function ($app) {
+            return new ConversationStartForm();
+        };
+
+        $app['conversation.type.conversation_reply'] = function ($app) {
+            return new ConversationReplyForm();
+        };
+
+        $app->extend('form.types', function ($types) use ($app) {
+            $types[] = 'conversation.type.conversation_start';
+            $types[] = 'conversation.type.conversation_reply';
+
+            return $types;
+        });
 
         $app['twig']->addExtension(
             new ConversationTwigExtension(

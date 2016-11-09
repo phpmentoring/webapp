@@ -3,12 +3,28 @@
 namespace Mentoring\Controller;
 
 use League\OAuth2\Client\Provider\Github;
+use League\OAuth2\Client\Token\AccessToken;
 use Mentoring\User\UserNotFoundException;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
 class AuthController
 {
+    /**
+     * Returns a list of e-mails associated with a user
+     *
+     * @param Github $provider
+     * @param AccessToken $token
+     * @return array
+     */
+    protected function getUserEmails(Github $provider, AccessToken $token)
+    {
+        $request = $provider->getAuthenticatedRequest('GET', 'https://api.github.com/user/emails', $token);
+        $response = $provider->getResponse($request);
+
+        return $response;
+    }
+
     public function githubAction(Application $app, Request $request)
     {
         $clientID = getenv('GITHUB_API_KEY');
@@ -25,26 +41,25 @@ class AuthController
             'clientId' => $clientID,
             'clientSecret' => $clientSecret,
             'redirectUri' => $redirectUri,
-            'scopes' => ['user:email'],
         ]);
 
         if (empty($code)) {
-            $authUrl = $provider->getAuthorizationUrl();
-            $app['session']->set('oauth2state', $provider->state);
+            $authUrl = $provider->getAuthorizationUrl(['scope' => ['user:email']]);
+            $app['session']->set('oauth2state', $provider->getState());
             return $app->redirect($authUrl);
         } else {
             $token = $provider->getAccessToken('authorization_code', ['code' => $code]);
-            $userDetails = $provider->getUserDetails($token);
+            $userDetails = $provider->getResourceOwner($token);
 
             try {
-                $user = $app['user.manager']->fetchUserByGithubUid($userDetails->uid);
-                $user->setGithubName($userDetails->nickname);
+                $user = $app['user.manager']->fetchUserByGithubUid($userDetails->getId());
+                $user->setGithubName($userDetails->getNickname());
                 $app['user.manager']->saveUser($user);
             } catch (UserNotFoundException $exception) {
                 $email = null;
-                foreach ($provider->getUserEmails($token) as $providerEmail) {
-                    if ($providerEmail->primary) {
-                        $email = $providerEmail->email;
+                foreach ($this->getUserEmails($provider, $token) as $providerEmail) {
+                    if ($providerEmail['primary']) {
+                        $email = $providerEmail['email'];
                         break;
                     }
                 }
@@ -52,9 +67,9 @@ class AuthController
                 $user = $app['user.manager']->createUser([
                     'email' => $email,
                     'roles' => ['ROLE_USER'],
-                    'name' => $userDetails->name,
-                    'githubUid' => $userDetails->uid,
-                    'githubName' => $userDetails->nickname,
+                    'name' => $userDetails->getName(),
+                    'githubUid' => $userDetails->getId(),
+                    'githubName' => $userDetails->getNickname(),
                 ]);
 
                 $app['user.manager']->saveUser($user);

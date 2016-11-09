@@ -3,9 +3,10 @@
 namespace Mentoring\ServiceProvider;
 
 use Mentoring\Controller\ApiController;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
+use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
-use Silex\ControllerProviderInterface;
-use Silex\ServiceProviderInterface;
 
 class ApiServiceProvider implements ServiceProviderInterface, ControllerProviderInterface
 {
@@ -45,12 +46,10 @@ class ApiServiceProvider implements ServiceProviderInterface, ControllerProvider
         return $controllers;
     }
 
-    public function register(Application $app)
+    public function register(Container $app)
     {
-        $app['controller.api'] = $app->share(
-            function ($app) {
-                return new ApiController();
-            }
-        );
+        $app['controller.api'] = function ($app) {
+            return new ApiController();
+        };
     }
 }
