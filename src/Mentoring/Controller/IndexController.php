@@ -48,7 +48,6 @@ class IndexController
             ]);
         }
 
-
         return $app['twig']->render('index/profile.twig', [
             'viewing_user' => $viewing_user,
             'message_form' => $form === null ? null : $form->createView(),
