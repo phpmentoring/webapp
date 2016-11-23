@@ -4,6 +4,7 @@ namespace Mentoring\Account\ServiceProvider;
 
 use Mentoring\Account\Controller\AccountController;
 use Mentoring\Account\Form\ProfileForm;
+use Mentoring\Account\Command\AddMissingGithubUsernamesCommand;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Silex\Api\ControllerProviderInterface;
@@ -31,6 +32,8 @@ class AccountServiceProvider implements ServiceProviderInterface, ControllerProv
 
     public function register(Container $app)
     {
+        $app['console']->add(new AddMissingGithubUsernamesCommand());
+
         $app['controller.account'] = function ($app) {
             return new AccountController();
         };

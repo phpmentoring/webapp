@@ -1,8 +1,10 @@
 <?php
 
-$filename = __DIR__.preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
-if (php_sapi_name() === 'cli-server' && is_file($filename)) {
-    return false;
+if (php_sapi_name() === 'cli-server') {
+    $filename = __DIR__.preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
+    if(is_file($filename)) {
+        return false;
+    }
 }
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -50,6 +52,12 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), [
     'db.options' => $app['config']['database'],
 ]);
 
+$app->register(new \Knp\Provider\ConsoleServiceProvider(), [
+    'console.name' => 'PHPMentoring Admin Console',
+    'console.version' => '0.0.1',
+    'console.project_directory' => __DIR__,
+]);
+
 $taxonomyServiceProvider = new \Mentoring\Taxonomy\ServiceProvider\TaxonomyServiceProvider();
 $app->register($taxonomyServiceProvider);
 
@@ -66,11 +74,17 @@ $app->register($apiServiceProvider);
 $app->mount('/api/v0', $apiServiceProvider);
 
 $indexServiceProvider = new \Mentoring\PublicSite\ServiceProvider\IndexServiceProvider();
-$app->register($indexServiceProvider);
+$app->register($indexServiceProvider, [
+    'publicsite.blog_directory' => getenv('BLOG_DIRECTORY'),
+]);
 $app->mount('/', $indexServiceProvider);
 
 $conversationServiceProvider = new \Mentoring\Conversation\ServiceProvider\ConversationServiceProvider();
 $app->register($conversationServiceProvider);
 $app->mount('/conversations', $conversationServiceProvider);
 
-$app->run();
+if (php_sapi_name() === 'cli') {
+    $app['console']->run();
+} else {
+    $app->run();
+}

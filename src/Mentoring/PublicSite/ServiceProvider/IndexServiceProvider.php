@@ -2,6 +2,8 @@
 
 namespace Mentoring\PublicSite\ServiceProvider;
 
+use Mentoring\PublicSite\Blog\BlogService;
+use Mentoring\PublicSite\Command\ImportBlogEntries;
 use Mentoring\PublicSite\Controller\IndexController;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -48,6 +50,16 @@ class IndexServiceProvider implements ServiceProviderInterface, ControllerProvid
 
     public function register(Container $app)
     {
+        $app['service.blog'] = function($app) {
+            return new BlogService($app['db']);
+        };
+
+        $app['command.publicsite.import_blog_entries'] = function($app) {
+            new ImportBlogEntries($app['service.blog'], $app['publicsite.blog_directory']);
+        };
+
+        $app['console']->add($app['command.publicsite.import_blog_entries']);
+
         $app['controller.index'] = function ($app) {
             return new IndexController();
         };

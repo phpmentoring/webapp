@@ -7,28 +7,57 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Mentoring\Command;
+namespace Mentoring\PublicSite\Command;
 
+use Mentoring\PublicSite\Blog\BlogService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class AddMissingGithubUsernamesCommand extends Command
+class ImportBlogEntries extends Command
 {
+    /**
+     * Directory containing the raw markdown files
+     * @var string
+     */
+    protected $blogDirectory;
+
+    /**
+     * @var BlogService
+     */
+    protected $blogService;
+
+    public function __construct(BlogService $blogService, $blogDirectory)
+    {
+        $this->blogService = $blogService;
+        $this->blogDirectory = $blogDirectory;
+
+        parent::__construct();
+    }
+
     protected function configure()
     {
-        $this->setName("mentoring:addMissingGithubUsernames")
-             ->setDescription("Add missing github-Usernames")
+        $this->setName("mentoring:importBlogEntries")
+             ->setDescription("Imports blog entries into the database and runs any needed cleanups")
              ->setHelp(<<<EOT
-Add missing github-Usernames based on the github-UserID
+This command will parse any available markdown files and import them into the blog table. This will then clean up and 
+remove any missing markdown files from the table as well.
 EOT
              );
     }
 
-
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('Starting to fetch github-Usernames');
+        var_dump($this->blogDirectory);
+        die();
+        $output->writeln('Starting import...');
+        // Glob all the files
+        // Import them and insert or update as needed
+        $output->writeln('Starting cleanup...');
+        // Select all the filenames
+        // See if they exist on disk
+        // If not, delete
+
         $data = parse_ini_file(__DIR__ . '/../../../.env');
         $pdo = new \PDO(
             'mysql:dbname=' . $data['DB_DBNAME'] . ';host=' . $data['DB_HOSTNAME'],
