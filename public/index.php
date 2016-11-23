@@ -9,40 +9,17 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Silex\Application;
 use Silex\Provider;
-use Dotenv\Dotenv;
-
-$dotenv = new Dotenv(__DIR__ . '/../');
-$dotenv->load();
-
-$mySqlOptions = [
-    'driver' => 'pdo_mysql',
-    'host' => getenv('DB_HOSTNAME'),
-    'dbname' => getenv('DB_DBNAME'),
-    'user' => getenv('DB_USERNAME'),
-    'password' => getenv('DB_PASSWORD'),
-];
-
-$sqliteOptions = [
-    'driver' => 'pdo_sqlite',
-    'path' => 'data/mentoring.db',
-];
-
-$dbOptions = (getenv('DB_DRIVER') == 'pdo_mysql' ? $mySqlOptions : $sqliteOptions);
 
 $app = new Application();
 $app['debug'] = true;
 
+$app->register(new \Rpodwika\Silex\YamlConfigServiceProvider(__DIR__ . '/../app/config/parameters.yml'));
 $app->register(new Provider\SessionServiceProvider());
 $app->register(new Provider\ServiceControllerServiceProvider());
 $app->register(new Provider\RoutingServiceProvider());
 
 $app->register(new Provider\SwiftmailerServiceProvider(), [
-    'swiftmailer.options' => [
-        'host' => getenv('MAIL_HOST') ?: 'localhost',
-        'port' => getenv('MAIL_PORT') ?: 25,
-        'username' => getenv('MAIL_USERNAME') ?: '',
-        'password' => getenv('MAIL_PASSWORD') ?: '',
-    ],
+    'swiftmailer.options' => $app['config']['mail'],
     'swiftmailer.use_spool' => false
 ]);
 
@@ -70,7 +47,7 @@ $app->register(new Silex\Provider\MonologServiceProvider(), [
 ]);
 
 $app->register(new Silex\Provider\DoctrineServiceProvider(), [
-    'db.options' => $dbOptions
+    'db.options' => $app['config']['database'],
 ]);
 
 $taxonomyServiceProvider = new \Mentoring\Taxonomy\ServiceProvider\TaxonomyServiceProvider();

@@ -4,7 +4,7 @@ data/logs/*
 data/sessions/*
 !data/sessions/.gitkeep
 /vendor/
-.env
+/app/config/parameters.yml
 composer.phar
 phinx.yml
 .DS_Store
