@@ -46,11 +46,11 @@ $app->register(new Provider\SwiftmailerServiceProvider(), [
     'swiftmailer.use_spool' => false
 ]);
 
-$app->register(new Mentoring\ServiceProvider\MailerServiceProvider());
+$app->register(new \Mentoring\Mailer\ServiceProvider\MailerServiceProvider());
 
 $app->register(new Provider\FormServiceProvider());
 $app['form.type.extensions'] = $app->extend('form.type.extensions', function ($extensions) use ($app) {
-    $extensions[] = new \Mentoring\Form\Extension\MentoringFormTypeExtension();
+    $extensions[] = new \Mentoring\Account\Form\Extension\MentoringFormTypeExtension();
 
     return $extensions;
 });
@@ -73,26 +73,26 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), [
     'db.options' => $dbOptions
 ]);
 
-$taxonomyServiceProvider = new \Mentoring\ServiceProvider\TaxonomyServiceProvider();
+$taxonomyServiceProvider = new \Mentoring\Taxonomy\ServiceProvider\TaxonomyServiceProvider();
 $app->register($taxonomyServiceProvider);
 
-$authServiceProvider = new \Mentoring\ServiceProvider\AuthServiceProvider();
+$authServiceProvider = new \Mentoring\Auth\ServiceProvider\AuthServiceProvider();
 $app->register($authServiceProvider);
 $app->mount('/auth', $authServiceProvider);
 
-$accountServiceProvider = new \Mentoring\ServiceProvider\AccountServiceProvider();
+$accountServiceProvider = new \Mentoring\Account\ServiceProvider\AccountServiceProvider();
 $app->register($accountServiceProvider);
 $app->mount('/account', $accountServiceProvider);
 
-$apiServiceProvider = new \Mentoring\ServiceProvider\ApiServiceProvider();
+$apiServiceProvider = new \Mentoring\PublicSite\ServiceProvider\ApiServiceProvider();
 $app->register($apiServiceProvider);
 $app->mount('/api/v0', $apiServiceProvider);
 
-$indexServiceProvider = new \Mentoring\ServiceProvider\IndexServiceProvider();
+$indexServiceProvider = new \Mentoring\PublicSite\ServiceProvider\IndexServiceProvider();
 $app->register($indexServiceProvider);
 $app->mount('/', $indexServiceProvider);
 
-$conversationServiceProvider = new \Mentoring\ServiceProvider\ConversationServiceProvider();
+$conversationServiceProvider = new \Mentoring\Conversation\ServiceProvider\ConversationServiceProvider();
 $app->register($conversationServiceProvider);
 $app->mount('/conversations', $conversationServiceProvider);
 
