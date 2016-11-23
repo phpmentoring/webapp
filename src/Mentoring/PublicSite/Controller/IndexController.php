@@ -51,8 +51,7 @@ class IndexController
         return $app['twig']->render('index/profile.twig', [
             'viewing_user' => $viewing_user,
             'message_form' => $form === null ? null : $form->createView(),
-//            'viewing_yourself' => ($user && $viewing_user->getId() == $user->getId())
-            'viewing_yourself' => false
-        ]);
+            'viewing_yourself' => ($user && $viewing_user->getId() == $user->getId())
+         ]);
     }
 }
