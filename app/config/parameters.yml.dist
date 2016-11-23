@@ -1,0 +1,16 @@
+database:
+  driver: 'pdo_mysql'
+  host: 'localhost'
+  dbname: 'scotchbox'
+  user: 'root'
+  password: 'root'
+
+mail:
+  host: 'localhost'
+  port: 25
+  username: ''
+  password: ''
+
+github:
+  api_key: 'changeme'
+  api_secret: 'changeme'

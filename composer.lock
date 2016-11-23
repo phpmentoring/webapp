@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "449148b5ea68d029f64346059bcdcd35",
-    "content-hash": "5ed956dbf93a3951840b335098d91fd3",
+    "hash": "ef16f15fb468a4ad7683a7b6a0f623f0",
+    "content-hash": "120bd4a7c5cadb7fb41540fa1a35f135",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1394,6 +1394,45 @@
                 "phinx"
             ],
             "time": "2016-10-27 10:16:12"
+        },
+        {
+            "name": "rpodwika/yaml-config-service-provider",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rpodwika/yaml-config-service-provider.git",
+                "reference": "0c62c9c37ccdd67c68dbe72e133e6e4509ba3cbf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rpodwika/yaml-config-service-provider/zipball/0c62c9c37ccdd67c68dbe72e133e6e4509ba3cbf",
+                "reference": "0c62c9c37ccdd67c68dbe72e133e6e4509ba3cbf",
+                "shasum": ""
+            },
+            "require": {
+                "silex/silex": "^2.0",
+                "symfony/yaml": "^3.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rpodwika\\Silex\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Robert Podwika",
+                    "email": "hello@rpodwika.pl",
+                    "homepage": "http://www.rpodwika.pl",
+                    "role": "developer"
+                }
+            ],
+            "description": "Based on deralex/YamlConfigServiceProvider YAML service provider for silex ~2.0 and symfony/yaml 3.~",
+            "time": "2016-09-15 13:14:21"
         },
         {
             "name": "silex/silex",

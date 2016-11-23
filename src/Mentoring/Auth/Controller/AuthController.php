@@ -27,8 +27,8 @@ class AuthController
 
     public function githubAction(Application $app, Request $request)
     {
-        $clientID = getenv('GITHUB_API_KEY');
-        $clientSecret = getenv('GITHUB_API_SECRET');
+        $clientID = $app['config']['github']['api_key'];
+        $clientSecret = $app['config']['github']['api_secret'];
         $code = $request->query->get('code');
 
         $redirectUri = $request->getScheme() . '://' .$request->getHost();
