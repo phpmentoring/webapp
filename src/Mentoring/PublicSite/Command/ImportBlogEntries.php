@@ -1,19 +1,20 @@
 <?php
-/**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
 
 namespace Mentoring\PublicSite\Command;
 
+use Mentoring\PublicSite\Blog\BlogEntry;
+use Mentoring\PublicSite\Blog\BlogEntryHydrator;
 use Mentoring\PublicSite\Blog\BlogService;
+use Mni\FrontYAML\Parser;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Imports markdown files from the disk and converts them into blog entries
+ *
+ * @package Mentoring\PublicSite\Command
+ */
 class ImportBlogEntries extends Command
 {
     /**
@@ -27,6 +28,11 @@ class ImportBlogEntries extends Command
      */
     protected $blogService;
 
+    /**
+     * ImportBlogEntries constructor.
+     * @param BlogService $blogService
+     * @param $blogDirectory
+     */
     public function __construct(BlogService $blogService, $blogDirectory)
     {
         $this->blogService = $blogService;
@@ -35,6 +41,9 @@ class ImportBlogEntries extends Command
         parent::__construct();
     }
 
+    /**
+     * Usage information for the command
+     */
     protected function configure()
     {
         $this->setName("mentoring:importBlogEntries")
@@ -46,65 +55,51 @@ EOT
              );
     }
 
+    /**
+     * Imports the blog entries and cleans up removed ones
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        var_dump($this->blogDirectory);
-        die();
         $output->writeln('Starting import...');
-        // Glob all the files
-        // Import them and insert or update as needed
-        $output->writeln('Starting cleanup...');
-        // Select all the filenames
-        // See if they exist on disk
-        // If not, delete
+        $defaultData = [
+            'author' => 'A PHP Developer',
+            'email' => 'phpmentoring@gmail.com',
+            'published' => 0,
+        ];
+        $pattern = $this->blogDirectory . '*.md';
+        $files = glob($pattern);
+        $parser = new Parser();
+        $hydrator = new BlogEntryHydrator();
+        $filenames = [];
+        foreach ($files as $filePath) {
+            $filename = basename($filePath);
+            preg_match('/^([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})\-([a-zA-Z-_]+)\.md$/', $filename, $matches);
+            $document = $parser->parse(file_get_contents($filePath));
+            $yaml = array_merge($defaultData, $document->getYAML());
+            $postDate = new \DateTime($matches[1]);
 
-        $data = parse_ini_file(__DIR__ . '/../../../.env');
-        $pdo = new \PDO(
-            'mysql:dbname=' . $data['DB_DBNAME'] . ';host=' . $data['DB_HOSTNAME'],
-            $data['DB_USERNAME'],
-            $data['DB_PASSWORD']
-        );
-
-        $select = $pdo->prepare('SELECT * FROM `users` WHERE `githubName` = ""');
-
-        $update = $pdo->prepare('UPDATE `users` SET `githubName`= :githubName WHERE githubUid = :githubUid');
-
-        $select->execute();
-        $result = $select->fetchAll();
-
-        foreach ($result as $row) {
-            $output->writeln(sprintf(
-                'Fetching username for user %s (%s)',
-                $row['githubUid'],
-                $row['name']
-            ));
-
-            $ch = curl_init('https://api.github.com/users?per_page=1&since=' . ($row['githubUid'] - 1));
-            curl_setopt($ch, CURLOPT_TIMEOUT, 2);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                // Depending on the number of entries you'd want to include a
-                // GITHUB-API-TOKEN which you'd have to create first....
-                // sprintf('Authorization: token %s', YOUR_GITHUB_TOKEN),
-                'User-Agent: PHPMentoring-App',
-            ));
-            $info = curl_exec($ch); // get curl response
-            curl_close($ch);
-
-            var_Dump($info);
-            $info = json_decode($info, true);
-
-            var_Dump($info);
-            if (! isset($info[0])) {
-                throw new \Exception('Transport Error occured');
-            }
-
-            $update->execute(array(
-                ':githubUid' => $row['githubUid'],
-                ':githubName' => $info[0]['login'],
-            ));
+            $data = [
+                'filename' => $filename,
+                'author' => $yaml['author'],
+                'email' => $yaml['email'],
+                'post_date' => $postDate->format('Y-m-d'),
+                'published' => $yaml['published'],
+                'slug' => $matches[2],
+                'title' => $yaml['title'],
+                'body' => $document->getContent(),
+            ];
+            $blogEntry = new BlogEntry();
+            $blogEntry = $hydrator->hydrate($data, $blogEntry);
+            $output->writeln('Saving ' . $filename . '...');
+            $this->blogService->saveEntry($blogEntry);
+            $filenames[] = $filename;
         }
+
+        $output->writeln('Removing blog entries that no longer exist...');
+        $this->blogService->massRemoveByFilename($filenames);
 
         $output->writeln('Finished');
     }

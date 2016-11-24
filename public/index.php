@@ -13,6 +13,7 @@ use Silex\Application;
 use Silex\Provider;
 
 $app = new Application();
+$app['basedir'] = realpath(__DIR__ . '/../');
 $app['debug'] = true;
 
 $app->register(new \Rpodwika\Silex\YamlConfigServiceProvider(__DIR__ . '/../app/config/parameters.yml'));

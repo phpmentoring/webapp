@@ -2,6 +2,7 @@
 
 namespace Mentoring\PublicSite\ServiceProvider;
 
+use Mentoring\PublicSite\Blog\BlogEntryHydrator;
 use Mentoring\PublicSite\Blog\BlogService;
 use Mentoring\PublicSite\Command\ImportBlogEntries;
 use Mentoring\PublicSite\Controller\IndexController;
@@ -50,15 +51,16 @@ class IndexServiceProvider implements ServiceProviderInterface, ControllerProvid
 
     public function register(Container $app)
     {
+        $app['publicsite.blog_entry.hydrator'] = function() {
+            return new BlogEntryHydrator();
+        };
+
         $app['service.blog'] = function($app) {
-            return new BlogService($app['db']);
+            return new BlogService($app['db'], $app['publicsite.blog_entry.hydrator']);
         };
 
-        $app['command.publicsite.import_blog_entries'] = function($app) {
-            new ImportBlogEntries($app['service.blog'], $app['publicsite.blog_directory']);
-        };
-
-        $app['console']->add($app['command.publicsite.import_blog_entries']);
+        $blogPath = realpath($app['basedir'] . '/' . $app['config']['app']['blog_directory']) . '/';
+        $app['console']->add(new ImportBlogEntries($app['service.blog'], $blogPath));
 
         $app['controller.index'] = function ($app) {
             return new IndexController();

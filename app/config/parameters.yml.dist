@@ -14,3 +14,6 @@ mail:
 github:
   api_key: 'changeme'
   api_secret: 'changeme'
+
+app:
+  blog_directory: 'data/posts/'
