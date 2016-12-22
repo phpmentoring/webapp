@@ -46,6 +46,14 @@ class IndexServiceProvider implements ServiceProviderInterface, ControllerProvid
             ->get('/why', 'controller.index:whyAction')
             ->bind('why');
 
+        $controllers
+            ->get('/blog', 'controller.index:blogAction')
+            ->bind('blog_home');
+
+        $controllers
+            ->get('/blog/{slug}', 'controller.index:blogViewAction')
+            ->bind('blog_view');
+
         return $controllers;
     }
 

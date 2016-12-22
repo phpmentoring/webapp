@@ -1,0 +1,6 @@
+{% extends 'layouts/default.twig' %}
+{% block content %}
+    <h2>{{ post.title }}</h2>
+    <h6>Posted on {{ post.post_date }} by {{ post.author }}</h6>
+    {{ post.body|raw }}
+{% endblock %}

@@ -7,15 +7,15 @@ class BlogEntry
     /**
      * @var int
      */
-    protected $id;
-    protected $filename;
-    protected $author;
-    protected $email;
-    protected $post_date;
-    protected $published;
-    protected $slug;
-    protected $title;
-    protected $body;
+    public $id;
+    public $filename;
+    public $author;
+    public $email;
+    public $post_date;
+    public $published;
+    public $slug;
+    public $title;
+    public $body;
 
     /**
      * @return int

@@ -1,0 +1,9 @@
+{% extends 'layouts/default.twig' %}
+{% block content %}
+    <h2>Our Blog</h2>
+    {% for post in entries %}
+        <h3><a href="{{ path('blog_view', {'slug': post.slug}) }}">{{ post.title }}</a></h3>
+        <h6>Posted on {{ post.post_date }} by {{ post.author }}</h6>
+        {{ post.body|striptags|truncate(300) }}
+    {% endfor %}
+{% endblock %}

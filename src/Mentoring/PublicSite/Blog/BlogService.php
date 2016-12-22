@@ -27,6 +27,58 @@ class BlogService
     }
 
     /**
+     * Returns the most recent entries
+     *
+     * @param int $limit
+     * @return array
+     */
+    public function fetchRecentEntries($limit = 5)
+    {
+        $qb = $this->dbal->createQueryBuilder();
+        $qb
+            ->select('*')
+            ->from('blog_entries')
+            ->where('published = 1')
+            ->orderBy('post_date')
+            ->setMaxResults($limit)
+        ;
+        $data = $qb->execute();
+
+        $entries = [];
+        foreach ($data as $row) {
+            $entries[] = $this->hydrator->hydrate($row, new BlogEntry());
+        }
+
+        return $entries;
+    }
+
+    /**
+     * Returns a single post from the database based on the criteria supplied
+     *
+     * @param array $where
+     *
+     * @return BlogEntry
+     */
+    public function findEntry(array $where = [])
+    {
+        $qb = $this->dbal->createQueryBuilder();
+        $qb
+            ->select('*')
+            ->from('blog_entries')
+            ->setMaxResults(1)
+        ;
+
+        if (count($where)) {
+            foreach ($where as $column => $value) {
+                $qb->expr()->andX($qb->expr()->eq($column, $value));
+            }
+        }
+        $data = $qb->execute();
+
+        return $this->hydrator->hydrate($data->fetch(), new BlogEntry());
+    }
+
+    /**
      * Returns a blog entry based on a specific filename
      *
      * @param string $filename
