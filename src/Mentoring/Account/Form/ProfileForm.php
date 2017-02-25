@@ -37,6 +37,8 @@ class ProfileForm extends AbstractType
                     $rules[] = 'mentorValidation';
                 }
 
+                $rules[] = 'languagesValidation';
+
                 return $rules;
             },
         ));
@@ -63,6 +65,13 @@ class ProfileForm extends AbstractType
             ])
             ->addModelTransformer(new TextToTagsTransformer($this->taxonomyService, 'apprentice'));
 
+        $languageTags = $builder
+            ->create('languagesTags', TextType::class, [
+                'required' => false,
+                'constraints' => new TagConstraint(array('groups' => array('languagesValidation'))),
+            ])
+            ->addModelTransformer(new TextToTagsTransformer($this->taxonomyService, 'languages'));;
+
         $builder
             ->add('name', TextType::class, ['constraints' => new NotBlank()])
             ->add('email', EmailType::class, [
@@ -80,6 +89,7 @@ class ProfileForm extends AbstractType
                 'required' => false,
             ])
             ->add($menteeTags)
+            ->add($languageTags)
             ->add('profile', TextareaType::class, [
                 'required' => false,
             ])
