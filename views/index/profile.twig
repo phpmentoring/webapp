@@ -36,19 +36,14 @@
     </div>
     <div class="col-lg-9">
     <h1>{{ viewing_user.name }}</h1>
-    {{ viewing_user.languagesTags|length }}
+
     {% if viewing_user.languagesTags|length > 0 %}
         <p>
-            <b>Spoken Languages: </b>
-            <ul class="list-inline">
+            Spoken Languages:
                 {% for language in viewing_user.languagesTags %}
-                    <li>
-                        <span class="label label-primary">
-                            {{ language.name }}
-                        </span>
-                    </li>
+                    {{ language.name }}
+                    {% if not loop.last %},{% endif %}
                 {% endfor %}
-            </ul>
         </p>
     {% endif %}
 
