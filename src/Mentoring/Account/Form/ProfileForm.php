@@ -70,7 +70,7 @@ class ProfileForm extends AbstractType
                 'required' => false,
                 'constraints' => new TagConstraint(array('groups' => array('languagesValidation'))),
             ])
-            ->addModelTransformer(new TextToTagsTransformer($this->taxonomyService, 'languages'));;
+            ->addModelTransformer(new TextToTagsTransformer($this->taxonomyService, 'languages'));
 
         $builder
             ->add('name', TextType::class, ['constraints' => new NotBlank()])

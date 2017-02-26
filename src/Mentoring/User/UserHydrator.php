@@ -63,7 +63,7 @@ class UserHydrator
 
             $languagesTags = $data['languagesTags'];
             unset($data['languagesTags']);
-            foreach($languagesTags as $key => $tag) {
+            foreach ($languagesTags as $key => $tag) {
                 $tag = $this->termHydrator->extract($tag);
                 $languagesTags[$key] = $tag;
             }
