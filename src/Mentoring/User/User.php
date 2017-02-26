@@ -34,6 +34,11 @@ class User
         $this->mentorTags[$term->getId()] = $term;
     }
 
+    public function addLanguagesTag(Term $term)
+    {
+        $this->languagesTags[$term->getId()] = $term;
+    }
+
     public function getApprenticeTags()
     {
         return $this->apprenticeTags;
@@ -104,7 +109,8 @@ class User
         $this->apprenticeTags = $terms;
     }
 
-    public function setLanguagesTags(array $terms) {
+    public function setLanguagesTags(array $terms)
+    {
         $this->languagesTags = $terms;
     }
 

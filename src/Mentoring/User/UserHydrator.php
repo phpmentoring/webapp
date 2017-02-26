@@ -38,6 +38,7 @@ class UserHydrator
             'profile' => $object->getProfile(),
             'apprenticeTags' => $object->getApprenticeTags(),
             'mentorTags' => $object->getMentorTags(),
+            'languagesTags' => $object->getLanguagesTags(),
             'imageUrl' => $object->getProfileImage(),
             'timezone' => $object->getTimezone(),
             'sendNotifications' => $object->hasSendNotifications()
@@ -59,6 +60,14 @@ class UserHydrator
                 $mentorTags[$key] = $tag;
             }
             $data['mentorTags'] = $mentorTags;
+
+            $languagesTags = $data['languagesTags'];
+            unset($data['languagesTags']);
+            foreach($languagesTags as $key => $tag) {
+                $tag = $this->termHydrator->extract($tag);
+                $languagesTags[$key] = $tag;
+            }
+            $data['languagesTags'] = $languagesTags;
         }
 
         if ($data['timeCreated'] instanceof \DateTime) {
@@ -132,9 +141,11 @@ class UserHydrator
 
         $mentoringTerm = $this->taxonomyService->fetchVocabularyByName('mentor');
         $apprenticeTerm = $this->taxonomyService->fetchVocabularyByName('apprentice');
+        $languagesTerm = $this->taxonomyService->fetchVocabularyByName('languages');
 
         $object->setMentorTags($this->taxonomyService->fetchTermsForUser($object, $mentoringTerm));
         $object->setApprenticeTags($this->taxonomyService->fetchTermsForUser($object, $apprenticeTerm));
+        $object->setLanguagesTags($this->taxonomyService->fetchTermsForUser($object, $languagesTerm));
 
         return $object;
     }
