@@ -56,6 +56,7 @@ class UserService
         $data['roles'] = serialize($data['roles']);
         unset($data['mentorTags']);
         unset($data['apprenticeTags']);
+        unset($data['languagesTags']);
         unset($data['imageUrl']);
 
         if (empty($data['id'])) {
@@ -138,6 +139,11 @@ class UserService
         foreach ($user->getApprenticeTags() as $apprenticeTag) {
             echo 'Saving '.$apprenticeTag->getName();
             $this->dbal->insert('userTags', ['user_id' => $user->getId(), 'term_id' => $apprenticeTag->getId()]);
+        }
+
+        foreach ($user->getLanguagesTags() as $languageTag) {
+            echo 'Saving '.$languageTag->getName();
+            $this->dbal->insert('userTags', ['user_id' => $user->getId(), 'term_id' => $languageTag->getId()]);
         }
     }
 }

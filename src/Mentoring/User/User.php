@@ -20,6 +20,7 @@ class User
     protected $profile = '';
     protected $mentorTags = [];
     protected $apprenticeTags = [];
+    protected $languagesTags = [];
     protected $profileImage = null;
     protected $sendNotifications = true;
 
@@ -33,9 +34,19 @@ class User
         $this->mentorTags[$term->getId()] = $term;
     }
 
+    public function addLanguagesTag(Term $term)
+    {
+        $this->languagesTags[$term->getId()] = $term;
+    }
+
     public function getApprenticeTags()
     {
         return $this->apprenticeTags;
+    }
+
+    public function getLanguagesTags()
+    {
+        return $this->languagesTags;
     }
 
     public function getEmail()
@@ -96,6 +107,11 @@ class User
     public function setApprenticeTags(array $terms)
     {
         $this->apprenticeTags = $terms;
+    }
+
+    public function setLanguagesTags(array $terms)
+    {
+        $this->languagesTags = $terms;
     }
 
     public function setEmail($email)

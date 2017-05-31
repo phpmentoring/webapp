@@ -33,10 +33,20 @@
             </ul>
         </div>
         {% endif %}
-
     </div>
     <div class="col-lg-9">
     <h1>{{ viewing_user.name }}</h1>
+
+    {% if viewing_user.languagesTags|length > 0 %}
+        <p>
+            Spoken Languages:
+                {% for language in viewing_user.languagesTags %}
+                    {{ language.name }}
+                    {% if not loop.last %},{% endif %}
+                {% endfor %}
+        </p>
+    {% endif %}
+
     <p>{{ viewing_user.profile|markdown }}</p>
 
     {% if viewing_user.timezone %}
