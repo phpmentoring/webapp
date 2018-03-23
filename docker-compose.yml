@@ -1,0 +1,18 @@
+version: '3'
+volumes:
+    mysql_data: { driver: local }
+services:
+    httpd:
+        build: ./docker/httpd
+        ports: ['8080:80']
+        volumes: 
+            - './app:/var/www/app'
+            - './data/migrations:/var/www/data/migrations'
+            - './public:/var/www/public'
+            - './src:/var/www/src'
+            - './vendor:/var/www/vendor'
+            - './views:/var/www/views'
+    mysql: { volumes: ['mysql_data:/var/lib/mysql'], environment: { MYSQL_ROOT_PASSWORD: rootpassword, MYSQL_USER: dbuser, MYSQL_PASSWORD: dbuser, MYSQL_DATABASE: appdb }, image: 'mysql:5.6' }
+    php-cli: { build: ./docker/php/, working_dir: /var/www/, volumes: ['./:/var/www/'] }
+    composer: { image: composer, volumes: ['./:/var/www/', '~/.ssh/:/root/.ssh'], tty: true, working_dir: /var/www/, command: 'composer install' }
+    mailhog: { image: mailhog/mailhog, ports: ['8025:8025'] }
