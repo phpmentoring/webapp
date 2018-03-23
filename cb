@@ -1,0 +1,12 @@
+#!/bin/bash
+
+OPERATION=$1
+shift
+ARGS=$*
+
+case ${OPERATION} in
+    
+    "cli") docker-compose run --rm -u $UID php-cli php ${ARGS};;
+    "composer") docker-compose run --rm -u $UID composer ${ARGS};;
+    *) echo "Unknown operation: ${OPERATION}";;
+esac

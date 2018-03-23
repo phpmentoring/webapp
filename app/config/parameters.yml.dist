@@ -1,12 +1,12 @@
 database:
   driver: 'pdo_mysql'
-  host: 'localhost'
-  dbname: 'scotchbox'
-  user: 'root'
-  password: 'root'
+  host: 'mysql'
+  dbname: 'appdb'
+  user: 'dbuser'
+  password: 'dbuser'
 
 mail:
-  host: 'localhost'
+  host: 'mailhog'
   port: 25
   username: ''
   password: ''

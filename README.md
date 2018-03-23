@@ -10,30 +10,21 @@ You should have [Composer](http://getcomposer.org) installed and available. If y
 
 ### Setup
 
-#### Using Vagrant
+#### Using Docker
 
 1. Clone this repo.
-2. Go into the folder, and run `vagrant up` to start the VM.
-3. Add the following entry to your hosts file: 
+2. Go into the folder, and run `docker-compose up -d` to build and run the images
+3. Add the following entry to your hosts file. On unix-like systems, its usually found at `/etc/hosts`: 
 
-    192.168.56.101    www.mentoring.dev mentoring.dev
+    127.0.0.1    www.mentoring.dev mentoring.dev
 
-4. Run `vagrant ssh` to go into the VM.
-5. Change directory to `/var/www` and run `composer install`
-
-    If you get an error like the following:
-
-        Could not fetch https://api.github.com/repos/vlucas/phpdotenv/zipball/732d2adb7d916c9593b9d58c3b0d9ebefead07aa, please create a GitHub OAuth token to go over the API rate limit
-        Head to https://github.com/settings/tokens/new?scopes=repo&description=Composer+on+packer-virtualbox-iso-1422588891+2015-05-22+0002 to retrieve a token.
-        It will be stored in "/home/vagrant/.composer/auth.json" for future use by Composer.
-
-    You will need to navigate to the URL in a browser, authenticate with GitHub, and generate the access token.
-    
+4. Run `chmod +x cb` to enable you to run the helper script (Sorry Windows users, but would love help with a PS script)
+5. Run `./cb composer install`
 6. [Configure Phinx](#phinx-configuration)
-9. Run `vendor/bin/phinx migrate` to run the database migrations.
-10. Copy `app/config/parameters.yml.dist` to `app/config/parameters.yml` and configure for your setup
-11. [Configure Github](#github)
-13. Visit <http://mentoring.dev> in your browser!
+7. Run `./cb cli vendor/bin/phinx migrate` to run the database migrations.
+8. Copy `app/config/parameters.yml.dist` to `app/config/parameters.yml` and configure for your setup
+9. [Configure Github](#github)
+10. Visit <http://localhost:8080> in your browser!
 
 #### Running Without Vagrant
 
@@ -65,13 +56,14 @@ Steps:
 We use [Phinx](https://phinx.org/) for managing our database migrations. It provides a programmatic way for handling
 table and data changes. It does require some initial setup however.
 
-1. From the root project directory, run `vendor/bin/phinx init` to generate a `phinx.yml` file.
+1. From the root project directory, run `./cb cli vendor/bin/phinx init` to generate a `phinx.yml` file.
 2. Edit `./phinx.yml`'s development section (lines 19-21) with the following values for MySQL.
 
     ```{.yaml}
-    name: mentoring
-    user: mentoring
-    pass: vagrant
+    host: mysql
+    name: appdb
+    user: dbuser
+    pass: dbuser
     ```
 
     To use sqlite, in `./phinx.yml` change change the adapter to `sqlite` (line 17) the name (line 19) to `data/mentoring.db`.
@@ -107,21 +99,17 @@ github:
 
 #### Email in Development
 
-Before you start the VM, you need to change your `parameters.yml` file. To use mailcatcher, you'll want the following config:
+Before you start the Docker containers, you need to change your `parameters.yml` file. To use mailhog, you'll want the following config:
 
 ```{.yaml}
 mail:
-  host: '0.0.0.0'
+  host: 'mailhog'
   port: 1025
 ```
 
-Mailcatcher is installed in the VM, but to use it you need to ssh into the VM and execute the following command to start the mail server:
-
-`mailcatcher --ip=0.0.0.0`
-
 You can then view all emails being sent out by the app in your host machine's browser at the following address:
 
-`http://192.168.56.101:1080`
+`http://localhost:8025`
 
 #### Database Configuration
 
