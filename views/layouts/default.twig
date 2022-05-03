@@ -47,9 +47,16 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ path('guidelines') }}">Guidelines</a></li>
                 <li><a href="{{ path('why') }}">Why Mentoring</a></li>
-                <li><a href="{{ path('mentors') }}">Search Mentors</a></li>
+                <!-- <li><a href="{{ path('mentors') }}">Search Mentors</a></li> -->
                 <!-- <li><a href="{{ path('apprentices') }}">Search Apprentices</a></li> -->
-                <li><a href="http://webchat.freenode.net/?channels=phpmentoring&uio=MTE9MjI2dd">Join us on IRC</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Join us on… <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://discord.gg/eMtPMFaMWP" target="_blank">Discord</a></li>
+                        <li><a href="https://web.libera.chat/#phpmentoring" target="_blank">IRC</a></li>
+                        <li><a href="https://matrix.to/#/#phpmentoring:matrix.org" target="_blank">Matrix</a></li>
+                    </ul>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -59,7 +66,7 @@
                 <li><a href="{{ path('conversation.index') }}">Inbox{% if unread > 0 %} ({{ unread }}){% endif %}</a></li>
                 <li><a href="{{ path('auth.logout') }}">Logout</a></li>
             {% else %}
-                <li><a href="{{ path('auth.login') }}">Login</a></li>
+                <!-- <li><a href="{{ path('auth.login') }}">Login</a></li> -->
             {% endif %}
             </ul>
 
